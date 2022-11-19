@@ -1,0 +1,11 @@
+{
+  "/films/list/*": {
+    "target": "http://davic.mkdh.fr:3000",
+    "secure": false,
+    "pathRewrite": {
+      "^/films/list/": "/films/list/"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

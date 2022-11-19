@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex/themes/saga-blue.css">
+
+<div class="grid  nested-grid ">
+  <div class="col-3 md-12 box">
+    <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path"
+         style="max-width: 200px;"/>
+  </div>
+  <div class="lg:col-9  md:col-12 box">
+    <div class="grid  align-items-stretch">
+      <div class="col-12 "><H2>{{film.original_title}} ({{film.title}})</H2></div>
+
+      <div class="col-4 ">Popularité : {{film.popularity}}   </div>
+      <div class="col-4">Moyene des votes : {{film.vote_average}}</div>
+      <div class="col-4">Comptage des votes : {{film.vote_count}}</div>
+
+      <div class="col-4 ">Année : {{film.release_date}}   </div>
+      <div class="col-4">Ajouté le : {{this.getUPDATE_DB_DATE()}}</div>
+      <div class="col-4">Durée : {{film.runtime}}</div>
+
+      <div class="col-12">
+        <span  *ngFor="let genre of  film.genres; let i = index">
+              {{genre.name}},
+        </span>
+      </div>
+
+      <div class="col-12">Réalisateur : {{this.getDirector()}}</div>
+      <div class="col-12">{{film.overview}}</div>
+
+    </div>
+  </div>
+</div>
+
+<p-carousel [value]="film.credits.cast" [numVisible]="5" [numScroll]="5" [responsiveOptions]="responsiveOptions">
+  <ng-template pTemplate="header">
+    <h5>Distribution et équipe</h5>
+  </ng-template>
+  <ng-template let-cast pTemplate="item">
+    <img src="https://image.tmdb.org/t/p/original//{{cast.profile_path}}"   style="max-width: 50%;">
+    <div   class="box box-stretched"><b>{{cast.name}}</b><br> est {{cast.character}}</div>
+  </ng-template>
+</p-carousel>
+
+<div><B>Liens : </B><br>
+  <A href="https://www.imdb.com/title/{{film.imdb_id}}">
+    <img [alt]="film.title" [src]="'../../assets/images/Imdb.png'" style="max-width: 60%;"/>
+  </A>
+  <A href="https://www.themoviedb.org/movie/{{film.id}}">
+    <img [alt]="film.title" [src]="'../../assets/images/tmdb.jfif'" style="max-width: 60%;"/>
+  </A>
+</div>

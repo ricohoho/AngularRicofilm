@@ -23,6 +23,8 @@ import {FilmdetailComponent} from "./filmdetail/filmdetail.component";
 import { CommonModule } from '@angular/common';
 import {CarouselModule} from 'primeng/carousel';
 
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
 
 
 
@@ -54,7 +56,8 @@ import {CarouselModule} from 'primeng/carousel';
     DynamicDialogModule,
     ToastModule,
     CommonModule,
-    CarouselModule
+    CarouselModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

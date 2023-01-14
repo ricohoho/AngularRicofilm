@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  REST_API_SERVER :'ricofilm/films/list'
+  REST_API_SERVER :'ricofilm/films/list',
+  PATH_IMAGE:'../assets/images/'
 };

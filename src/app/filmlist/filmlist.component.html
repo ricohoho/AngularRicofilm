@@ -1,8 +1,8 @@
 <p-toast></p-toast>
 <div class="card">
-  <p-dataView #dv [value]="films" [paginator]="true" [rows]="12" filterBy="title" layout="grid"
+  <p-dataView #dv [value]="films" [paginator]="true" [rows]="rows" filterBy="title" layout="grid"
               [sortField]="sortField" [sortOrder]="sortOrder"
-              [lazy]="true" (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords">
+              [lazy]="true" (onLazyLoad)="loadData2($event)" [totalRecords]="totalRecords"  >
 
 
     <ng-template pTemplate="header">
@@ -12,6 +12,9 @@
             <i class="pi pi-search"></i>
             <input type="text" pInputText placeholder="Rech (titre:/acteur:/id:/yyyymm:)" [(ngModel)]="filmname" (keyup.enter)="recherche()">
             <p-button icon="pi pi-search" (onClick)="recherche()" class="mr-2"></p-button>
+        </span>
+        <span >
+          <p-progressSpinner *ngIf="displaySpinner"  animationDuration=5></p-progressSpinner>
         </span>
         <!-- Rico3
         <span class="p-input-icon-left mb-2  md:mb-0">
@@ -45,8 +48,11 @@
           </div>
           <div id="toto" class="product-grid-item-content">
             <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path" />
-            <div class="product-description">{{film.original_title}} </div>
-            <div>{{film.release_date}} / {{this.convertDate(film.UPDATE_DB_DATE)}}</div>
+            <div class="product-description">{{film.original_title}}
+              <span style="{{this.getImageStremaning(film.present_streaming,'couleur')}}">{{this.getImageStremaning(film.present_streaming,'contenu')}}</span>
+            </div>
+
+            <div>{{film.release_date}} / {{this.convertDate(film.UPDATE_DB_DATE)}} </div>
           </div>
           <div class="product-grid-item-bottom">
           </div>
@@ -57,3 +63,5 @@
 
   </p-dataView>
 </div>
+
+

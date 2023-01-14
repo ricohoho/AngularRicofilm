@@ -29,7 +29,7 @@ export  interface Ifilm {
   RICO_FICHIER :  IRICO_FICHIER[];
   UPDATE_DB_DATE: string;
 
-
+  present_streaming:boolean;
 
 };
 

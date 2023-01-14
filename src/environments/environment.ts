@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  REST_API_SERVER :'films/list'
+  REST_API_SERVER :'films/list',
+  PATH_IMAGE:'../../assets/images/'
 };
 
 /*

@@ -23,7 +23,7 @@
         </span>
       </div>
 
-      <div class="col-12" (click)="selectActeur(this.getDirector())">Réalisateur : {{this.getDirector()}}</div>
+      <div class="col-12 " (click)="selectActeur('real:'+this.getDirector())">Réalisateur : <b> {{this.getDirector()}}</b></div>
       <div class="col-12">{{film.overview}}</div>
 
     </div>
@@ -36,7 +36,7 @@
   </ng-template>
   <ng-template let-cast pTemplate="item">
     <img src="https://image.tmdb.org/t/p/original//{{cast.profile_path}}"   style="max-width: 50%;">
-    <div   class="box box-stretched"  (click)="selectActeur(cast.name)"><b>{{cast.name}}</b><br> est {{cast.character}}</div>
+    <div   class="box box-stretched"  (click)="selectActeur('acteur:'+cast.name)"><b>{{cast.name}}</b><br> est {{cast.character}}</div>
   </ng-template>
 </p-carousel>
 

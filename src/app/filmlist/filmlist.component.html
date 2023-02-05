@@ -44,14 +44,13 @@
       <div class="col-12 md:col-2">
         <div class="product-grid-item card">
           <div class="product-grid-item-top">
-            <div class="product-name" (click)="show(film._id)"> {{film.title}}</div>
+            <div class="product-name" (click)="showFilmPopUp(film._id)"> {{film.title}}</div>
           </div>
           <div id="toto" class="product-grid-item-content">
             <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path" />
             <div class="product-description">{{film.original_title}}
-              <span style="{{this.getImageStremaning(film.present_streaming,'couleur')}}">{{this.getImageStremaning(film.present_streaming,'contenu')}}</span>
+              <span style="{{this.getImageStremaning(film.present_streaming,'couleur')}}"  (click)="showRequestPopUp(film._id)" >{{this.getImageStremaning(film.present_streaming,'contenu')}}</span>
             </div>
-
             <div>{{film.release_date}} / {{this.convertDate(film.UPDATE_DB_DATE)}} </div>
           </div>
           <div class="product-grid-item-bottom">

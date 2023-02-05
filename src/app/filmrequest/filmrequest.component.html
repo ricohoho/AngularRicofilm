@@ -1,0 +1,23 @@
+<div class="col-12 "><B>Selectionez un fichier : </B>(si plusieurs)</div>
+<p-table [columns]="cols_fichier" [value]="film.RICO_FICHIER" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header" let-columns >
+    <tr>
+      <th>Selection</th>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+    <tr>
+      <td><p-radioButton value="{{rowIndex}}" [(ngModel)]="choixRicoFichier"></p-radioButton></td>
+      <td *ngFor="let col of columns; index as i">
+        <span *ngIf="i!=2">{{rowData[col.field]}}</span>
+        <span *ngIf="i==2">{{this.transformeDateTimeToDate(rowData[col.field])}}</span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<input type="text" pInputText placeholder="Votre mail" [(ngModel)]="username" (keyup.enter)="creationRequest()">
+<p-button label="Valider" (onClick)="creationRequest()" class="mr-2"></p-button>
+

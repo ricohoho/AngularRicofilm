@@ -8,6 +8,8 @@ import {DynamicDialogRef} from 'primeng/dynamicdialog';
 import {MessageService} from 'primeng/api';
 import {FilmdetailComponent} from  '../filmdetail/filmdetail.component';
 import {Ifilm, Iproduction_companies, IRICO_FICHIER} from '../ifilm'
+import {FilmrequestComponent} from  '../filmrequest/filmrequest.component';
+import {Irequest} from "../irequest";
 
 
 @Component({
@@ -135,8 +137,32 @@ export class FilmlistComponent implements OnInit {
     this.getRequest(first);
   }
 
+  showRequestPopUp(p_id:string) {
+    console.log('Show'+p_id)
+    let  searchIndex = this.films.findIndex((FILM) => FILM._id==p_id);
+    this.ref = this.dialogService.open(FilmrequestComponent, {
+      data : this.films[searchIndex] ,
+      header:this.films[searchIndex].title,
+      width: '70%',
+      contentStyle: {"max-height": "600px", "overflow": "auto"},
+      baseZIndex: 10000
+    });
 
-  show(p_id:string) {
+    this.ref.onClose.subscribe((request : Irequest) =>{
+      console.log('close')
+      console.log('acteur_click'+ request.title);
+      if (typeof request  === 'undefined') {
+        console.log('Pas de request');
+      } else {
+        this.messageService.add({severity: 'info', summary: 'Film selectionnée', detail: request.title});
+        //Appel creationd e request
+        console.log('avant dataService.createRequest');
+        this.dataService.createRequest(request);
+      }
+    });
+
+  }
+  showFilmPopUp(p_id:string) {
     console.log('Show'+p_id);
     //faut retrouver le bon film dans le tableau films
     let  searchIndex = this.films.findIndex((FILM) => FILM._id==p_id);
@@ -151,14 +177,14 @@ export class FilmlistComponent implements OnInit {
 
     let dialogRef = this.dialogService.dialogComponentRefMap.get(this.ref);
 
-    this.ref.onClose.subscribe((acteur_click) =>{
+    this.ref.onClose.subscribe((detail_click) =>{
         console.log('close')
-        console.log('acteur_click'+ acteur_click);
-        if (typeof acteur_click  === 'undefined') {
+        console.log('acteur_click'+ detail_click);
+        if (typeof detail_click  === 'undefined') {
           console.log('Pas d acteur');
         } else {
-          this.messageService.add({severity: 'info', summary: 'Film selectionnée', detail: acteur_click});
-          this.filmname = 'acteur:' + acteur_click;
+          this.messageService.add({severity: 'info', summary: 'Film selectionnée', detail: detail_click});
+          this.filmname = detail_click;
           this.recherche();
         }
     });

@@ -5,6 +5,7 @@ import {Ifilm,Iproduction_companies} from '../ifilm';
 import {environment} from "../../environments/environment";
 
 
+
 @Component({
   selector: 'app-filmdetail',
   templateUrl: './filmdetail.component.html',

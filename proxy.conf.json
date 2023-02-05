@@ -7,5 +7,14 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/request/add*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+      "^/request/add": "/request/add"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }

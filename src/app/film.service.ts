@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/c
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry, tap} from 'rxjs/operators';
 import {environment} from '../environments/environment';
+import {Irequest} from "./irequest";
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class FilmService {
   //prod
   //private REST_API_SERVER = 'ricofilm/films/list';
   //private REST_API_SERVER = 'http://localhost:3000/films/
-  private REST_API_SERVER = environment.REST_API_SERVER;
-
+  private REST_API_FILM_SERVER = environment.REST_API_FILM_SERVER;
+  private REST_API_REQUEST_SERVER = environment.REST_API_REQUEST_SERVER;
   public constructor(private httpClient: HttpClient) { }
 
   public handleError(error: HttpErrorResponse): Observable<never> {
@@ -56,9 +57,25 @@ export class FilmService {
 
     const optionRequete1 = { headers : headers1 };
 
-    return this.httpClient.get(this.REST_API_SERVER, optionRequete1).pipe(retry(3), catchError(this.handleError));
+    return this.httpClient.get(this.REST_API_FILM_SERVER, optionRequete1).pipe(retry(3), catchError(this.handleError));
   }
 
+  public createRequest(iresquest : Irequest)  {
+    console.log('Debut createRequest : '+this.REST_API_REQUEST_SERVER);
+    console.log('Debut iresquest : '+iresquest.title);
+    //return this.httpClient.post(this.REST_API_REQUEST_SERVER+'/add',
+    return this.httpClient.post('http://localhost:3000/request/add',iresquest);
+      /*
+      iresquest).pipe(
+      retry(3), catchError(this.handleError),
+      tap(res => {
+          console.log('Apres createRequest : ');
+        }
+      )
+    );
+    */
+
+  }
 
   public getFilm( skip: number, filmname: string, rows: number, sort= 'UPDATE_DB_DATE', sortsens= -1): Observable<any>{
     const headers1 = new HttpHeaders()
@@ -67,7 +84,7 @@ export class FilmService {
       .append('Access-Control-Allow-Methods', 'GET')
       .append('Access-Control-Allow-Origin', '*');
 
-    console.log('environment.REST_API_SERVER: ' + environment.REST_API_SERVER);
+    console.log('environment.REST_API_SERVER: ' + environment.REST_API_FILM_SERVER);
 
     let params1 = new HttpParams();
     params1 = params1.append('skip', skip.toString() );
@@ -79,7 +96,7 @@ export class FilmService {
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(this.REST_API_SERVER,
+    return this.httpClient.get(this.REST_API_FILM_SERVER,
       {params: params1,  headers : headers1, observe: 'response'}).pipe(
       retry(3), catchError(this.handleError),
       tap(res => {

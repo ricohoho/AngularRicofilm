@@ -24,6 +24,8 @@ import { CommonModule } from '@angular/common';
 import {CarouselModule} from 'primeng/carousel';
 
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { FilmrequestComponent } from './filmrequest/filmrequest.component';
+import {RadioButtonModule} from "primeng/radiobutton";
 
 
 
@@ -33,7 +35,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
   declarations: [
     AppComponent,
     FilmlistComponent,
-    FilmdetailComponent
+    FilmdetailComponent,
+    FilmrequestComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     ToastModule,
     CommonModule,
     CarouselModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    RadioButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

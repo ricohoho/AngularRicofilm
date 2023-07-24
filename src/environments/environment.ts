@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   REST_API_FILM_SERVER :'films/list',
+  REST_API_FILM_SERVER_SELECT :'films/listselect',
   REST_API_REQUEST_SERVER :'request',
   PATH_IMAGE:'../../assets/images/'
 };

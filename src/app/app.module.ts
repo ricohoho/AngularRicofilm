@@ -27,6 +27,10 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { FilmrequestComponent } from './filmrequest/filmrequest.component';
 import {RadioButtonModule} from "primeng/radiobutton";
 
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import {AutoCompleteModule} from "primeng/autocomplete";
+
 
 
 
@@ -36,33 +40,36 @@ import {RadioButtonModule} from "primeng/radiobutton";
     AppComponent,
     FilmlistComponent,
     FilmdetailComponent,
-    FilmrequestComponent
+    FilmrequestComponent,
+    VideoPlayerComponent
   ],
-  imports: [
-    BrowserModule,
-    //RouterModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot([
-        {path:'',component: AppComponent},
-        { path: 'ricofilmA', component: FilmlistComponent }
-    ]),
-    ToolbarModule,
-    ButtonModule,
-    SplitButtonModule,
-    DataViewModule,
-    DropdownModule,
-    FormsModule,
-    TableModule,
-    DialogModule,
-    HttpClientModule,
-    InputTextModule,
-    DynamicDialogModule,
-    ToastModule,
-    CommonModule,
-    CarouselModule,
-    ProgressSpinnerModule,
-    RadioButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        //RouterModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot([
+            {path: '', component: AppComponent},
+            {path: 'ricofilmA', component: FilmlistComponent}
+        ]),
+        ToolbarModule,
+        ButtonModule,
+        SplitButtonModule,
+        DataViewModule,
+        DropdownModule,
+        FormsModule,
+        TableModule,
+        DialogModule,
+        HttpClientModule,
+        InputTextModule,
+        DynamicDialogModule,
+        ToastModule,
+        CommonModule,
+        CarouselModule,
+        ProgressSpinnerModule,
+        RadioButtonModule,
+        YouTubePlayerModule,
+        AutoCompleteModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

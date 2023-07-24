@@ -35,12 +35,12 @@ export class FilmrequestComponent implements OnInit {
   creationRequest():void {
     console.log("creationRequest()"+this.choixRicoFichier) ;
      this.irequest  ={
-      _id:'33',
-      id:33,
+      //_id:'',
+      id:this.film.id,
       file:this.film.RICO_FICHIER[this.choixRicoFichier].file,
-      path:this.film.RICO_FICHIER[this.choixRicoFichier].file,
+      path:this.film.RICO_FICHIER[this.choixRicoFichier].path,
       size:this.film.RICO_FICHIER[this.choixRicoFichier].size,
-      username:'',
+      username:this.username,
       title:this.film.title,
       serveur_name:this.film.RICO_FICHIER[this.choixRicoFichier].serveur_name,
       status:'AFAIRE',

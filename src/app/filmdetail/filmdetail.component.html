@@ -53,22 +53,90 @@
   Détail ses fichiers
 -->
 <br>
-<p-table [columns]="cols_fichier" [value]="film.RICO_FICHIER" [tableStyle]="{'min-width': '50rem'}">
+<p-table [columns]="cols_fichier" [value]="film.RICO_FICHIER" [tableStyle]="{'min-width': '50rem'}"  dataKey="file">
   <ng-template pTemplate="header" let-columns>
     <tr>
+      <th>Détail</th>
       <th *ngFor="let col of columns">
         {{col.header}}
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
+  <ng-template pTemplate="body" let-ricoFichier let-columns="columns" let-expanded="expanded">
     <tr>
+      <td>
+        <button type="button" pButton pRipple [pRowToggler]="ricoFichier" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      </td>
       <td *ngFor="let col of columns; index as i">
-        <span *ngIf="i!=1">{{rowData[col.field]}}</span>
-        <span *ngIf="i==1">{{this.transformeDateTimeToDate(rowData[col.field])}}</span>
+        <span *ngIf="i!=1">{{ricoFichier[col.field]}}</span>
+        <span *ngIf="i==1">{{this.transformeDateTimeToDate(ricoFichier[col.field])}}</span>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-ricoFichier>
+    <tr>
+      <td>
+        <div class="p-3">
+
+
+          <p-table [value]="ricoFichier.InfoStreams" dataKey="CodecName">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>index</th>
+                    <th>CodecType</th>
+                    <th>CodecName</th>
+                    <th>duration</th>
+                    <th>CodecLongName</th>
+                    <th>TimeBase</th>
+                    <th>Profile</th>
+                    <th>BPS</th>
+                    <th>Duration</th>
+                    <th>NUMBER_OF_FRAME</th>
+                    <th>NUMBER_OF_BYTES</th>
+                      <th>AvgFrameRate / Channels</th>
+                      <th>PixFmt / SampleRate</th>
+
+                    <th>ChannelLayout</th>
+                    <th>language</th>
+                    <th>title</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-stream>
+                <tr>
+                  <td>{{stream.index}}</td>
+                  <td>{{stream.CodecType}}</td>
+                  <td>{{stream.CodecName}}</td>
+                  <td>{{stream.duration}}</td>
+                  <td>{{stream.CodecLongName}}</td>
+                  <td>{{stream.TimeBase}}</td>
+                  <td>{{stream.Profile}}</td>
+                  <td>{{stream["tag-BPS"]}}</td>
+                  <td>{{stream["tag-DURATION"]}}</td>
+                  <td>{{stream["tag-NUMBER_OF_FRAMES"]}}</td>
+                  <td>{{stream["tag-NUMBER_OF_BYTES"]}}</td>
+
+
+                  <td *ngIf="stream.CodecType=='VIDEO'">{{stream.AvgFrameRate}}</td>
+                  <td *ngIf="stream.CodecType=='VIDEO'">{{stream.PixFmt}}</td>
+
+                  <td *ngIf="stream.CodecType!='VIDEO'">{{stream.Channels}}</td>
+                  <td *ngIf="stream.CodecType!='VIDEO'">{{stream.SampleRate}}</td>
+
+                  <td *ngIf="stream.CodecType!='VIDEO'">{{stream.ChannelLayout}}</td>
+                  <td *ngIf="stream.CodecType!='VIDEO'">{{stream["tag-language"]}}</td>
+                  <td *ngIf="stream.CodecType!='VIDEO'">{{stream["tag-title"]}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+
+
+        </div>
       </td>
     </tr>
   </ng-template>
 </p-table>
-
-
+<!--
+  Lien vers la bande annonce
+-->
+<app-video-player [videoId]="videoId"></app-video-player>

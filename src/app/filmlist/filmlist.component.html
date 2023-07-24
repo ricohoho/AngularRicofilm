@@ -9,13 +9,19 @@
       <div class="flex flex-column md:flex-row md:justify-content-between">
         <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Tri par Date d'ajout" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
         <span class="p-input-icon-left">
+
+          <!--
             <i class="pi pi-search"></i>
             <input type="text" pInputText placeholder="Rech (titre:/acteur:/id:/yyyymm:)" [(ngModel)]="filmname" (keyup.enter)="recherche()">
+           -->
+          <p-autoComplete  [(ngModel)]="filmselectione"  placeholder="Rech (titre:/acteur:/id:/yyyymm:)"  [virtualScroll]="true" [suggestions]="filmselectfiltered" [virtualScrollItemSize]="34" (onSelect)="rechercheSelect()" (keyup.enter)="rechercheSelect()" (completeMethod)="filterFilmSelect($event)" field="original_title" [dropdown]="true"  >
+        </p-autoComplete>
             <p-button icon="pi pi-search" (onClick)="recherche()" class="mr-2"></p-button>
         </span>
         <span >
           <p-progressSpinner *ngIf="displaySpinner"  animationDuration=5></p-progressSpinner>
         </span>
+
         <!-- Rico3
         <span class="p-input-icon-left mb-2  md:mb-0">
             <i class="pi pi-search"></i>
@@ -33,7 +39,9 @@
         <div class="product-list-item">
           <img [src]="'https://image.tmdb.org/t/p/original/' + film.backdrop_path" [alt]="film.title" width="200"  />
           <div class="product-list-detail">
-            <div class="product-name">{{film.title}}</div>
+            <div class="product-name"  (click)="showFilmPopUp(film._id)">{{film.title}}
+            </div>
+            <div><span style="{{this.getImageStremaning(film.present_streaming,'couleur')}}"  (click)="showRequestPopUp(film._id)" >{{this.getImageStremaning(film.present_streaming,'contenu')}}</span></div>
             <div class="product-description">{{film.release_date}}</div>
           </div>
         </div>

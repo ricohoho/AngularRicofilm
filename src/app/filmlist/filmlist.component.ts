@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpResponse} from '@angular/common/http';
 import {LazyLoadEvent, SelectItem} from 'primeng/api';
 import {FilmService} from'../film.service';
+import {RequestfilmService} from'../requestfilm.service';
 import { Table } from 'primeng/table';
 import {DialogService} from 'primeng/dynamicdialog';
 import {DynamicDialogRef} from 'primeng/dynamicdialog';
@@ -21,6 +22,15 @@ import {Irequest} from "../irequest";
 export class FilmlistComponent implements OnInit {
 
   films : Ifilm[] = [];
+
+  //Varible permetant la recherche autocomplete
+  //=> 1 ere version chargé au démarrage :
+  filmselectionTotal : any[] = [];
+  //=> le film selectioné dans l'autocomplete :
+  filmselectione:any;
+  //=> les films filtré a chaque frappe:
+  filmselectfiltered: any[];
+
   //film;
   NbFilms = 0 ;
   filmname = '';
@@ -37,7 +47,7 @@ export class FilmlistComponent implements OnInit {
   ref: DynamicDialogRef;
 
   //constructor(private dataService: FilmService) {}
-  constructor(private dataService: FilmService,public dialogService: DialogService, public messageService: MessageService) {}
+  constructor(private dataService: FilmService,private dataserviceRequest : RequestfilmService,public dialogService: DialogService, public messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getRequest(0);
@@ -48,6 +58,9 @@ export class FilmlistComponent implements OnInit {
       {label: 'Ajout asc', value: 'UPDATE_DB_DATE'},
       {label: 'Ajout dsc ', value: '!UPDATE_DB_DATE'}
     ];
+
+    //Initialisation de la liste de selection
+    this.getFilmSelect("original_title");
 
   }
 
@@ -77,6 +90,34 @@ export class FilmlistComponent implements OnInit {
     }
     return retour;
   }
+
+  //Renvoi la liste de tout les films en json réduit avec juste l'info : infoAffiche comme ( original_titrel ou acteur ...)
+  public getFilmSelect(infoAffiche:string): void {
+    this.dataService.getFilmSelect(infoAffiche).subscribe(
+      (res: HttpResponse<any>) => {
+        this.filmselectionTotal = res.body;
+      });
+  }
+
+  //fct appele a chaque caractere saisie dans l'AutoComplete
+  public  filterFilmSelect(event:any) {
+      //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+      let filtered : any[] = [];
+      let query = event.query;
+      console.log("filterFilmSelect(query)"+query);
+
+      for(let i = 0; i < this.filmselectionTotal.length; i++) {
+        let item = this.filmselectionTotal[i];
+        if (item.original_title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+          filtered.push(item);
+        }
+      }
+      console.log("filterFilmSelect(): filtered.length:"+filtered.length);
+      this.filmselectfiltered = filtered;
+  }
+
+
+  //Renvoi la liste des Films a afficher dans la liste principales
   private getRequest(skip:number): void {
     this.displaySpinner=true;
     this.dataService.getFilm(skip, this.filmname, this.rows , this.sortField, this.sortOrder).subscribe(
@@ -98,7 +139,6 @@ export class FilmlistComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-
   onSortChange(event: any): void {
     const value = event.value;
     console.log('onSortChange:' + event.value);
@@ -114,24 +154,33 @@ export class FilmlistComponent implements OnInit {
 
   // A chaque clique sur le images de paginations
   loadData(event:any): void {
-    console.log('loadData : event.first='+event.first); // First row offset
-    console.log('loadData : event.rows='+event.rows); // Number of rows per page
+    console.log('loadData() : event.first='+event.first); // First row offset
+    console.log('loadData)( : event.rows='+event.rows); // Number of rows per page
     this.getRequest(event.first);
   }
 
   // Appel de la recherche depuis l'entete de la liste
   recherche(): void {
-    console.log('recherche (' + this.filmname + ')');
+    console.log('recherche() (' + this.filmname + ')');
     this.displaySpinner=true;
     this.getRequest(0);
+  }
+  //Recherche appelé a partir de l'autocomplete
+  rechercheSelect() {
+    console.log('rechercheSelect() ()'+this.filmselectione);
+    if (typeof this.filmselectione =='string')
+      this.filmname=this.filmselectione;
+    else
+      this.filmname=this.filmselectione.original_title;
+    this.recherche();
   }
 
 
   loadData2(event :LazyLoadEvent):void {
     //event.first = First row offset
     //event.rows = Number of rows per page
-    console.log("loadData2 event.first:"+event.first);
-    console.log("loadData2 event.first:"+event.rows);
+    console.log("loadData2() event.first:"+event.first);
+    console.log("loadData2() event.first:"+event.rows);
     let first : number;
     event.first ==undefined  ? first=0 : first=event.first;
     this.getRequest(first);
@@ -156,8 +205,11 @@ export class FilmlistComponent implements OnInit {
       } else {
         this.messageService.add({severity: 'info', summary: 'Film selectionnée', detail: request.title});
         //Appel creationd e request
-        console.log('avant dataService.createRequest');
-        this.dataService.createRequest(request);
+        console.log('avant dataService.createRequest'+request.title+'/'+request.id+'/'+request.serveur_name+'/'+request.id+'/'+request.file+'/'+request.status+'/'+request.username+'/'+request.size+'/'+request.path
+        );
+        //this.dataService.createRequest(request);
+        this.dataserviceRequest.createRequest(request);
+
       }
     });
 

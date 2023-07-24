@@ -1,5 +1,5 @@
 export interface Irequest {
-  "_id" : string;
+  //"_id" : string;
   "username" : string;
   "id" : number;
   "title" : string;

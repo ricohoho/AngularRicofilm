@@ -23,6 +23,7 @@ export  interface Ifilm {
   tagline: string;
   title: string;
   video: boolean;
+  videos : IVIDEO_RESULTS;
   vote_average: number;
   vote_count: number;
   credits : Icredits;
@@ -33,6 +34,21 @@ export  interface Ifilm {
 
 };
 
+export interface IVIDEO_RESULTS {
+  results : IVIDEO[];
+}
+export interface IVIDEO{
+  iso_639_1 : string;
+  iso_3166_1 : string;
+  name :string;
+  key:string;
+  site:string;
+  size:number;
+  type:string;
+  official:boolean;
+  published_at:string;
+  id:string;
+}
 export interface IRICO_FICHIER{
   serveur_name: string;
   insertDate: string;
@@ -40,7 +56,27 @@ export interface IRICO_FICHIER{
   file: string;
   size: number;
   fileDate: string;
+  InfoStreams : IInfoStreams[]
 }
+
+
+export interface  IInfoStreams
+  {
+    "index" : number,
+    "CodecType" : string,
+    "CodecName" : string,
+    "duration" : number,
+    "CodecLongName" : string,
+    "TimeBase" : string,
+    "Profile" : string,
+    "tag-BPS" : string,
+    "tag-DURATION" : string,
+    "tag-NUMBER_OF_FRAMES" : string,
+    "tag-NUMBER_OF_BYTES" : string,
+    "AvgFrameRate" : number,
+    "PixFmt" : string
+  }
+
 export interface Icrew
   {
     adult: boolean;

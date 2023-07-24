@@ -4,6 +4,7 @@ import {DialogService} from 'primeng/dynamicdialog';
 import {DynamicDialogRef} from 'primeng/dynamicdialog';
 import {MessageService} from 'primeng/api';
 import {FilmdetailComponent} from './filmdetail/filmdetail.component';
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,12 @@ export class AppComponent {
   title = 'AngularRicoFilm';
   items: MenuItem[];
   ref: DynamicDialogRef;
+  path_image: string;
 
   constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
   ngOnInit() {
+    this.path_image=environment.PATH_IMAGE;
     this.items = [
       {
         label: 'Update',

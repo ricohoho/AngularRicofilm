@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {DynamicDialogRef} from 'primeng/dynamicdialog';
 import {DynamicDialogConfig} from 'primeng/dynamicdialog';
-import {Ifilm,Iproduction_companies} from '../ifilm';
+import {Ifilm, Iproduction_companies, IVIDEO_RESULTS} from '../ifilm';
 import {environment} from "../../environments/environment";
+import { YouTubePlayerModule } from '@angular/youtube-player';
+//import {VideoPlayerComponent} from  '../video-player/video-player.component';
 
 
 
@@ -15,13 +17,17 @@ import {environment} from "../../environments/environment";
 export class FilmdetailComponent implements OnInit {
   _id ="";
   film : Ifilm ;
+  ricoFichier : IVIDEO_RESULTS;
   responsiveOptions : any;
   cols_fichier : any;
   path_image : string;
   //private REST_API_SERVER = environment.REST_API_SERVER;
   acteur_click : string;
 
-  constructor( public dialogService: DynamicDialogRef,public config: DynamicDialogConfig) {}
+  videoId : string;
+
+
+  constructor( public dialogService: DynamicDialogRef,public config: DynamicDialogConfig,public youtubePlayer: YouTubePlayerModule) {}
 
   getDirector(): string {
     let  searchIndex = this.film.credits.crew.findIndex((FILM) => FILM.job=='Director');
@@ -56,6 +62,9 @@ export class FilmdetailComponent implements OnInit {
     this.path_image=environment.PATH_IMAGE;
     console.log("this.path_image: "+this.path_image);
 
+    //Reccuperation de l'id Ypoutube de la bande annonce
+    this.videoId=this.film.videos.results[0].key;
+
     this.cols_fichier = [
       { field: 'serveur_name', header: 'serveur' },
       { field: 'insertDate', header: 'Date' },
@@ -84,5 +93,6 @@ export class FilmdetailComponent implements OnInit {
 
 
   }
+
 
 }

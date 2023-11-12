@@ -24,7 +24,7 @@ export class FilmdetailComponent implements OnInit {
   //private REST_API_SERVER = environment.REST_API_SERVER;
   acteur_click : string;
 
-  videoId : string;
+  videoId : string = "";
 
 
   constructor( public dialogService: DynamicDialogRef,public config: DynamicDialogConfig,public youtubePlayer: YouTubePlayerModule) {}
@@ -63,7 +63,8 @@ export class FilmdetailComponent implements OnInit {
     console.log("this.path_image: "+this.path_image);
 
     //Reccuperation de l'id Ypoutube de la bande annonce
-    this.videoId=this.film.videos.results[0].key;
+    if (this.film.videos.results.length>0)
+      this.videoId=this.film.videos.results[0].key;
 
     this.cols_fichier = [
       { field: 'serveur_name', header: 'serveur' },

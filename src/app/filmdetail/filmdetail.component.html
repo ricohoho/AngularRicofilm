@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="https://unpkg.com/primeflex/themes/saga-blue.css">
-
 <div class="grid  nested-grid ">
   <div class="col-3 md-12 box">
     <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path"
@@ -35,7 +33,7 @@
     <h5>Distribution et équipe</h5>
   </ng-template>
   <ng-template let-cast pTemplate="item">
-    <img src="https://image.tmdb.org/t/p/original//{{cast.profile_path}}"   style="max-width: 50%;">
+    <img   *ngIf="cast.profile_path" src="https://image.tmdb.org/t/p/original/{{cast.profile_path}}"   style="max-width: 50%;">
     <div   class="box box-stretched"  (click)="selectActeur('acteur:'+cast.name)"><b>{{cast.name}}</b><br> est {{cast.character}}</div>
   </ng-template>
 </p-carousel>
@@ -56,7 +54,7 @@
 <p-table [columns]="cols_fichier" [value]="film.RICO_FICHIER" [tableStyle]="{'min-width': '50rem'}"  dataKey="file">
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th>Détail</th>
+      <th>Détail:</th>
       <th *ngFor="let col of columns">
         {{col.header}}
       </th>
@@ -77,11 +75,9 @@
     <tr>
       <td>
         <div class="p-3">
-
-
           <p-table [value]="ricoFichier.InfoStreams" dataKey="CodecName">
             <ng-template pTemplate="header">
-                <tr>
+              <tr>
                     <th>index</th>
                     <th>CodecType</th>
                     <th>CodecName</th>
@@ -99,9 +95,9 @@
                     <th>ChannelLayout</th>
                     <th>language</th>
                     <th>title</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-stream>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-stream>
                 <tr>
                   <td>{{stream.index}}</td>
                   <td>{{stream.CodecType}}</td>
@@ -126,11 +122,8 @@
                   <td *ngIf="stream.CodecType!='VIDEO'">{{stream["tag-language"]}}</td>
                   <td *ngIf="stream.CodecType!='VIDEO'">{{stream["tag-title"]}}</td>
                 </tr>
-              </ng-template>
-            </p-table>
-
-
-
+            </ng-template>
+          </p-table>
         </div>
       </td>
     </tr>
@@ -138,5 +131,7 @@
 </p-table>
 <!--
   Lien vers la bande annonce
+  //<video-player [videoId]="videoId"></video-player>
 -->
 <app-video-player [videoId]="videoId"></app-video-player>
+

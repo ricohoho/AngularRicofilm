@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+//import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 import {RouterModule} from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -31,8 +32,13 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import {AutoCompleteModule} from "primeng/autocomplete";
 
+import { LoginComponent } from './authentification/login/login.component';
+import { RegisterComponent } from './authentification/register/register.component';
+import { ProfileComponent } from './authentification/profile/profile.component';
 
 
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { HomeComponent } from './authentification/home/home.component';
 
 
 @NgModule({
@@ -41,16 +47,26 @@ import {AutoCompleteModule} from "primeng/autocomplete";
     FilmlistComponent,
     FilmdetailComponent,
     FilmrequestComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    HomeComponent
   ],
     imports: [
-        BrowserModule,
+      AppRoutingModule,
         //RouterModule,
         BrowserAnimationsModule,
+        RouterModule,
+      /*
         RouterModule.forRoot([
             {path: '', component: AppComponent},
-            {path: 'ricofilmA', component: FilmlistComponent}
+            {path: 'ricofilmA', component: FilmlistComponent},
+            { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+            { path: 'profile', component: ProfileComponent }
         ]),
+       */
         ToolbarModule,
         ButtonModule,
         SplitButtonModule,
@@ -70,7 +86,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
         YouTubePlayerModule,
         AutoCompleteModule
     ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

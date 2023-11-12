@@ -11,6 +11,8 @@ import {FilmdetailComponent} from  '../filmdetail/filmdetail.component';
 import {Ifilm, Iproduction_companies, IRICO_FICHIER} from '../ifilm'
 import {FilmrequestComponent} from  '../filmrequest/filmrequest.component';
 import {Irequest} from "../irequest";
+//import { Router } from '@angular/router';
+import { RedirectService } from '../_services/redirect.service';
 
 
 @Component({
@@ -47,7 +49,7 @@ export class FilmlistComponent implements OnInit {
   ref: DynamicDialogRef;
 
   //constructor(private dataService: FilmService) {}
-  constructor(private dataService: FilmService,private dataserviceRequest : RequestfilmService,public dialogService: DialogService, public messageService: MessageService) {}
+  constructor(private dataService: FilmService,private dataserviceRequest : RequestfilmService,public dialogService: DialogService, public messageService: MessageService,private redirectService: RedirectService) {}
 
   ngOnInit(): void {
     this.getRequest(0);
@@ -92,11 +94,17 @@ export class FilmlistComponent implements OnInit {
   }
 
   //Renvoi la liste de tout les films en json réduit avec juste l'info : infoAffiche comme ( original_titrel ou acteur ...)
+  //si la mehode renvoi une erreur contenant 'Accès refusé' on redirige vers la page de login
   public getFilmSelect(infoAffiche:string): void {
     this.dataService.getFilmSelect(infoAffiche).subscribe(
       (res: HttpResponse<any>) => {
         this.filmselectionTotal = res.body;
-      });
+      },
+      error => {
+        console.error('filmlist.composant : Erreur reçue: ' + error);
+        if (error.indexOf('Accès refusé')>=0)  this.redirectService.goLogin();//  this.router.navigate(['/login']);
+      }
+      );
   }
 
   //fct appele a chaque caractere saisie dans l'AutoComplete

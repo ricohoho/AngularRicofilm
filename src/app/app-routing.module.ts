@@ -1,7 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { RegisterComponent } from './authentification/register/register.component';
+import { LoginComponent } from './authentification/login/login.component';
+import { ProfileComponent } from './authentification/profile/profile.component';
+import { HomeComponent } from './authentification/home/home.component';
+import {AppComponent} from "./app.component";
+import {FilmlistComponent} from "./filmlist/filmlist.component";
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  {path: 'ricofilmA', component: FilmlistComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

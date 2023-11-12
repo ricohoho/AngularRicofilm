@@ -3,8 +3,11 @@ import {MenuItem} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {DynamicDialogRef} from 'primeng/dynamicdialog';
 import {MessageService} from 'primeng/api';
-import {FilmdetailComponent} from './filmdetail/filmdetail.component';
 import {environment} from "../environments/environment";
+import { RedirectService } from './_services/redirect.service';
+
+import { StorageService } from './_services/storage.service';
+import { AuthService } from './_services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +20,20 @@ export class AppComponent {
   items: MenuItem[];
   ref: DynamicDialogRef;
   path_image: string;
+  url_home:string;
 
-  constructor(public dialogService: DialogService, public messageService: MessageService) {}
+  //Partie Authentification
+  isLoggedIn = false;
+  private roles: string[] = [];
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username?: string;
+
+  constructor(public dialogService: DialogService, public messageService: MessageService, private authService: AuthService,private storageService: StorageService,private redirectService: RedirectService) {}
 
   ngOnInit() {
     this.path_image=environment.PATH_IMAGE;
+    this.url_home=environment.URL_HOME;
     this.items = [
       {
         label: 'Update',
@@ -43,9 +55,21 @@ export class AppComponent {
       }
     ];
 
+    this.isLoggedIn = this.storageService.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      const user = this.storageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
+
 
   }
-
+/*
   show() {
     console.log('Show');
     this.ref = this.dialogService.open(FilmdetailComponent, {
@@ -55,4 +79,30 @@ export class AppComponent {
       baseZIndex: 10000
     });
   }
+*/
+  logout2(): void {
+    console.log('logout:debut Vide')
+  }
+
+  logout(): void {
+    console.log('logout:debut')
+    this.authService.logout().subscribe({
+      next: res => {
+        console.log(res);
+        this.storageService.clean();
+        //window.location.reload();
+        console.log('logout:avant goHome')
+        //this.redirectService.goHome();
+      },
+      error: err => {
+        console.log(err);
+      }
+    });
+  }
+
+  affichelist():void {
+    //this.router.navigate(['/ricofilmA']);
+    this.redirectService.goHome();
+  }
+
 }

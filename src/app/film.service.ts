@@ -14,7 +14,6 @@ export class FilmService {
 
   //constructor() { }
 
-
   public NbFilms: String  ;
 
   // private REST_API_SERVER = 'http://davic.mkdh.fr:3000/films/list';
@@ -28,17 +27,21 @@ export class FilmService {
   private REST_API_FILM_SERVER_SELECT = environment.REST_API_FILM_SERVER_SELECT;
   public constructor(private httpClient: HttpClient) { }
 
-  public handleError(error: HttpErrorResponse): Observable<never> {
+  public handleError(error: HttpErrorResponse): any  { //} Observable<never> {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
       // Client-side errors
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side errors
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      //Server side Erreur
+      if (error.status === 403) {
+        errorMessage = 'Accès refusé. Vous n\'avez pas la permission d\'accéder à cette ressource.';
+      } else {
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
+//      window.alert(errorMessage);
+      return throwError(errorMessage);
     }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
   }
 
   public sendGetRequest(): Observable<any>{
@@ -97,6 +100,11 @@ export class FilmService {
         }
       )
     );
+
+
+
+
+
     /*
         return this.httpClient.get(this.REST_API_SERVER, optionRequete1).pipe(
           retry(3), catchError(this.handleError),

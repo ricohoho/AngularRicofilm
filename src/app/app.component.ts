@@ -85,7 +85,8 @@ export class AppComponent {
   }
 
   logout(): void {
-    console.log('logout:debut')
+    console.log('logout:debut');
+
     this.authService.logout().subscribe({
       next: res => {
         console.log(res);
@@ -98,6 +99,7 @@ export class AppComponent {
         console.log(err);
       }
     });
+  
   }
 
   affichelist():void {

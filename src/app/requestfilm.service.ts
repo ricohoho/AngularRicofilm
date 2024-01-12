@@ -14,19 +14,12 @@ export class RequestfilmService {
 
   public constructor(private httpClient: HttpClient) { }
 
-
-
-
   public createRequest(iresquest : Irequest)  {
     //console.log('Debut createRequest 2: '+this.REST_API_REQUEST_SERVER);
     console.log('Debut createRequest iresquest.title: '+iresquest.title);
     //return this.httpClient.post(this.REST_API_REQUEST_SERVER+'/add',
-
-
-
     let bodyString = JSON.stringify(iresquest); // Stringify payload
     let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-    //let options       = new RequestOptions({ headers: headers }); // Create a request option
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -44,23 +37,8 @@ export class RequestfilmService {
       headers:headers1
     }
 
-    /*
-    let body = new FormData();
-    body.append('firstName', 'Joele');
-    body.append('lastName', 'Smith4');
-   */
     console.log('Debut createRequest / AVANT post');
-    /* Ca marche pas .. pq ?
-    return this.httpClient.post<Irequest>('http://localhost:3000/request/add', iresquest, httpOptions)
-      .pipe(
-        retry(3),
-        catchError(this.handleError),
-        tap(res => {
-            console.log('Apres createRequest : ');
-          }
-        )
-      );
-    */
+
     return this.httpClient.post<Irequest>(this.REST_API_REQUEST_SERVER+'/add', iresquest, httpOptions).subscribe(
       reponse => {
         console.log('Réponse du serveur : ', reponse);

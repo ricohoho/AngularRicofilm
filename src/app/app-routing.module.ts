@@ -7,13 +7,15 @@ import { ProfileComponent } from './authentification/profile/profile.component';
 import { HomeComponent } from './authentification/home/home.component';
 import {AppComponent} from "./app.component";
 import {FilmlistComponent} from "./filmlist/filmlist.component";
+import {UserlistComponent} from "./userlist/userlist.component"
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {path: 'ricofilmA', component: FilmlistComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'userlist', component: UserlistComponent }
 ];
 
 @NgModule({

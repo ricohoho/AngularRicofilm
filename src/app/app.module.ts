@@ -39,6 +39,7 @@ import { ProfileComponent } from './authentification/profile/profile.component';
 
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { HomeComponent } from './authentification/home/home.component';
+import { UserlistComponent } from './userlist/userlist.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { HomeComponent } from './authentification/home/home.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
+    UserlistComponent
   ],
     imports: [
       AppRoutingModule,

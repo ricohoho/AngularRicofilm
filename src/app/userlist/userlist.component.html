@@ -1,11 +1,13 @@
 <p-toast></p-toast>
-<p-table [value]="userListTotal" dataKey="_id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="userListTotal" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
   <ng-template pTemplate="header">
     <tr>
       <th style="width:20%">username</th>
       <th style="width:20%">email</th>
-      <th style="width:20%">rolesString</th>
-      <th style="width:20%"></th>
+      <!--<th style="...">rolesString</th>-->
+      <th style="width:5%">Actif</th>
+      <th style="width:10%">Role</th>
+      <th style="width:5%"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
@@ -30,6 +32,7 @@
           </ng-template>
         </p-cellEditor>
       </td>
+      <!--
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
@@ -40,18 +43,32 @@
           </ng-template>
         </p-cellEditor>
       </td>
-      <!--
+      -->
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.statuses" [style]="{'width':'100%'}"></p-dropdown>
+            <input type="checkbox" [(ngModel)]="user.active" name="active" (change)="onCheckboxChange(user)" />
           </ng-template>
           <ng-template pTemplate="output">
-            {{userListTotal.statuses}}
+            <input type="checkbox" [(ngModel)]="user.active" name="active" disabled />
+            <!--
+            {{user.active}}
+            -->
           </ng-template>
         </p-cellEditor>
       </td>
-      -->
+
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-multiSelect [options]="roles" [(ngModel)]="user.rolesObj" optionLabel="name" display="chip"></p-multiSelect>
+          </ng-template>
+          <ng-template pTemplate="output">
+            <p-multiSelect [options]="roles" [(ngModel)]="user.rolesObj" optionLabel="name" [disabled]="true"  display="chip"></p-multiSelect>
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
 
       <td>
         <div class="flex align-items-center justify-content-center gap-2">

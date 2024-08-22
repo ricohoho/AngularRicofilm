@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {FilmService} from "../film.service";
 import {environment} from "../../environments/environment";
 import {catchError, retry, tap} from "rxjs/operators";
+import {Iuser} from "../iuser";
 
 //const API_URL = 'http://localhost:8080/api/test/';
 
@@ -41,7 +42,10 @@ export class UserService {
     return this.httpClient.get(this.RESP_API + 'all', { responseType: 'text' });
   }
   getUserBoard(): Observable<any> {
-    return this.httpClient.get(this.RESP_API + 'user', { responseType: 'text' });
+    return this.httpClient.get(this.RESP_API + 'user', { responseType: 'text' }).pipe( catchError(this.handleError),
+      tap(res => {
+        console.log('Retour de getFilmSelect ');
+      }));
   }
   getModeratorBoard(): Observable<any> {
     return this.httpClient.get(this.RESP_API + 'mod', { responseType: 'text' });
@@ -75,4 +79,28 @@ export class UserService {
     );
 
   }
+
+  //Mise a jour de l'utilisateur
+  update(id: any, data: Iuser): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+      // Ajoutez d'autres en-têtes si nécessaire
+    });
+
+    const baseUrl = 'http://localhost:3000';
+    const url= baseUrl+this.RESP_API+'/user/'+id;
+    console.log('Url='+url);
+    console.log('data.username='+data.username);
+    return this.httpClient.put(url, data
+      , { headers }).pipe(
+      retry(3),catchError((error) => {
+        // Gérer l'erreur ici
+        console.error('Une erreur s\'est produite lors de la mise à jour :', error);
+        // Vous pouvez retourner un observable d'une valeur par défaut ou lancer l'erreur à nouveau
+        return throwError('Une erreur s\'est produite lors de la mise à jour.');
+      })
+    );
+  }
+
 }

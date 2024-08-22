@@ -23,6 +23,7 @@ import { ToastModule } from 'primeng/toast';
 import {FilmdetailComponent} from "./filmdetail/filmdetail.component";
 import { CommonModule } from '@angular/common';
 import {CarouselModule} from 'primeng/carousel';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { FilmrequestComponent } from './filmrequest/filmrequest.component';
@@ -40,6 +41,10 @@ import { ProfileComponent } from './authentification/profile/profile.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { HomeComponent } from './authentification/home/home.component';
 import { UserlistComponent } from './userlist/userlist.component';
+import { NavbarComponent } from './authentification/navbar/navbar.component';
+
+import { GalleriaModule } from 'primeng/galleria';
+
 
 
 @NgModule({
@@ -53,7 +58,8 @@ import { UserlistComponent } from './userlist/userlist.component';
     RegisterComponent,
     ProfileComponent,
     HomeComponent,
-    UserlistComponent
+    UserlistComponent,
+    NavbarComponent
   ],
     imports: [
       AppRoutingModule,
@@ -86,7 +92,9 @@ import { UserlistComponent } from './userlist/userlist.component';
         ProgressSpinnerModule,
         RadioButtonModule,
         YouTubePlayerModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        MultiSelectModule,
+        GalleriaModule
     ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

@@ -1,0 +1,9 @@
+.mon-span-lien {
+  color: blue; /* Couleur du texte du lien */
+  text-decoration: underline; /* Soulignement pour indiquer qu'il s'agit d'un lien */
+  cursor: pointer; /* Curseur de type pointer pour indiquer qu'il est cliquable */
+}
+
+.mon-span-lien:hover {
+  color: darkblue; /* Couleur du texte du lien au survol */
+}

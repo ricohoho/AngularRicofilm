@@ -1,2 +1,19 @@
-<p>home works!</p>
-Page d'accueil :-)
+<p>Bienvenue sur RICOFILM :-)</p>
+
+
+<p-galleria [value]="images"
+  [responsiveOptions]="responsiveOptions"
+  [containerStyle]="{ 'max-width': '640px' }"
+  [numVisible]="5"
+  [autoPlay]="true"
+  [circular]="true"
+>
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.itemImageSrc" style="width: 100%;" />
+  </ng-template>
+  <ng-template pTemplate="thumbnail" let-item>
+    <div class="grid grid-nogutter justify-content-center">
+      <img [src]="item.thumbnailImageSrc" />
+    </div>
+  </ng-template>
+</p-galleria>

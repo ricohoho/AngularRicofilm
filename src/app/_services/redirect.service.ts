@@ -13,6 +13,7 @@ export class RedirectService {
   }
 
   goLogin(): void {
+    console.log('goLogin()');
     this.router.navigate(['/login']);
   }
 
@@ -20,6 +21,9 @@ export class RedirectService {
     this.router.navigate([this.url_home]);
   }
 
+  goHome2(): void {
+    this.router.navigate(['/' ]);
+  }
 
 
 }

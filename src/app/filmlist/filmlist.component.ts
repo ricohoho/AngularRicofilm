@@ -96,13 +96,22 @@ export class FilmlistComponent implements OnInit {
   //Renvoi la liste de tout les films en json réduit avec juste l'info : infoAffiche comme ( original_titrel ou acteur ...)
   //si la mehode renvoi une erreur contenant 'Accès refusé' on redirige vers la page de login
   public getFilmSelect(infoAffiche:string): void {
+    console.log('getFilmSelect debut');
     this.dataService.getFilmSelect(infoAffiche).subscribe(
       (res: HttpResponse<any>) => {
+        console.log('getFilmSelect Pos1');
         this.filmselectionTotal = res.body;
       },
       error => {
+        console.log('getFilmSelect Pos2');
+        console.log(error);
         console.error('filmlist.composant : Erreur reçue: ' + error);
-        if (error.indexOf('Accès refusé')>=0)  this.redirectService.goLogin();//  this.router.navigate(['/login']);
+        //if (error.indexOf('Accès refusé')>=0)  this.redirectService.goLogin();//  this.router.navigate(['/login']);
+        //if (error.indexOf('401')>=0) {
+          console.log('erreur 401');
+
+          this.redirectService.goLogin();
+        //}//  this.router.navigate(['/login']);
       }
       );
   }

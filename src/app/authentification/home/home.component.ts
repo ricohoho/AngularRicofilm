@@ -1,5 +1,7 @@
 import { Component } from '@angular/core'
 import { GalleriaModule } from 'primeng/galleria';
+import {FilmService} from '../../film.service';
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,11 @@ import { GalleriaModule } from 'primeng/galleria';
 export class HomeComponent {
 
   title = 'GFG';
-  images: any[] =[
+
+  constructor(private dataService: FilmService ) {}
+
+  images: any[] = [
+  
     {
       itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg',
       thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria1s.jpg',
@@ -69,36 +75,6 @@ export class HomeComponent {
       thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria10s.jpg',
       alt: 'Description for Image 10',
       title: 'Title 10'
-    },
-    {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg',
-      thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria11s.jpg',
-      alt: 'Description for Image 11',
-      title: 'Title 11'
-    },
-    {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria12.jpg',
-      thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria12s.jpg',
-      alt: 'Description for Image 12',
-      title: 'Title 12'
-    },
-    {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria13.jpg',
-      thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria13s.jpg',
-      alt: 'Description for Image 13',
-      title: 'Title 13'
-    },
-    {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria14.jpg',
-      thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria14s.jpg',
-      alt: 'Description for Image 14',
-      title: 'Title 14'
-    },
-    {
-      itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria15.jpg',
-      thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria15s.jpg',
-      alt: 'Description for Image 15',
-      title: 'Title 15'
     }
   ];
   responsiveOptions: any[] = [
@@ -115,5 +91,26 @@ export class HomeComponent {
       numVisible: 1
     }
   ];
+
+  ngOnInit(): void {
+    //Initialisation de la liste des n dernier films pour info images
+    this.dataService.getFilmMenuImage("").subscribe(
+      (res: HttpResponse<any>) => {
+        //Conversio a faire !!
+        this.images = res.body;
+        console.log('getFilmMenuImage Debut');
+        console.log(this.images);
+        console.log('getFilmMenuImage Fin');
+      },
+      error => {
+        console.error('userLis.composant : Erreur reçue: ' + error);
+        //if (error.indexOf('Accès refusé')>=0)  this.redirectService.goLogin();//  this.router.navigate(['/login']);
+      }
+    );
+
+
+
+
+  }
 
 }

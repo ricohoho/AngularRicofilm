@@ -130,7 +130,7 @@ export class FilmService {
   }
 
 
- //renvoi les film (juste le titre)
+ //renvoi les film (juste le titre) : utilisé pour la recherche avec completion !
   public getFilmSelect( infoAffiche:string): Observable<any>{
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
@@ -154,10 +154,33 @@ export class FilmService {
         }
       )
     );
-
-
   }
 
+
+  //renvoi les liens des images des n dernier film ajoutés  : 2024/08/25
+  public getFilmMenuImage( infoAffiche:string): Observable<any>{
+    const headers1 = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Access-Control-Allow-Headers', 'Content-Type')
+      .append('Access-Control-Allow-Methods', 'GET')
+      .append('Access-Control-Allow-Origin', '*');
+
+    console.log('environment.REST_API_FILM_SERVER_SELECT: ' + environment.REST_API_FILM_MENU_IMAGE);
+
+    let params1 = new HttpParams(); 
+    params1 = params1.append('infoAffiche', infoAffiche.toString() );
+
+    // const optionRequete1 = { headers : headers1 , params : params1 };
+
+    return this.httpClient.get(environment.REST_API_FILM_MENU_IMAGE,
+      {params: params1,  headers : headers1, observe: 'response'}).pipe(
+      retry(3), catchError(this.handleError),
+      tap(res => {
+          console.log('Retour de getFilmSelect ');
+        }
+      )
+    );
+  }
 
 
 

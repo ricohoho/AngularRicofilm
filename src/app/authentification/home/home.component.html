@@ -1,19 +1,18 @@
-<p>Bienvenue sur RICOFILM :-)</p>
-
-
+<div align="center">
 <p-galleria [value]="images"
   [responsiveOptions]="responsiveOptions"
-  [containerStyle]="{ 'max-width': '640px' }"
+  [containerStyle]="{ 'max-width': '60%' ,'place-content': 'center'}"
   [numVisible]="5"
   [autoPlay]="true"
   [circular]="true"
 >
   <ng-template pTemplate="item" let-item>
-    <img [src]="item.itemImageSrc" style="width: 100%;" />
+    <img [src]="'https://image.tmdb.org/t/p/original/' + item.backdrop_path" style="width: 100%;" />
   </ng-template>
   <ng-template pTemplate="thumbnail" let-item>
     <div class="grid grid-nogutter justify-content-center">
-      <img [src]="item.thumbnailImageSrc" />
+      <img [src]="'http://localhost:3000/image/resize?url=https://image.tmdb.org/t/p/original/' + item.backdrop_path+'&width=100&height=100'" />
     </div>
   </ng-template>
 </p-galleria>
+</div>

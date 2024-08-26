@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   REST_API_FILM_SERVER :'films/list',
   REST_API_FILM_SERVER_SELECT :'films/listselect',
+  REST_API_FILM_MENU_IMAGE :'films/listmenufilmimage',
   REST_API_USER_SERVER_SELECT : '/api/user/list',
   REST_API : '/api',
   REST_API_REQUEST_SERVER :'request',

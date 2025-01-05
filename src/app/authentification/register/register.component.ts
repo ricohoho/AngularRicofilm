@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
+import { RedirectService } from '../../_services/redirect.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private redirectService: RedirectService) { }
 
   ngOnInit(): void {
   }
@@ -35,5 +36,10 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     });
+  }
+
+  goLogin(): void {
+    console.log('login:debut');
+    this.redirectService.goLogin()
   }
 }

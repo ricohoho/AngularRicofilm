@@ -10,11 +10,16 @@ export class RedirectService {
 
   constructor(private router: Router) {
     this.url_home=environment.URL_HOME;
-  }
+  } 
 
   goLogin(): void {
     console.log('goLogin()');
     this.router.navigate(['/login']);
+  }
+
+  goRegister(): void {
+    console.log('goRegister()');
+    this.router.navigate(['/register']);
   }
 
   goHome(): void {
@@ -25,5 +30,20 @@ export class RedirectService {
     this.router.navigate(['/' ]);
   }
 
+  goAnnuaire(): void {
+    console.log('goAnnuaire()');
+    this.router.navigate(['/userlist' ]);
+  }
 
+  goProfile():void {
+    console.log('goProfile()');
+    this.router.navigate(['/profile' ]);
+    
+  }
+/*
+  goSearch(): void {
+    console.log('goSearch()');
+    this.router.navigate(['/userlist' ]);
+  }
+*/
 }

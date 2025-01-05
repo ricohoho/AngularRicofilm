@@ -1,21 +1,12 @@
-<div class="col-md-12">
-  <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
-    <form
-      *ngIf="!isSuccessful"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
-      <div class="form-group">
-        <label for="username">Username</label>
+<div styleClass="register-form">
+  <p-card styleClass="user-form" class="flex justify-content-center">    
+  <H4>Inscription</H4>
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
+      <div class="field">
+        <label for="username">Pseudo</label>
         <input
           type="text"
+          pInputText
           class="form-control"
           name="username"
           [(ngModel)]="form.username"
@@ -24,21 +15,23 @@
           maxlength="20"
           #username="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+          autocomplete="username"
         />
         <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors['required']">Username is required</div>
+          <div *ngIf="username.errors['required']">Le pseudo est obligatoire</div>
           <div *ngIf="username.errors['minlength']">
-            Username must be at least 3 characters
+            Le pseudo doit etre au moins de 3 caractères
           </div>
           <div *ngIf="username.errors['maxlength']">
-            Username must be at most 20 characters
+            Le pseudo doit etre au max  de 20 caractères
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="field"> 
         <label for="email">Email</label>
         <input
           type="email"
+          pInputText
           class="form-control"
           name="email"
           [(ngModel)]="form.email"
@@ -46,18 +39,20 @@
           email
           #email="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
+          autocomplete="email"
         />
         <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
-          <div *ngIf="email.errors['required']">Email is required</div>
+          <div *ngIf="email.errors['required']">l'email est nécéssaire</div>
           <div *ngIf="email.errors['email']">
-            Email must be a valid email address
+            L'eMail n'est pas valide
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div class="field">
+        <label for="password">Mot de passe</label>
         <input
           type="password"
+          pInputText
           class="form-control"
           name="password"
           [(ngModel)]="form.password"
@@ -65,25 +60,28 @@
           minlength="6"
           #password="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+          autocomplete="new-password"
         />
         <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
-          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['required']">Le mot depasse est nécéssire</div>
           <div *ngIf="password.errors['minlength']">
-            Password must be at least 6 characters
+            Le mot de passe  doit etre au moins de 6 caractères
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block">Sign Up</button>
+      <div class="field">
+        <button pButton >Demande d'inscription</button>
+        <p-button icon="pi  pi-sign-in"  styleClass="p-button-rounded p-button-info p-button-text" (onClick)="goLogin()">                    
+        </p-button>
       </div>
 
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+        Echec de l'inscription<br />{{ errorMessage }}
       </div>
     </form>
 
     <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
+      Demande d'inscription réussi, en attende d'approbation
     </div>
-  </div>
-</div>
+  </p-card>
+</div> 

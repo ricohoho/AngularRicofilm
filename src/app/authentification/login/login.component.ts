@@ -88,4 +88,9 @@ export class LoginComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
+
+  goRegister():void {
+    console.log('login:goRegister');
+    this.redirectService.goRegister()
+  }
 }

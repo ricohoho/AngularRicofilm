@@ -1,5 +1,7 @@
-<div align="center">
-<p-galleria [value]="images"
+<div align="center" id="rico" 
+style="background-color: black;"
+>
+<p-galleria [value]="films"
   [responsiveOptions]="responsiveOptions"
   [containerStyle]="{ 'max-width': '60%' ,'place-content': 'center'}"
   [numVisible]="5"
@@ -11,8 +13,14 @@
   </ng-template>
   <ng-template pTemplate="thumbnail" let-item>
     <div class="grid grid-nogutter justify-content-center">
-      <img [src]="'http://localhost:3000/image/resize?url=https://image.tmdb.org/t/p/original/' + item.backdrop_path+'&width=100&height=100'" />
+      <img [src]="'/image/resize?url=https://image.tmdb.org/t/p/original/' + item.backdrop_path+'&width=100&height=100'" />
     </div>
   </ng-template>
+  <ng-template pTemplate="caption" let-item>
+    <h4 style="margin-bottom: .5rem; color: #ffffff;">
+        {{ item.original_title }}
+    </h4>
+    <p>{{ 'Metteur en scène : '+getDirector(item)+', Distribution : '+item.credits.cast[0].name+','+ item.credits.cast[1].name}}</p>
+</ng-template>
 </p-galleria>
 </div>

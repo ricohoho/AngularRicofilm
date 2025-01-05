@@ -1,0 +1,4 @@
+:host {
+    background-color: black;
+    color: white; /* Facultatif : pour rendre le texte lisible sur un fond noir */
+  }

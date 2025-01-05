@@ -7,3 +7,24 @@
 .mon-span-lien:hover {
   color: darkblue; /* Couleur du texte du lien au survol */
 }
+
+.selected-button{
+  background-color: transparent;  /* Couleur de fond pour le bouton sélectionné */
+  color: #007ad9;; /* Couleur du texte */
+  /*border: 1px solid transparent;*/ /* Bordure transparente */
+  border-color: transparent; /* Couleur de la bordure */
+  box-shadow: 0 0 0 0.2rem #8dcdff;
+  Border-radius: 50%;
+  height: 2.357rem;
+}
+
+.selected-buttonX:hover {
+  background-color: transparent; /* Couleur de fond au survol */
+  border-color: #0056b3; /* Couleur de la bordure au survol */
+}
+
+/* Augmenter la spécificité du sélecteur */
+.p-toolbar.custom-toolbar {
+  background-color: black !important; /* Définit la couleur de fond en noir */
+  color: white !important; /* Assure que le texte est lisible sur fond noir */
+}

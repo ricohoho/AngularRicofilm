@@ -1,42 +1,55 @@
-<p-toolbar>
+<p-toolbar styleClass="bg-black-alpha-10">
+      <div class="p-toolbar-group-start">
+        <A href="{{this.url_home}}">                    
+          <img alt="Hoho" src="{{this.path_image}}"  style="max-width: 60%;"/>  
+        </A>            
+      </div>
+      <div class="p-toolbar-group-center">
+            <div class="flex flex-wrap align-items-center gap-3" *ngIf="isLoggedIn">              
+                <p-button icon="pi pi-home" styleClass="p-button-rounded p-button-info  p-button-text" 
+                [ngClass]="{'selected-button': selectedButton === 1}"               
+                (onClick)="selectButton(1);goHome2();">                    
+                </p-button>
+                <p-button icon="pi pi-users"  styleClass="p-button-rounded p-button-info p-button-text"
+                [ngClass]="{'selected-button': selectedButton === 2}"                 
+                  (onClick)="selectButton(2);afficheAnnuaire()">                    
+                </p-button>
+                <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-info p-button-text"
+                [ngClass]="{'selected-button': selectedButton === 3}"   
+                (onClick)="selectButton(3);affichelist()">                    
+                </p-button>
+            </div>
+        </div> 
 
+        <div class="p-toolbar-group-end" *ngIf="isLoggedIn">
+          
+          <div class="flex align-items-center gap-2">
+            <A href="/profile">                            
+              <p-avatar 
+                  label ="R"
+                  shape="circle" />
+            </A>
+            <!--
+            <span class="font-bold text-bluegray-50">
+              <A href="/profile">
+              {{ username }}
+              </A>
+            </span>            
+            -->
+            <p-button icon="pi pi-sign-out" styleClass="p-button-rounded p-button-info p-button-text"
+              (onClick)="logout()">                    
+            </p-button>             
+        </div>     
+        
+      </div>
 
-  <div class="p-toolbar-group-right">
-
-    <A href="{{this.url_home}}">
-      <img alt='Hoho' [src]="this.path_image+'ricofilmlogo.gif'" style="max-width: 60%;"/>
-    </A>
-    <!--
-        <p-button icon="pi pi-search" class="mr-2"></p-button>
-        <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
-    -->
-    <!-- CONNECTE -->
-    <p-button icon="pi pi-search" class="mr-2"  (onClick)="affichelist()" *ngIf="isLoggedIn"></p-button>
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
-      </li>
-      <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/userlist" class="nav-link" routerLink="userlist" *ngIf="showAdminBoard" >UserList</a>
-      </li>
-      <li class="nav-item">
-        <!-- <a href class="nav-link" (click)="logout()">LogOut</a> -->
-        <!-- <p-button icon="pi pi-search" class="mr-2"  (onClick)="logout()" *ngIf="isLoggedIn">Logout</p-button> -->
-        <span class="mon-span-lien" (click)="logout()" *ngIf="isLoggedIn" >Déconnexion</span>
-      </li>
-    </ul>
-
-
-    <!-- DECONNECTE -->
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-      <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">register</a>
-      </li>
-    </ul>
-
-  </div>
+      <div class="p-toolbar-group-end" *ngIf="!isLoggedIn">
+          <p-button icon="pi pi-sign-in" styleClass="p-button-rounded p-button-info p-button-text"
+                (onClick)="goLogin()">                    
+            </p-button>            
+            <p-button icon="pi pi-user-plus" styleClass="p-button-rounded p-button-info p-button-text"
+                (onClick)="goRegister()">                    
+            </p-button>            
+      </div>
+       
 </p-toolbar>

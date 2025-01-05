@@ -1,0 +1,12 @@
+
+:host >>> .user-form {
+    width: 30%;
+  }
+  
+  :host >>> .p-inputtext {
+    width: 100%;
+  }
+
+  :host >>> .login-form {
+    background-color: black;
+  }

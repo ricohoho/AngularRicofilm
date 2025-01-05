@@ -26,7 +26,7 @@ export class FilmdetailComponent implements OnInit {
 
   videoId : string = "";
 
-
+ 
   constructor( public dialogService: DynamicDialogRef,public config: DynamicDialogConfig,public youtubePlayer: YouTubePlayerModule) {}
 
   getDirector(): string {

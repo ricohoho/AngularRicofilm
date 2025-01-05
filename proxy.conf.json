@@ -25,6 +25,15 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
+  },
+  "/image/*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": "/image"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 
 

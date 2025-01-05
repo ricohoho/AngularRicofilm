@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-//import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import {RouterModule} from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,7 @@ import {FilmdetailComponent} from "./filmdetail/filmdetail.component";
 import { CommonModule } from '@angular/common';
 import {CarouselModule} from 'primeng/carousel';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
 
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { FilmrequestComponent } from './filmrequest/filmrequest.component';
@@ -44,6 +45,12 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { NavbarComponent } from './authentification/navbar/navbar.component';
 
 import { GalleriaModule } from 'primeng/galleria';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { CardModule } from 'primeng/card';
+
+
+
 
 
 
@@ -63,18 +70,9 @@ import { GalleriaModule } from 'primeng/galleria';
   ],
     imports: [
       AppRoutingModule,
-        //RouterModule,
+        BrowserModule,
         BrowserAnimationsModule,
         RouterModule,
-      /*
-        RouterModule.forRoot([
-            {path: '', component: AppComponent},
-            {path: 'ricofilmA', component: FilmlistComponent},
-            { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
-            { path: 'profile', component: ProfileComponent }
-        ]),
-       */
         ToolbarModule,
         ButtonModule,
         SplitButtonModule,
@@ -94,7 +92,12 @@ import { GalleriaModule } from 'primeng/galleria';
         YouTubePlayerModule,
         AutoCompleteModule,
         MultiSelectModule,
-        GalleriaModule
+        ImageModule,
+        GalleriaModule,
+        BrowserAnimationsModule,
+        AvatarModule,
+        AvatarGroupModule,
+        CardModule  
     ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]

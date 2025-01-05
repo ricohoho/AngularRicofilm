@@ -7,6 +7,9 @@ import {RedirectService} from "../../_services/redirect.service";
 import {environment} from "../../../environments/environment";
 import { Subscription } from 'rxjs';
 import {NavbarsService} from "../../_services/navbars.service";
+import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
+import { ToolbarModule } from 'primeng/toolbar';
+
 
 @Component({
   selector: 'app-navbar',
@@ -29,8 +32,9 @@ export class NavbarComponent {
   showModeratorBoard = false;
   username?: string;
 
-
   subscription: Subscription;
+
+  selectedButton: number = 1; // Initialiser pour que le premier bouton soit sélectionné par défaut 
 
   constructor(private authService: AuthService,private storageService: StorageService,private redirectService: RedirectService,private navbarsService: NavbarsService) {
     //Inscription a l'observable d'un service, lui meme est mis a jour par un composant, login.component par exemple
@@ -38,6 +42,13 @@ export class NavbarComponent {
     this.subscription = this.navbarsService.getRefreshObservable().subscribe(() => {
       this.refresh();
     });
+  }
+
+  
+  
+
+  selectButton(buttonNumber: number) {
+    this.selectedButton = buttonNumber; // Met à jour l'état en fonction du bouton cliqué
   }
 
   //metode Refresh declenché par l'observalbe
@@ -53,7 +64,7 @@ export class NavbarComponent {
   }
 
   ngOnInit() {
-    this.path_image=environment.PATH_IMAGE;
+    this.path_image=environment.PATH_IMAGE+'/ricofilmlogo.gif';
     this.url_home=environment.URL_HOME;
 
     this.isLoggedIn = this.storageService.isLoggedIn();
@@ -72,6 +83,16 @@ export class NavbarComponent {
     this.username = user.username;
   }
 
+  goLogin(): void {
+    console.log('login:debut');
+    this.redirectService.goLogin()
+  }
+
+  goRegister():void {
+    console.log('login:goRegister');
+    this.redirectService.goRegister()
+  }
+
   //deconexion
   logout(): void {
     console.log('logout:debut');
@@ -84,6 +105,9 @@ export class NavbarComponent {
         console.log('logout:avant goHome')
         //this.redirectService.goHome();
         this.isLoggedIn=false;
+        //l'apple de goHome2() ne fonctonn pas tj ... curieux ...
+        this.goHome2();
+        
       },
       error: err => {
         console.log('erreur logout',err);
@@ -92,9 +116,27 @@ export class NavbarComponent {
 
   }
 
+
+
   //Provoque  l'affichage de de la liste des films
   affichelist():void {
     //this.router.navigate(['/ricofilmA']);
     this.redirectService.goHome();
+  }
+
+
+  afficheAnnuaire():void {
+    console.log('afficheAnnuaire()');
+    this.redirectService.goAnnuaire();
+  }
+
+  goHome2():void {
+    console.log('goHome2()');
+    this.redirectService.goHome2(); 
+  }
+
+  goProfile():void {
+    console.log('goProfile()');
+    this.redirectService.goProfile();
   }
 }

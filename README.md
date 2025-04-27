@@ -1,4 +1,12 @@
 # AngularRicoFilm
+```mermaid
+flowchart
+  NginX["Nginx:80"] --> Frontend
+  Frontend["Front-End :4200"] --> Backend["Back-End :3000"]
+  Backend --> Database[(Database)]
+  Backend --> AIService["Service IA :5000"]
+```
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.7.
 

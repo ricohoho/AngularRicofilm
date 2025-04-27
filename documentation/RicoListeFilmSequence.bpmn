@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1o5q5ei</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1o5q5ei" sourceRef="StartEvent_1" targetRef="Activity_181ups9" />
+    <bpmn:task id="Activity_181ups9" name="recherche() getRequest(skip:number)">
+      <bpmn:incoming>Flow_1o5q5ei</bpmn:incoming>
+      <bpmn:outgoing>Flow_14ko9lj</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Activity_0ltnfr0" name="getFilm( ) httpClient.get(&#39;:&#39;films/list&#39; ...)">
+      <bpmn:incoming>Flow_14ko9lj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1czop7y</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_14ko9lj" sourceRef="Activity_181ups9" targetRef="Activity_0ltnfr0" />
+    <bpmn:manualTask id="Activity_0w3qigf" name="router.get(&#39;/listselect&#39;,">
+      <bpmn:incoming>Flow_1czop7y</bpmn:incoming>
+    </bpmn:manualTask>
+    <bpmn:sequenceFlow id="Flow_1czop7y" sourceRef="Activity_0ltnfr0" targetRef="Activity_0w3qigf" />
+    <bpmn:textAnnotation id="TextAnnotation_1yw918g">
+      <bpmn:text>filmlist.component.ts</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0jubumg" associationDirection="None" sourceRef="Activity_181ups9" targetRef="TextAnnotation_1yw918g" />
+    <bpmn:textAnnotation id="TextAnnotation_1qc6rcw">
+      <bpmn:text>film.service.ts</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_13ljy9o" associationDirection="None" sourceRef="Activity_0ltnfr0" targetRef="TextAnnotation_1qc6rcw" />
+    <bpmn:textAnnotation id="TextAnnotation_1twh382">
+      <bpmn:text>films.js</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0msfp66" associationDirection="None" sourceRef="Activity_0w3qigf" targetRef="TextAnnotation_1twh382" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="162" y="302" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_181ups9_di" bpmnElement="Activity_181ups9" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="240" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ltnfr0_di" bpmnElement="Activity_0ltnfr0" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="390" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gze0ep_di" bpmnElement="Activity_0w3qigf" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="540" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1yw918g_di" bpmnElement="TextAnnotation_1yw918g">
+        <dc:Bounds x="240" y="200" width="150" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1qc6rcw_di" bpmnElement="TextAnnotation_1qc6rcw">
+        <dc:Bounds x="380" y="200" width="110" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1twh382_di" bpmnElement="TextAnnotation_1twh382">
+        <dc:Bounds x="540" y="200" width="100" height="30" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1o5q5ei_di" bpmnElement="Flow_1o5q5ei">
+        <di:waypoint x="198" y="320" />
+        <di:waypoint x="240" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14ko9lj_di" bpmnElement="Flow_14ko9lj">
+        <di:waypoint x="340" y="320" />
+        <di:waypoint x="390" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1czop7y_di" bpmnElement="Flow_1czop7y">
+        <di:waypoint x="490" y="320" />
+        <di:waypoint x="540" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0jubumg_di" bpmnElement="Association_0jubumg">
+        <di:waypoint x="290" y="280" />
+        <di:waypoint x="290" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_13ljy9o_di" bpmnElement="Association_13ljy9o">
+        <di:waypoint x="440" y="280" />
+        <di:waypoint x="440" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0msfp66_di" bpmnElement="Association_0msfp66">
+        <di:waypoint x="590" y="280" />
+        <di:waypoint x="590" y="230" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -176,6 +176,15 @@ export class FilmlistComponent implements OnInit {
     this.getRequest(event.first);
   }
 
+
+// Appel de la recherche depuis l'entete de la liste
+  rechercheIA(): void {
+    console.log('rechercheIA() (' + this.filmname + ')');
+    this.displaySpinner=true;
+    this.filmname='ia:'+this.filmname;
+    this.getRequest(0);
+}
+
   // Appel de la recherche depuis l'entete de la liste
   recherche(): void {
     console.log('recherche() (' + this.filmname + ')');

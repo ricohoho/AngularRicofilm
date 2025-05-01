@@ -2,9 +2,9 @@
 ```mermaid
 flowchart
   NginX["Nginx:80"] --> Frontend
-  Frontend["Front-End :4200"] --> Backend["Back-End :3000"]
+  Frontend["Ricofilm-front :4200"] --> Backend["ricofilm-back :3000"]
   Backend --> Database[(Database)]
-  Backend --> AIService["Service IA :5000"]
+  Backend --> AIService["ricofilm-ia :5000"]
 ```
 
 ## Dans le linux Ubuntu WSL2

@@ -1,4 +1,6 @@
-# AngularRicoFilm
+# RicoFilm : Front (Angular) et Back (Node)
+
+## Ricofilm - Architecture
 ```mermaid
 flowchart
   NginX["Nginx:80"] --> Frontend

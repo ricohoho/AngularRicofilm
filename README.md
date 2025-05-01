@@ -118,20 +118,20 @@ location /films/list {
 
 
 
-Création de l’image docker Back : 
-`docker build -t ricofilm-back .`
+Création de l’image docker Back : `docker build -t ricofilm-back .`
 
-Création de l’image docker Front :
-`docker build -t ricofilm-front .`
+Création de l’image docker Front : `docker build -t ricofilm-front .`
 
-Création de l'image service IA  
-`docker build -t ricofilm-ia .`
+Création de l'image service IA  : `docker build -t ricofilm-ia .`
+
+Possibilité de choisir le mode d'execution
+`export NODE_ENV=production ou local`
 
 Création du container  IA : 
 `docker run -d --name ricofilm-iac -p 5000:5000 --env-file .env ricofilm-ia`
 
-Création du container  Back : 
-`docker run -d --name ricofilm-backc -p 3000:3000  --link ricofilm-iac  ricofilm-back`
+Création du container  Back acec indication du env file : env.local ou env.production
+`docker run -d --name ricofilm-backc -p 3000:3000  -env-file .env.local --link ricofilm-iac  ricofilm-back`
 
 Création du container  Front : 
 `docker run -d --name ricofilm-frontc -p 4200:80  --link ricofilm-backc ricofilm-front`

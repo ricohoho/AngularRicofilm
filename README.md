@@ -29,6 +29,8 @@ npm start
 ```
 
 ## 2 - Fabrication des docker
+
+```
 Arborescence : 
 /home/eric/ricofilm/docker
 	/AngularRicoFilm/ ←–Front
@@ -36,6 +38,7 @@ Arborescence :
 	/bd/
 	/ricofilm-web/ ←–Back-End
 		Dockerfile
+```
 
 /AngularRicoFilm/Dockerfile : 
 ``` @dockerfile

@@ -19,9 +19,10 @@ récupérer l’IP de la BD :
 ```
 hostname -I | awk '{print $1}'
 ```
-L’indiquer dans : app.js et db.config.js
+L’indiquer dans : app.js et .env.local ou .env.prod
 ```
 cd /home/eric/ricofilm/docker/ricofilm-web
+export MODE_ENV=local ou production
 npm start
 #Lancer l'application Front
 cd /home/eric/ricofilm/docker/AngularRicoFilm

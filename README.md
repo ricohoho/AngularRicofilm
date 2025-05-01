@@ -79,8 +79,17 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-Configuration d'un proxy-pass depuis le NGINX Angular afin d'eviter les problem COORS
+Configuration d'un proxy-pass depuis le NGINX Angular afin d'eviter les problem COORS, NGINX.CONF : 
 ```
+server {
+    listen 80;
+    server_name localhost;
+    
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
 location /films/list {
         proxy_pass http://ricofilm-web-container:3000/films/list;
         proxy_set_header Host $host;

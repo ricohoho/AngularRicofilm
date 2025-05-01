@@ -114,17 +114,19 @@ location /films/list {
 ```
 
 
-Création de l’image docker Front :
-`docker build -t ricofilm-front`
 
 Création de l’image docker Back : 
-`docker build -t ricofilm-back`
+`docker build -t ricofilm-back .`
+
+Création de l’image docker Front :
+`docker build -t ricofilm-front .`
+
 
 Création du container  Back : 
-`docker run -d --name ricofilm-back-container -p 3000:3000  ricofilm-back`
+`docker run -d --name ricofilm-backc -p 3000:3000  ricofilm-back`
 
 Création du container  Front : 
-`docker run -d --name ricofilm-front-container -p 4200:80  --link ricofilm-back-container ricofilm-front`
+`docker run -d --name ricofilm-frontc -p 4200:80  --link ricofilm-backc ricofilm-front`
 
 
 

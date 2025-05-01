@@ -14,9 +14,10 @@ flowchart
 Lancer la bd 
 docker start mongo-container
 Lancer l'application Back
-se connecter au container MongoDb docker exec -it my_container /bin/bash
-récupérer l’IP de la BD : 
 ```
+#se connecter au container MongoDb 
+docker exec -it my_container /bin/bash
+#récupérer l’IP de la BD : 
 hostname -I | awk '{print $1}'
 ```
 L’indiquer dans : app.js et .env.local ou .env.prod

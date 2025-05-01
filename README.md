@@ -124,9 +124,14 @@ Création de l’image docker Back :
 Création de l’image docker Front :
 `docker build -t ricofilm-front .`
 
+Création de l'image service IA  
+`docker build -t ricofilm-ia .`
+
+Création du container  IA : 
+`docker run -d --name ricofilm-iac -p 5000:5000 --env-file .env ricofilm-ia`
 
 Création du container  Back : 
-`docker run -d --name ricofilm-backc -p 3000:3000  ricofilm-back`
+`docker run -d --name ricofilm-backc -p 3000:3000  --link ricofilm-iac  ricofilm-back`
 
 Création du container  Front : 
 `docker run -d --name ricofilm-frontc -p 4200:80  --link ricofilm-backc ricofilm-front`

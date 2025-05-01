@@ -131,11 +131,7 @@ Création du container  IA :
 `docker run -d --name ricofilm-iac -p 5000:5000 --env-file .env ricofilm-ia`
 
 Création du container  Back acec indication du env file : env.local ou env.production
-`docker run -d --name ricofilm-backc -p 3000:3000  -env-file .env.local --link ricofilm-iac  ricofilm-back`
+`docker run -d --name ricofilm-backc -p 3000:3000  --env NODE_ENV=localdocker  --env-file .env.localdocker --link ricofilm-iac  ricofilm-back`
 
 Création du container  Front : 
 `docker run -d --name ricofilm-frontc -p 4200:80  --link ricofilm-backc ricofilm-front`
-
-
-
-

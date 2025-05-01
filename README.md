@@ -79,6 +79,32 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
+Configuration d'un proxy-pass depuis le NGINX Angular afin d'eviter les problem COORS
+```
+location /films/list {
+        proxy_pass http://ricofilm-web-container:3000/films/list;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization';    
+    }
+    location /films/listmenufilmimage {
+        proxy_pass http://ricofilm-web-container:3000/films/listmenufilmimage;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        add_header 'Access-Control-Allow-Origin' '*';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'Origin, Content-Type, Accept, Authorization';
+    }
+...
+```
+
+
 Création de l’image docker Front :
 `docker build -t ricofilm-front`
 

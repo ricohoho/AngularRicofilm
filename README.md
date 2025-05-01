@@ -7,29 +7,86 @@ flowchart
   Backend --> AIService["Service IA :5000"]
 ```
 
+## Dans le linux Ubuntu WSL2
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.7.
 
-## Development server
+## 1 - Execution de Ricofilm dans le contexte WSL2
+Lancer la bd 
+docker start mongo-container
+Lancer l'application Back
+se connecter au container MongoDb docker exec -it my_container /bin/bash
+récupérer l’IP de la BD : 
+```
+hostname -I | awk '{print $1}'
+```
+L’indiquer dans : app.js et db.config.js
+```
+cd /home/eric/ricofilm/docker/ricofilm-web
+npm start
+#Lancer l'application Front
+cd /home/eric/ricofilm/docker/AngularRicoFilm
+npm start
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 2 - Fabrication des docker
+Arborescence : 
+/home/eric/ricofilm/docker
+	/AngularRicoFilm/ ←–Front
+		Dockerfile		
+	/bd/
+	/ricofilm-web/ ←–Back-End
+		Dockerfile
 
-## Code scaffolding
+/AngularRicoFilm/Dockerfile : 
+``` @dockerfile
+# Dockerfile pour le frontend Angular
+FROM node:22 AS build
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build --prod
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Étape 2 : Utiliser un serveur léger pour héberger Angular
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/src/app/dist/angular-rico-film /usr/share/nginx/html
 
-## Build
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+/ricofilm-web/Dockerfile : 
+``` @dockerfile
+# Spécifie l'image de base
+FROM node:latest
+# DÃ©finit le rÃ©pertoire de travail
+WORKDIR /app
+# Copie les fichiers de l'application
+COPY package*.json ./
+COPY app.js ./
+# Installe les dÃ©pendances
+RUN npm install
+#  Copie les sources dependante
+COPY . .
+# Expose le port
+EXPOSE 3000
+# Démarrer l'application
+CMD ["npm", "start"]
+```
 
-## Running unit tests
+Création de l’image docker Front :
+`docker build -t ricofilm-front`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Création de l’image docker Back : 
+`docker build -t ricofilm-back`
 
-## Running end-to-end tests
+Création du container  Back : 
+`docker run -d --name ricofilm-back-container -p 3000:3000  ricofilm-back`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Création du container  Front : 
+`docker run -d --name ricofilm-front-container -p 4200:80  --link ricofilm-back-container ricofilm-front`
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+

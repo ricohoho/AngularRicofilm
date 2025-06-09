@@ -20,7 +20,7 @@ style="background-color: black;"
     <h4 style="margin-bottom: .5rem; color: #ffffff;">
         {{ item.original_title }}
     </h4>
-    <p>{{ 'Metteur en scène : '+getDirector(item)+', Distribution : '+item.credits.cast[0].name+','+ item.credits.cast[1].name}}</p>
+    <p>{{ 'Metteur en scène : '+getDirector(item)+', Distribution : '+ getActors(item)}}</p>
 </ng-template>
 </p-galleria>
 </div>

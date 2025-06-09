@@ -58,4 +58,18 @@ constructor(private dataService: FilmService ) {}
     return film.credits.crew[searchIndex].name;
   }
 
+  //REnvoi le metteur en scene !
+  getActors(film : Ifilm ): string {
+    if (film.credits.cast.length == 0) {
+      return "Aucun acteur";
+    }
+    if (film.credits.cast.length == 1) {
+      return film.credits.cast[0].name;
+    }
+    if (film.credits.cast.length >= 1) {
+      return film.credits.cast[0].name+','+film.credits.cast[1].name;
+    }
+    return "";
+  }
+
 }

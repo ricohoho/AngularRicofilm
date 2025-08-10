@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  //si frnt et back eme host laisser a vide sion indiquer l'url du back
+  REST_HOST: 'http://localhost:4200/',
   REST_API_FILM_SERVER :'films/list',
   REST_API_FILM_SERVER_SELECT :'films/listselect',
   REST_API_FILM_MENU_IMAGE :'films/listmenufilmimage',

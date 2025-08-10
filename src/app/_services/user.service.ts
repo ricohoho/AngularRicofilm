@@ -16,6 +16,7 @@ export class UserService {
 
   private REST_API_USER_SERVER = environment.REST_API_USER_SERVER_SELECT;
   private RESP_API = environment.REST_API;
+  private REST_HOST = environment.REST_HOST;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -39,19 +40,19 @@ export class UserService {
 
   //Urls de test ====
   getPublicContent(): Observable<any> {
-    return this.httpClient.get(this.RESP_API + 'all', { responseType: 'text' });
+    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'all', { responseType: 'text' });
   }
   getUserBoard(): Observable<any> {
-    return this.httpClient.get(this.RESP_API + 'user', { responseType: 'text' }).pipe( catchError(this.handleError),
+    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'user', { responseType: 'text' }).pipe( catchError(this.handleError),
       tap(res => {
         console.log('Retour de getFilmSelect ');
       }));
   }
   getModeratorBoard(): Observable<any> {
-    return this.httpClient.get(this.RESP_API + 'mod', { responseType: 'text' });
+    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'mod', { responseType: 'text' });
   }
   getAdminBoard(): Observable<any> {
-    return this.httpClient.get(this.RESP_API + 'admin', { responseType: 'text' });
+    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'admin', { responseType: 'text' });
   }
   //====
 
@@ -69,7 +70,7 @@ export class UserService {
 
     let params1 = new HttpParams();
 
-    return this.httpClient.get(this.REST_API_USER_SERVER,
+    return this.httpClient.get(this.REST_HOST+this.REST_API_USER_SERVER,
       {  headers : headers1, observe: 'response'}).pipe(
       retry(3), catchError(this.handleError),
       tap(res => {
@@ -88,7 +89,7 @@ export class UserService {
       // Ajoutez d'autres en-têtes si nécessaire
     });
 
-    const baseUrl = 'http://localhost:3000';
+    const baseUrl = this.REST_HOST;//'http://localhost:3000';
     const url= baseUrl+this.RESP_API+'/user/'+id;
     console.log('Url='+url);
     console.log('data.username='+data.username);

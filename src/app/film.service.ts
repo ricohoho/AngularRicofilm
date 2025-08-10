@@ -26,6 +26,7 @@ export class FilmService {
   private REST_API_FILM_SERVER = environment.REST_API_FILM_SERVER;
   private REST_API_REQUEST_SERVER = environment.REST_API_REQUEST_SERVER;
   private REST_API_FILM_SERVER_SELECT = environment.REST_API_FILM_SERVER_SELECT;
+  private REST_HOST = environment.REST_HOST;
   public constructor(private httpClient: HttpClient) { }
 
   public handleError(error: HttpErrorResponse): any  { //} Observable<never> {
@@ -64,7 +65,7 @@ export class FilmService {
 
     const optionRequete1 = { headers : headers1 };
 
-    return this.httpClient.get(this.REST_API_FILM_SERVER, optionRequete1).pipe(retry(3), catchError(this.handleError));
+    return this.httpClient.get(this.REST_HOST+this.REST_API_FILM_SERVER, optionRequete1).pipe(retry(3), catchError(this.handleError));
   }
 
 
@@ -90,7 +91,7 @@ export class FilmService {
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(this.REST_API_FILM_SERVER,
+    return this.httpClient.get(this.REST_HOST+this.REST_API_FILM_SERVER,
       {params: params1,  headers : headers1, observe: 'response'}).pipe(
       retry(3), catchError(this.handleError),
       tap(res => {
@@ -147,7 +148,7 @@ export class FilmService {
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(this.REST_API_FILM_SERVER_SELECT,
+    return this.httpClient.get(this.REST_HOST+this.REST_API_FILM_SERVER_SELECT,
       {params: params1,  headers : headers1, observe: 'response'}).pipe(
       retry(3), catchError(this.handleError),
       tap(res => {
@@ -173,7 +174,7 @@ export class FilmService {
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(environment.REST_API_FILM_MENU_IMAGE,
+    return this.httpClient.get(this.REST_HOST+environment.REST_API_FILM_MENU_IMAGE,
       {params: params1,  headers : headers1, observe: 'response'}).pipe(
       retry(3), catchError(this.handleError),
       tap(res => {

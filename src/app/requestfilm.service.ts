@@ -11,6 +11,7 @@ import {environment} from "../environments/environment";
 export class RequestfilmService {
 
   private REST_API_REQUEST_SERVER = environment.REST_API_REQUEST_SERVER;
+  private REST_HOST = environment.REST_HOST;
 
   public constructor(private httpClient: HttpClient) { }
 
@@ -39,7 +40,7 @@ export class RequestfilmService {
 
     console.log('Debut createRequest / AVANT post');
 
-    return this.httpClient.post<Irequest>(this.REST_API_REQUEST_SERVER+'/add', iresquest, httpOptions).subscribe(
+    return this.httpClient.post<Irequest>(this.REST_HOST+this.REST_API_REQUEST_SERVER+'/add', iresquest, httpOptions).subscribe(
       reponse => {
         console.log('Réponse du serveur : ', reponse);
       },

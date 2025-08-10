@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 
 //const AUTH_API = 'http://localhost:3000/api/auth/';
 //const AUTH_API = 'http://localhost:4200/api/auth/';
-const AUTH_API = '/api/auth/';
+const AUTH_API = 'api/auth/';
 const REST_HOST = environment.REST_HOST;
 
 
@@ -21,7 +21,7 @@ export class AuthService {
 
   login(username: string, password: string): Observable<any> {
     return this.http.post(
-      AUTH_API + 'signin',
+      REST_HOST+AUTH_API + 'signin',
       {
         username,
         password,
@@ -32,7 +32,7 @@ export class AuthService {
 
   register(username: string, email: string, password: string): Observable<any> {
     return this.http.post(
-      AUTH_API + 'signup',
+      REST_HOST+AUTH_API + 'signup',
       {
         username,
         email,

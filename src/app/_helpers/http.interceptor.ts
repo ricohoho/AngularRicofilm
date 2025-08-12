@@ -14,6 +14,23 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   constructor(private storageService: StorageService, private eventBusService: EventBusService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    
+    // ✨ DÉBUT DES MODIFICATIONS NÉCESSAIRES ✨
+    // On récupère l'utilisateur (qui devrait contenir le token) depuis le service de stockage
+    const user = this.storageService.getUser();
+
+    // Si l'utilisateur est connecté et possède un token, on ajoute le header Authorization
+    if (user && user.token) { // Assurez-vous que la propriété s'appelle bien 'token'
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${user.token}`
+        }
+      });
+    }
+
+    // Note : withCredentials: true est généralement pour les cookies.
+    // Si vous n'utilisez que des tokens JWT, vous pourriez le supprimer.
+    // Laissons-le pour l'instant pour ne pas introduire d'autres changements.
     req = req.clone({
       withCredentials: true,
     });

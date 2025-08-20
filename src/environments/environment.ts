@@ -13,10 +13,10 @@ export const environment = {
   REST_API : '/api',
   REST_API_REQUEST_SERVER :'request',
   PATH_IMAGE:'../../assets/images/',
-  URL_HOME:'ricofilmA'
+  URL_HOME:''
 };
 
-/*
+/* ricofilmA
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *

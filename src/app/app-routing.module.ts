@@ -11,7 +11,7 @@ import {UserlistComponent} from "./userlist/userlist.component"
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  {path: 'ricofilmA', component: FilmlistComponent},
+  {path: 'searchfilm', component: FilmlistComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },

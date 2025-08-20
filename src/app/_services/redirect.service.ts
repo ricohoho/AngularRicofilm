@@ -40,10 +40,11 @@ export class RedirectService {
     this.router.navigate(['/profile' ]);
     
   }
-/*
-  goSearch(): void {
-    console.log('goSearch()');
-    this.router.navigate(['/userlist' ]);
+
+  //Ajout URL de recherhe de film : goSearchFilm
+  goSearchFilm(): void {
+    console.log('goSearchFilm()');
+    this.router.navigate(['/searchfilm' ]);
   }
-*/
+
 }

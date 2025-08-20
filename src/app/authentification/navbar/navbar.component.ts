@@ -121,7 +121,8 @@ export class NavbarComponent {
   //Provoque  l'affichage de de la liste des films
   affichelist():void {
     //this.router.navigate(['/ricofilmA']);
-    this.redirectService.goHome();
+    //EF 20250820 ajout url de searchFilm
+    this.redirectService.goSearchFilm();
   }
 
 

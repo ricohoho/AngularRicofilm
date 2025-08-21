@@ -4,6 +4,7 @@ import {FilmService} from '../../film.service';
 import {HttpResponse} from "@angular/common/http";
 import {Ifilm, Iproduction_companies, IRICO_FICHIER} from '../../ifilm'
 import { Observable } from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent {
 
 
   films: any[] ;
-
+  private REST_HOST = environment.REST_HOST;
   
   responsiveOptions: any[] = [
   
@@ -56,6 +57,11 @@ constructor(private dataService: FilmService ) {}
   getDirector(film : Ifilm ): string {
     let  searchIndex = film.credits.crew.findIndex((FILM) => FILM.job=='Director');
     return film.credits.crew[searchIndex].name;
+  }
+
+
+  getUrlResized(name: string) : string {
+    return this.REST_HOST+'image/resize?url=https://image.tmdb.org/t/p/original/' + name+'&width=100&height=100'
   }
 
   //REnvoi le metteur en scene !

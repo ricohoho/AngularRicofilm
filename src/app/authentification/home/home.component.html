@@ -13,7 +13,7 @@ style="background-color: black;"
   </ng-template>
   <ng-template pTemplate="thumbnail" let-item>
     <div class="grid grid-nogutter justify-content-center">
-      <img [src]="'/image/resize?url=https://image.tmdb.org/t/p/original/' + item.backdrop_path+'&width=100&height=100'" />
+      <img [src]="getUrlResized(item.backdrop_path)" />
     </div>
   </ng-template>
   <ng-template pTemplate="caption" let-item>

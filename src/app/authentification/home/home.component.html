@@ -10,7 +10,7 @@ style="background-color: black;"
 >
   <ng-template pTemplate="item" let-item>
     <img 
-    [src]="'https://image.tmdb.org/t/p/original/' + (item.backdrop_path ? item.backdrop_path : item.poster_path)" 
+    [src]="'https://image.tmdb.org/t/p/original/' + (item.backdrop_path && item.backdrop_path !== 'null'  ? item.backdrop_path : item.poster_path)" 
     style="width: 100%;" alt="{{ item.title }}"
     /> 
   </ng-template>

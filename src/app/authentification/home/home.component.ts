@@ -41,7 +41,12 @@ constructor(private dataService: FilmService ) {}
   this.dataService.getFilmMenuImage("").subscribe(
       (res: HttpResponse<any>) => {        
         this.films = res.body;
-        console.log('getFilmMenuImage Debut');                
+        console.log('getFilmMenuImage Debut');   
+        
+        // Parcours de la liste des films pour afficher backdrop_path
+        this.films.forEach(film => {
+          console.log('backdrop_path:', film.backdrop_path+'/'+film.poster_path);
+        });            
       },
       error => {
         console.error('userLis.composant : Erreur reçue: ' + error);  

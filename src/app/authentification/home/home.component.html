@@ -11,12 +11,13 @@ style="background-color: black;"
   <ng-template pTemplate="item" let-item>
     <img 
     [src]="'https://image.tmdb.org/t/p/original/' + (item.backdrop_path && item.backdrop_path !== 'null'  ? item.backdrop_path : item.poster_path)" 
-    style="width: 100%;" alt="{{ item.title }}"
+    [ngStyle]="{ width: (item.backdrop_path && item.backdrop_path !== 'null' ? '100%' : '50%') }"
+    alt="{{ item.title }}"
     /> 
   </ng-template>
   <ng-template pTemplate="thumbnail" let-item>
     <div class="grid grid-nogutter justify-content-center">
-      <img [src]="getUrlResized(item.backdrop_path)" />
+      <img [src]="getUrlResized(item.backdrop_path && item.backdrop_path !== 'null'  ? item.backdrop_path : item.poster_path)" />
     </div>
   </ng-template>
   <ng-template pTemplate="caption" let-item>

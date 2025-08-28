@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import {NavbarsService} from "../../_services/navbars.service";
 import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
 import { ToolbarModule } from 'primeng/toolbar';
+import { FilmService } from '../../film.service';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class NavbarComponent {
 
   selectedButton: number = 1; // Initialiser pour que le premier bouton soit sélectionné par défaut 
 
-  constructor(private authService: AuthService,private storageService: StorageService,private redirectService: RedirectService,private navbarsService: NavbarsService) {
+  constructor(private authService: AuthService,private storageService: StorageService,private redirectService: RedirectService,private navbarsService: NavbarsService, private messageService: MessageService, private filmService: FilmService) {
     //Inscription a l'observable d'un service, lui meme est mis a jour par un composant, login.component par exemple
     //Si le login a réussi reussi  alors on solicite le service NavbarsService avec la methode refreshComponent(), qui déclenche de son coté la methide refrsh du composant NavBar !!
     this.subscription = this.navbarsService.getRefreshObservable().subscribe(() => {
@@ -139,5 +140,25 @@ export class NavbarComponent {
   goProfile():void {
     console.log('goProfile()');
     this.redirectService.goProfile();
+  }
+
+  sync(): void {
+    console.log('sync()');
+    this.filmService.sync().subscribe(
+      (response) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: response.message,
+          detail: `Créés: ${response.created}, Mis à jour: ${response.updated}, Total: ${response.total}`,
+        });
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Sync failed',
+        });
+      }
+    );
   }
 }

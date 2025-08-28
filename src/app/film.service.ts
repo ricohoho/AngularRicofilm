@@ -285,6 +285,9 @@ export class FilmService {
 }
   */
 
+  public sync(): Observable<any> {
+    return this.httpClient.post<any>('/api/sync', {});
+  }
 }
 
 

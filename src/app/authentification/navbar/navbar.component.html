@@ -14,6 +14,10 @@
                 [ngClass]="{'selected-button': selectedButton === 2}"                 
                   (onClick)="selectButton(2);afficheAnnuaire()">                    
                 </p-button>
+                <p-button icon="pi pi-sync" styleClass="p-button-rounded p-button-info p-button-text"
+                [ngClass]="{'selected-button': selectedButton === 4}"
+                (onClick)="selectButton(4);sync()">
+                </p-button>
                 <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-info p-button-text"
                 [ngClass]="{'selected-button': selectedButton === 3}"   
                 (onClick)="selectButton(3);affichelist()">                    

@@ -19,7 +19,7 @@ import { RedirectService } from '../_services/redirect.service';
   selector: 'app-filmlist',
   templateUrl: './filmlist.component.html',
   styleUrls: ['./filmlist.component.scss'],
-  providers: [DialogService, MessageService]
+  providers: [DialogService]
 })
 export class FilmlistComponent implements OnInit {
 

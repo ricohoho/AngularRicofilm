@@ -48,6 +48,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CardModule } from 'primeng/card';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -96,7 +97,7 @@ import { CardModule } from 'primeng/card';
         AvatarGroupModule,
         CardModule  
     ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

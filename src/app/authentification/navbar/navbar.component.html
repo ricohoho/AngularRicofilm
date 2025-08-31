@@ -16,7 +16,8 @@
                 </p-button>
                 <p-button icon="pi pi-sync" styleClass="p-button-rounded p-button-info p-button-text"
                 [ngClass]="{'selected-button': selectedButton === 4}"
-                (onClick)="selectButton(4);sync()">
+                (onClick)="selectButton(4);sync()"
+                [loading]="isSyncing">
                 </p-button>
                 <p-button icon="pi pi-search" styleClass="p-button-rounded p-button-info p-button-text"
                 [ngClass]="{'selected-button': selectedButton === 3}"   

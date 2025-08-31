@@ -17,13 +17,9 @@ export class FilmService {
 
   public NbFilms: String  ;
 
-  // private REST_API_SERVER = 'http://davic.mkdh.fr:3000/films/list';
-  //local
-  //private REST_API_SERVER = 'films/list';
-  //prod
-  //private REST_API_SERVER = 'ricofilm/films/list';
-  //private REST_API_SERVER = 'http://localhost:3000/films/
+
   private REST_API_FILM_SERVER = environment.REST_API_FILM_SERVER;
+  private REST_API = environment.REST_API;
   private REST_API_REQUEST_SERVER = environment.REST_API_REQUEST_SERVER;
   private REST_API_FILM_SERVER_SELECT = environment.REST_API_FILM_SERVER_SELECT;
   private REST_HOST = environment.REST_HOST;
@@ -286,7 +282,7 @@ export class FilmService {
   */
 
   public sync(): Observable<any> {
-    return this.httpClient.post<any>('/api/sync', {});
+    return this.httpClient.post<any>(this.REST_HOST+environment.REST_API+'/sync', {});
   }
 }
 

@@ -6,6 +6,7 @@ import {StorageService} from "../../_services/storage.service";
 import {RedirectService} from "../../_services/redirect.service";
 import {environment} from "../../../environments/environment";
 import { Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import {NavbarsService} from "../../_services/navbars.service";
 import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
 import { ToolbarModule } from 'primeng/toolbar';
@@ -25,6 +26,8 @@ export class NavbarComponent {
   ref: DynamicDialogRef;
   path_image: string;
   url_home:string;
+
+  public isSyncing = false;
 
   //Partie Authentification
   isLoggedIn = false;
@@ -144,7 +147,10 @@ export class NavbarComponent {
 
   sync(): void {
     console.log('sync()');
-    this.filmService.sync().subscribe(
+    this.isSyncing = true;
+    this.filmService.sync().pipe(
+      finalize(() => this.isSyncing = false)
+    ).subscribe(
       (response) => {
         this.messageService.add({
           severity: 'success',

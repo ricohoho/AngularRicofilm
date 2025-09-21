@@ -151,6 +151,11 @@ export class FilmlistComponent implements OnInit {
         this.NbFilms  =  this.convertStringToNumber(this.dataService.NbFilms);
         this.totalRecords=this.NbFilms;
         this.displaySpinner=false;
+        //SI dans la champs de recherche il y a ia: on supprime le "ia:"
+        if (this.filmname.indexOf('ia:')==0)
+          this.filmname=this.filmname.substring(3);
+        if (this.filmname.indexOf('ia2:')==0)
+          this.filmname=this.filmname.substring(4);
       }
     );
   }
@@ -181,7 +186,7 @@ export class FilmlistComponent implements OnInit {
   rechercheIA(): void {
     console.log('rechercheIA() (' + this.filmname + ')');
     this.displaySpinner=true;
-    this.filmname='ia:'+this.filmname;
+    this.filmname='ia2:'+this.filmname;
     this.getRequest(0);
 }
 

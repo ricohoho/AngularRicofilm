@@ -196,6 +196,7 @@ export class FilmlistComponent implements OnInit {
     this.displaySpinner=true;
     this.getRequest(0);
   }
+  
   //Recherche appelé a partir de l'autocomplete
   rechercheSelect() {
     console.log('rechercheSelect() ()'+this.filmselectione);

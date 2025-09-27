@@ -67,7 +67,10 @@ export class FilmlistComponent implements OnInit {
   }
 
   convertDate(date_heure:string): string {
-    let dateComponents = date_heure.substring(0,10);
+    let dateComponents: string = '';
+    if (date_heure) {
+      dateComponents = date_heure.substring(0,10);
+    }
     return dateComponents;
   }
 
@@ -77,18 +80,25 @@ export class FilmlistComponent implements OnInit {
   }
 
  //Renvoi info sur PRENT_STREAMING
-  public  getImageStremaning(present_streamin : boolean, type : string) : string {
+  public  getImageStremaning(status:string,present_streamin : boolean, type : string) : string {
     let retour='';
-    if (present_streamin) {
+    if (status=='added_from_tmdb') {
       if (type=='contenu')
-        retour = 'O';// '../../assets/images/ok.png';
-      else
-        retour='color:green';
+          retour = 'N';// '../../assets/images/ok.png';
+       else
+          retour='color:blue';
     } else {
-      if (type=='contenu')
-        retour = 'X';//'../../assets/images/ko.png';
-      else
-        retour='color:red';
+      if (present_streamin) {
+        if (type=='contenu')
+          retour = 'O';// '../../assets/images/ok.png';
+        else
+          retour='color:green';
+      } else {
+        if (type=='contenu')
+          retour = 'X';//'../../assets/images/ko.png';
+        else
+          retour='color:red';
+      }
     }
     return retour;
   }
@@ -143,6 +153,9 @@ export class FilmlistComponent implements OnInit {
         this.films = res.body;
         let present_streaming = false;
         for (const film of this.films) {
+          present_streaming = false;
+          //On regarde si le film possede un fichier en streaming
+          if (typeof film.RICO_FICHIER =='undefined') continue;
           for (const rico_fichier of film.RICO_FICHIER) {
             present_streaming = present_streaming || rico_fichier.serveur_name=='davic.mkdh.fr';
           }

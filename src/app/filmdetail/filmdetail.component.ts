@@ -30,11 +30,13 @@ export class FilmdetailComponent implements OnInit {
   constructor( public dialogService: DynamicDialogRef,public config: DynamicDialogConfig,public youtubePlayer: YouTubePlayerModule) {}
 
   getDirector(): string {
+    if (this.film.credits.crew.length==0 ) return ""
     let  searchIndex = this.film.credits.crew.findIndex((FILM) => FILM.job=='Director');
     return this.film.credits.crew[searchIndex].name;
   }
 
   transformeDateTimeToDate(date : string):string {
+    if (!date) return "";
     let dateComponents = date.substring(0,10);
     return dateComponents;
   }
@@ -53,17 +55,26 @@ export class FilmdetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Data: " +  JSON.stringify(this.config));
-    console.log("Data: "+this.config.data.title);
+    console.log("Data1: " +  JSON.stringify(this.config));
+    console.log("Data2: "+this.config.data.title);
     this.film=this.config.data;
-    console.log("Data: "+this.film.title);
-    console.log("Data: "+this.film.genres[0].name);
+    console.log("Data3: "+this.film.title);
+    // Ajoute la propriété genres si elle n'existe pas
+    if (!this.film.genres || this.film.genres.length==0) {
+      this.film.genres = [];
+    } else 
+      console.log("Data4: "+this.film.genres[0].name);
 
+    if (!this.film.credits) {
+      this.film.credits = {cast: [], crew: []};
+    }
+      
+    //Chemin des images
     this.path_image=environment.PATH_IMAGE;
     console.log("this.path_image: "+this.path_image);
 
-    //Reccuperation de l'id Ypoutube de la bande annonce
-    if (this.film.videos.results.length>0)
+    //Rccuperation de l'id Ypoutube de la bande annonce
+    if (this.film.videos && this.film.videos.results.length>0)
       this.videoId=this.film.videos.results[0].key;
 
     this.cols_fichier = [

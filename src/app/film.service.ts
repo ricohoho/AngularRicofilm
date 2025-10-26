@@ -7,6 +7,7 @@ import {catchError, retry, tap} from 'rxjs/operators';
 import {environment} from '../environments/environment';
 import {Irequest} from "./irequest";
 import { Ifilm } from './ifilm';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,19 @@ export class FilmService {
   }
 
 
-
+ async wakeUpBackend(): Promise<void> {
+    try {
+      console.log('Waking up backend...');
+      if (this.REST_HOST.includes("onrender")) {
+        await this.httpClient.get('https://ricofilm-ia.onrender.com/').toPromise();
+      } else {
+        console.log("Pas utilisé car pas sur render");
+      }
+    } catch (e) {
+      // Ignorer l'erreur, le but est juste de réveiller
+      console.log('Backend wake-up request sent. Exception '+e);
+    }
+  }
   //Renvoi la liste des films avec toutes les infos (utilisé dans la liste pricipales)
   // utilise les paraetre de filtrage et de pagination et de tri
   public getFilm( skip: number, filmname: string, rows: number, sort= 'UPDATE_DB_DATE', sortsens= -1): Observable<any>{

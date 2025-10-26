@@ -53,6 +53,8 @@ export class FilmlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRequest(0);
+    //Check le composant ia pou le reveiller
+    this.dataService.wakeUpBackend();
 
     this.sortOptions = [
       {label: 'title asc', value: 'title'},
@@ -64,8 +66,11 @@ export class FilmlistComponent implements OnInit {
     //Initialisation de la liste de selection
     this.getFilmSelect("original_title");
 
+
   }
 
+
+  
   convertDate(date_heure:string): string {
     let dateComponents: string = '';
     if (date_heure) {

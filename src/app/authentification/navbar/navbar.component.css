@@ -20,11 +20,11 @@
 
 .selected-buttonX:hover {
   background-color: transparent; /* Couleur de fond au survol */
-  border-color: #0056b3; /* Couleur de la bordure au survol */
+  border-color: lightgray; /* Couleur de la bordure au survol */
 }
 
 /* Augmenter la spécificité du sélecteur */
 .p-toolbar.custom-toolbar {
-  background-color: black !important; /* Définit la couleur de fond en noir */
+  background-color: #121212 !important; /* Définit la couleur de fond en noir */
   color: white !important; /* Assure que le texte est lisible sur fond noir */
 }

@@ -140,7 +140,7 @@ export class FilmlistComponent implements OnInit {
 
       for(let i = 0; i < this.filmselectionTotal.length; i++) {
         let item = this.filmselectionTotal[i];
-        if (item.original_title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        if (item.original_title.toLowerCase().indexOf(query.toLowerCase()) == 0 || item.title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           filtered.push(item);
         }
       }
@@ -217,7 +217,7 @@ export class FilmlistComponent implements OnInit {
   
   //Recherche appelé a partir de l'autocomplete
   rechercheSelect() {
-    console.log('rechercheSelect() ()'+this.filmselectione);
+    console.log('rechercheSelect(film commencant par):'+this.filmselectione);
     if (typeof this.filmselectione =='string')
       this.filmname=this.filmselectione;
     else

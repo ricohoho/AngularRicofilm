@@ -1,5 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
-
-html, body { height: 100%; }
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+html, body { height: 100%; 
+    background-color: #121212; 
+    font-family: "Lexend", sans-serif !important; 
+    font-optical-sizing: auto;  
+    font-weight: 400;
+    font-style: normal;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.grid div{
+    height: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+    margin-right: 4px;
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+

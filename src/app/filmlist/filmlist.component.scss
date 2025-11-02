@@ -1,7 +1,90 @@
+.product-name{
+  font-family: "Lexend", sans-serif !important; 
+  font-optical-sizing: auto;  
+  font-weight: 400;
+  font-style: normal;
+}
+
 :host ::ng-deep {
 .p-dropdown {
   width: 14rem;
   font-weight: normal;
+}
+.p-dataview-content{
+  background-color: #121212;
+  color: white;
+}
+.p-dataview-header{
+  background-color: #121212;
+  border: none;
+  color: lightgray;
+}
+
+.p-button{
+  background-color: #121212;
+  color: white;
+  border-color: lightgray;
+  border-radius: 50px;
+}
+.p-button:hover{
+  background-color: #121212;
+  color: white;
+  border-color: lightgray;
+}
+
+.p-toolbar{
+  background-color: #121212;
+  border: #121212 !important;
+}
+
+.p-autocomplete-input{
+  background-color: #121212;
+  color: white;
+  border-color: rgba(222, 222, 222, 0.5);
+  border-radius: 50px;
+  width: 30vw !important;
+  padding: 8px 16px;
+}
+
+.pi:before {
+  color: white !important;
+}
+
+.p-ripple{
+  margin-left: 8px;
+}
+
+.dropdown{
+  color: white;
+  background-color: #121212;
+  border-radius: 50px;
+  border-color: rgba(222, 222, 222, 0.5);
+  padding: 4px 8px 4px 8px;
+}
+
+.rechIA{
+  width: 30vw;
+  padding: 8px 16px;
+}
+
+.nb_film p{
+  font-size: 1.2vw;
+  color: rgba(222, 222, 222, 0.5);
+  font-family: "Lexend", sans-serif !important; 
+  font-optical-sizing: auto;  
+  font-weight: 400;
+  font-style: normal;;
+}
+
+.p-selectbutton .p-button.p-highlight {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: lightgray;
+}
+.p-button .p-button-icon-only {
+  background-color: #121212;
+  color: white;
+  border-color: lightgray;
 }
 
 .product-name {
@@ -11,7 +94,18 @@
 }
 
 .product-description {
-  margin: 0 0 1rem 0;
+  margin: 0 0 8px 0;
+  font-family: "Lexend", sans-serif !important; 
+  font-optical-sizing: auto;  
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.8vw;
+}
+.date {
+  font-size: 0.875vw;
+  color: rgb(90, 90, 90);
+  margin-top: -4px;
+  margin-bottom: 12px;
 }
 
 .product-category-icon {
@@ -32,7 +126,7 @@
 
 img {
   max-width: 100%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(256, 256, 256, 0.16), 0 3px 6px rgba(256, 256, 256, 0.23);
   margin-right: 2rem;
 }
 
@@ -62,8 +156,10 @@ img {
 }
 
 .product-grid-item {
-  margin: .5em;
-  border: 1px solid #dee2e6;
+  margin-right: .5em;
+  min-width: 20vw;
+  height: 100%;
+  border: 1px solid rgb(10, 10, 10);
 
 .product-grid-item-top,
 .product-grid-item-bottom {
@@ -73,9 +169,14 @@ img {
 }
 
 img {
-  width: 250px;
+  width: 100%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  margin: 2rem 0;
+  margin: 0;
+  margin-bottom: 16px;
+  border-radius: 16px;
+}
+img:hover {
+  cursor: pointer;
 }
 
 .product-grid-item-content {
@@ -90,11 +191,22 @@ img {
 }
 
 .card {
-  padding: 2rem;
-  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  border-radius: 4px;
-  margin-bottom: 2rem;
+  padding: 2VW;
+  border: none;
+  // box-shadow: 0 2px 1px -1px rgba(256, 256, 256, 0.2), 0 1px 1px 0 rgba(256, 256, 256, 0.14), 0 1px 3px 0 rgba(256, 256, 256, 0.12);
+  border-radius: 16px;
+  margin-bottom: 5vh;
+  height: 50vh;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 //margin-right: 0px;
+}
+.card:hover {
+  // box-shadow: 0 2px 5px -5px rgba(256, 256, 256, 0.12), 0 16px 24px 2px rgba(256, 256, 256, 0.04), 0 6px 30px 5px rgba(256, 256, 256, 0.06);
+  transform: scale(1.02);
+}
+
+.p-paginator-bottom{
+  background-color: red;
 }
 
 @media screen and (max-width: 576px) {
@@ -126,6 +238,10 @@ img {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+  .card {
+    margin-bottom: 2vh;
+    height: 20vh !important;
   }
 }
 }

@@ -141,12 +141,19 @@ export class FilmlistComponent implements OnInit {
 
       for(let i = 0; i < this.filmselectionTotal.length; i++) {
         let item = this.filmselectionTotal[i];
+        /*
         if (item.original_title.toLowerCase().indexOf(query.toLowerCase()) == 0 || item.title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
           filtered.push(item);
+        }*/
+        const originalTitle = item.original_title ? item.original_title.toLowerCase() : '';
+        const title = item.title ? item.title.toLowerCase() : '';
+
+        if (originalTitle.indexOf(query.toLowerCase()) === 0 || title.indexOf(query.toLowerCase()) === 0) {
+          filtered.push(item);
         }
-      }
-      console.log("filterFilmSelect(): filtered.length:"+filtered.length);
-      this.filmselectfiltered = filtered;
+    }
+    console.log("filterFilmSelect(): filtered.length:"+filtered.length);
+    this.filmselectfiltered = filtered;
   }
 
 

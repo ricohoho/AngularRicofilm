@@ -137,6 +137,7 @@ export class FilmlistComponent implements OnInit {
       let filtered : any[] = [];
       let query = event.query;
       console.log("filterFilmSelect(query)"+query);
+      console.log("filterFilmSelect(toLowerCase)"+query.toLowerCase());
 
       for(let i = 0; i < this.filmselectionTotal.length; i++) {
         let item = this.filmselectionTotal[i];

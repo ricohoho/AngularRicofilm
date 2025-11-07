@@ -297,6 +297,16 @@ export class FilmService {
   public sync(): Observable<any> {
     return this.httpClient.post<any>(this.REST_HOST+environment.REST_API+'/sync', {});
   }
+
+  public addFilm(film: Ifilm): Observable<any> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+    return this.httpClient.post<any>(this.REST_HOST + this.REST_API_FILM_SERVER + '/add', film, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 }
 
 

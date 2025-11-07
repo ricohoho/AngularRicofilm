@@ -233,6 +233,18 @@ export class FilmlistComponent implements OnInit {
     this.recherche();
   }
 
+  addFilm(film: Ifilm) {
+    this.dataService.addFilm(film).subscribe(
+      () => {
+        this.messageService.add({severity: 'success', summary: 'Film Ajouté', detail: film.title});
+      },
+      (error) => {
+        console.error('Erreur lors de l\'ajout du film', error);
+        this.messageService.add({severity: 'error', summary: 'Erreur', detail: 'Le film existe déjà'});
+      }
+    );
+  }
+
 
   loadData2(event :LazyLoadEvent):void {
     //event.first = First row offset
@@ -299,6 +311,16 @@ export class FilmlistComponent implements OnInit {
         }
     });
 
+  }
+
+  handleStatusClick(film: Ifilm) {
+    if (film.status === 'added_from_tmdb') {
+      if (confirm('Voulez-vous vraiment ajouter ce film ?')) {
+        this.addFilm(film);
+      }
+    } else {
+      this.showRequestPopUp(film._id);
+    }
   }
 
 }

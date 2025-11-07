@@ -39,7 +39,7 @@
           <div class="product-list-detail">
             <div class="product-name"  (click)="showFilmPopUp(film._id)">{{film.title}}
             </div>
-            <div><span style="{{this.getImageStremaning(film.status,film.present_streaming,'couleur')}}"  (click)="showRequestPopUp(film._id)" >{{this.getImageStremaning(film.status,film.present_streaming,'contenu')}}</span></div>
+            <div><span style="{{this.getImageStremaning(film.status,film.present_streaming,'couleur')}}"  (click)="handleStatusClick(film)" >{{this.getImageStremaning(film.status,film.present_streaming,'contenu')}}</span></div>
             <div class="product-description">{{ film.release_date ? film.release_date.substring(0,4) : '' }}</div>
           </div>
         </div>
@@ -52,7 +52,7 @@
           <div id="toto" class="product-grid-item-content">
             <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path" (click)="showFilmPopUp(film._id)"/>
             <div class="product-description">{{film.original_title}}
-              <span style="{{this.getImageStremaning(film.status,film.present_streaming,'couleur')}}"  (click)="showRequestPopUp(film._id)" >{{this.getImageStremaning(film.status,film.present_streaming,'contenu')}}</span>
+              <span style="{{this.getImageStremaning(film.status,film.present_streaming,'couleur')}}"  (click)="handleStatusClick(film)" >{{this.getImageStremaning(film.status,film.present_streaming,'contenu')}}</span>
             </div>
               <!-- <div class="product-grid-item-top">
                 <div class="product-name" (click)="showFilmPopUp(film._id)"> {{film.title}}</div>

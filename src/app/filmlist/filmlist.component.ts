@@ -10,6 +10,7 @@ import {MessageService} from 'primeng/api';
 import {FilmdetailComponent} from  '../filmdetail/filmdetail.component';
 import {Ifilm, Iproduction_companies, IRICO_FICHIER} from '../ifilm'
 import {FilmrequestComponent} from  '../filmrequest/filmrequest.component';
+import { FilmfiltreComponent } from '../filmfiltre/filmfiltre.component';
 import {Irequest} from "../irequest";
 //import { Router } from '@angular/router';
 import { RedirectService } from '../_services/redirect.service';
@@ -36,6 +37,7 @@ export class FilmlistComponent implements OnInit {
   //film;
   NbFilms = 0 ;
   filmname = '';
+  filter: any = {};
   rows = 48; //nb_tow_per_page
   sortKey: any;
   totalRecords = 5000;
@@ -165,7 +167,7 @@ export class FilmlistComponent implements OnInit {
   //Renvoi la liste des Films a afficher dans la liste principales
   private getRequest(skip:number): void {
     this.displaySpinner=true;
-    this.dataService.getFilm(skip, this.filmname, this.rows , this.sortField, this.sortOrder).subscribe(
+    this.dataService.getFilm(skip, this.filmname, this.rows , this.sortField, this.sortOrder, this.filter).subscribe(
       (res: HttpResponse<any>) => {
         console.log(res);
         this.films = res.body;
@@ -218,6 +220,7 @@ export class FilmlistComponent implements OnInit {
     console.log('rechercheIA() (' + this.filmname + ')');
     this.displaySpinner=true;
     this.filmname='ia2:'+this.filmname;
+    this.filter = {};
     this.getRequest(0);
 }
 
@@ -225,6 +228,7 @@ export class FilmlistComponent implements OnInit {
   recherche(): void {
     console.log('recherche() (' + this.filmname + ')');
     this.displaySpinner=true;
+    this.filter = {};
     this.getRequest(0);
   }
   
@@ -235,6 +239,7 @@ export class FilmlistComponent implements OnInit {
       this.filmname=this.filmselectione;
     else
       this.filmname=this.filmselectione.original_title;
+    this.filter = {};
     this.recherche();
   }
 
@@ -316,6 +321,23 @@ export class FilmlistComponent implements OnInit {
         }
     });
 
+  }
+
+  showFilter() {
+    this.ref = this.dialogService.open(FilmfiltreComponent, {
+      header: 'Filtrer les films',
+      width: '70%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000
+    });
+
+    this.ref.onClose.subscribe((filtre) => {
+      if (filtre) {
+        this.filter = filtre;
+        this.filmname = '';
+        this.getRequest(0);
+      }
+    });
   }
 
   handleStatusClick(film: Ifilm) {

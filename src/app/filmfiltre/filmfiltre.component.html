@@ -1,0 +1,25 @@
+<div class="p-fluid">
+  <div class="p-field">
+    <label for="titre">Titre</label>
+    <input id="titre" type="text" pInputText [(ngModel)]="filtre.title">
+  </div>
+  <div class="p-field">
+    <label for="titre_original">Titre Original</label>
+    <input id="titre_original" type="text" pInputText [(ngModel)]="filtre.original_title">
+  </div>
+  <div class="p-field">
+    <label for="acteur">Acteur</label>
+    <input id="acteur" type="text" pInputText [(ngModel)]="filtre.acteur">
+  </div>
+  <div class="p-field">
+    <label for="metteur_en_scene">Metteur en scène</label>
+    <input id="metteur_en_scene" type="text" pInputText [(ngModel)]="filtre.metteur_en_scene">
+  </div>
+  <div class="p-field">
+    <label for="status">Status</label>
+    <input id="status" type="text" pInputText [(ngModel)]="filtre.status">
+  </div>
+</div>
+<div class="p-dialog-footer">
+  <button pButton type="button" label="Lancer la recherche" (click)="lancerRecherche()"></button>
+</div>

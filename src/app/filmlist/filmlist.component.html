@@ -24,6 +24,7 @@
           <p-progressSpinner *ngIf="displaySpinner"  animationDuration=5></p-progressSpinner>
         </span>
         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        <p-button icon="pi pi-filter" (click)="showFilter()" styleClass="p-button-info"></p-button>
       </div>
       <diV style="margin-top:16px; display: flex; gap: 8px; align-items: center;">
           <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Tri par Date d'ajout" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0 dropdown"></p-dropdown>

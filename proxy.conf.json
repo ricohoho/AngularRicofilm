@@ -7,6 +7,14 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
+  },"/films/add*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+        "^/films/add": "/films/add"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },
   "/request/add*": {
     "target": "http://localhost:3000",

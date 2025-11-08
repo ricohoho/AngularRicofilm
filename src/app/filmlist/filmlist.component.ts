@@ -92,6 +92,11 @@ export class FilmlistComponent implements OnInit {
           retour = 'N';// '../../assets/images/ok.png';
        else
           retour='color:blue';
+    } else if (status=='requested_from_tmdb') {
+      if (type=='contenu')
+          retour = 'R';// '../../assets/images/ok.png';
+       else
+          retour='color:orange';
     } else {
       if (present_streamin) {
         if (type=='contenu')
@@ -316,6 +321,8 @@ export class FilmlistComponent implements OnInit {
   handleStatusClick(film: Ifilm) {
     if (film.status === 'added_from_tmdb') {
       if (confirm('Voulez-vous vraiment ajouter ce film ?')) {
+        film.status = 'requested_from_tmdb';
+        film.UPDATE_DB_DATE = new Date().toISOString();
         this.addFilm(film);
       }
     } else {

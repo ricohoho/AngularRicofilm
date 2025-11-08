@@ -175,7 +175,7 @@ export class FilmService {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
 
-    return this.httpClient.post<any>(this.REST_HOST + this.REST_API_FILM_SERVER + '/add', film, { headers })
+    return this.httpClient.post<any>(this.REST_HOST + 'films/add', film, { headers })
       .pipe(
         catchError(this.handleError)
       );

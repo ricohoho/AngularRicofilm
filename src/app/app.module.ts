@@ -43,6 +43,7 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { HomeComponent } from './authentification/home/home.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { NavbarComponent } from './authentification/navbar/navbar.component';
+import { FilmfiltreComponent } from './filmfiltre/filmfiltre.component';
 
 import { GalleriaModule } from 'primeng/galleria';
 import { AvatarModule } from 'primeng/avatar';
@@ -64,7 +65,8 @@ import { MessageService } from 'primeng/api';
     ProfileComponent,
     HomeComponent,
     UserlistComponent,
-    NavbarComponent
+    NavbarComponent,
+    FilmfiltreComponent
   ],
     imports: [
       AppRoutingModule,

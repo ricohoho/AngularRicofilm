@@ -81,7 +81,7 @@ export class FilmService {
   }
   //Renvoi la liste des films avec toutes les infos (utilisé dans la liste pricipales)
   // utilise les paraetre de filtrage et de pagination et de tri
-  public getFilm( skip: number, filmname: string, rows: number, sort= 'UPDATE_DB_DATE', sortsens= -1): Observable<any>{
+  public getFilm( skip: number, filmname: string, rows: number, sort= 'UPDATE_DB_DATE', sortsens= -1, filter: any = {}): Observable<any>{
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Headers', 'Content-Type')
@@ -92,11 +92,19 @@ export class FilmService {
 
     let params1 = new HttpParams();
     params1 = params1.append('skip', skip.toString() );
-    params1 = params1.append('filmname', filmname );
     params1 = params1.append('limit', rows.toString() );
-
     params1 = params1.append('sort', sort);
     params1 = params1.append('sortsens', sortsens );
+
+    if (filter && Object.keys(filter).length > 0) {
+      for (const key in filter) {
+        if (filter.hasOwnProperty(key) && filter[key] !== null && filter[key] !== '') {
+          params1 = params1.append(key, filter[key]);
+        }
+      }
+    } else {
+      params1 = params1.append('filmname', filmname );
+    }
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 

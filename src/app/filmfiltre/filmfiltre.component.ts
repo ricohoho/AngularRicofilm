@@ -11,8 +11,8 @@ export class FilmfiltreComponent implements OnInit {
   filtre = {
     title: '',
     original_title: '',
-    acteur: '',
-    metteur_en_scene: '',
+    actor: '',
+    director: '',
     status: ''
   };
 

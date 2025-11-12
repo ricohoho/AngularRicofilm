@@ -48,6 +48,12 @@
       </A>
     </div>
 
+    <div style="margin-top: 10px;">
+        <button pButton type="button" label="Télécharger" (click)="download()" class="p-button-outlined"></button>
+        <button pButton type="button" label="Voir le film" (click)="stream()" class="p-button-outlined" style="margin-left: 10px;"></button>
+        <button pButton type="button" label="Copier le lien de streaming" (click)="copyStreamUrl()" class="p-button-outlined" style="margin-left: 10px;"></button>
+    </div>
+
     <!--
       Détail ses fichiers
     -->

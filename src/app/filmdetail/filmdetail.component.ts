@@ -4,6 +4,7 @@ import {DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Ifilm, Iproduction_companies, IVIDEO_RESULTS} from '../ifilm';
 import {environment} from "../../environments/environment";
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { FilmService } from '../film.service';
 //import {VideoPlayerComponent} from  '../video-player/video-player.component';
 
 
@@ -27,7 +28,12 @@ export class FilmdetailComponent implements OnInit {
   videoId : string = "";
 
  
-  constructor( public dialogService: DynamicDialogRef,public config: DynamicDialogConfig,public youtubePlayer: YouTubePlayerModule) {}
+  constructor(
+    public dialogService: DynamicDialogRef,
+    public config: DynamicDialogConfig,
+    public youtubePlayer: YouTubePlayerModule,
+    private filmService: FilmService
+  ) {}
 
   getDirector(): string {
     if (this.film.credits.crew.length==0 ) return ""
@@ -106,5 +112,22 @@ export class FilmdetailComponent implements OnInit {
 
   }
 
+  download() {
+    const url = this.filmService.getDownloadUrl(this.film);
+    window.open(url, '_blank');
+  }
 
+  stream() {
+    const url = this.filmService.getStreamUrl(this.film);
+    window.open(url, '_blank');
+  }
+
+  copyStreamUrl() {
+    const url = this.filmService.getStreamUrl(this.film);
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Lien de streaming copié dans le presse-papiers');
+    }, (err) => {
+      console.error('Erreur lors de la copie du lien : ', err);
+    });
+  }
 }

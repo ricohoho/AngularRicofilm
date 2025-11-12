@@ -188,6 +188,15 @@ export class FilmService {
         catchError(this.handleError)
       );
   }
+
+  public getDownloadUrl(film: Ifilm): string {
+    const filename = film.title + '.avi';
+    return `${this.REST_HOST}/download/${film._id}/${filename}`;
+  }
+
+  public getStreamUrl(film: Ifilm): string {
+    return `${this.REST_HOST}/stream/${film._id}`;
+  }
 }
 
 

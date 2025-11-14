@@ -15,8 +15,23 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
-  },
-  "/request/add*": {
+  },"/emby/stream*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+        "^/emby/stream": "/emby/stream"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },"/emby/download*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+        "^/emby/download": "/emby/download"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }, "/request/add*": {
     "target": "http://localhost:3000",
     "secure": false,
     "pathRewrite": {

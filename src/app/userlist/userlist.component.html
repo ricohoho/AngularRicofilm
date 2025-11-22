@@ -61,10 +61,10 @@
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
-            <p-multiSelect [options]="roles" [(ngModel)]="user.rolesObj" optionLabel="name" display="chip"></p-multiSelect>
+            <p-multiSelect [options]="roles" [(ngModel)]="user.rolesObj" optionLabel="name" display="chip" appendTo="body"></p-multiSelect>
           </ng-template>
           <ng-template pTemplate="output">
-            <p-multiSelect [options]="roles" [(ngModel)]="user.rolesObj" optionLabel="name" [disabled]="true"  display="chip"></p-multiSelect>
+            <p-multiSelect [options]="roles" [(ngModel)]="user.rolesObj" optionLabel="name" [disabled]="true" display="chip" appendTo="body"></p-multiSelect>
           </ng-template>
         </p-cellEditor>
       </td>

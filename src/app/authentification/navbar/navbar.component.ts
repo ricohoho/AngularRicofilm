@@ -81,7 +81,7 @@ export class NavbarComponent {
   //Get info user stocké en local
   getLocalUser() {
     const user = this.storageService.getUser();
-    this.roles = user.roles;
+    this.roles = user.roles || [];
     this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
     this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
     this.username = user.username;
@@ -129,6 +129,9 @@ export class NavbarComponent {
     this.redirectService.goSearchFilm();
   }
 
+  affichelistRequest():void {
+    this.redirectService.goRequestList();
+  }
 
   afficheAnnuaire():void {
     console.log('afficheAnnuaire()');

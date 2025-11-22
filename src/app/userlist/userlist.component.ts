@@ -18,7 +18,7 @@ export class UserlistComponent implements OnInit {
   userListTotal : Iuser[] = [];
   cloneduser: { [s: string]: Iuser } = {};
   //roles!: SelectItem[];
-  roles : Role[];
+  roles: Role[] = [];
 
 
 
@@ -28,18 +28,35 @@ export class UserlistComponent implements OnInit {
     //Initialisation de la liste de selection
     this.getUsers();
 
-
+    this.getRoles();
+    /*
     this.roles = [
-      { _id: '653e3346adefe01698f1820a', name: 'moderator' },
-      { _id: '653e3346adefe01698f1820b', name: 'admin' },
-      { _id: '653e3346adefe01698f18209', name: 'user' }
-    ]
+      { _id: '68139c28c17de0527d38e9bd', name: 'moderator' },
+      { _id: '68139c28c17de0527d38e9be', name: 'admin' },
+      { _id: '68139c28c17de0527d38e9bc', name: 'user' }
+    ]*/
+    console.log("fin inti userlist.component");
+  
+   }
 
 
+ //init de la liste des Roles possible
+  getRoles(): void {
+    console.log("userlist.composant.getRoles");
+    this.dataService.getRolesList().subscribe(
+      (res: HttpResponse<any>) => {
+        this.roles = res.body;
+        console.log(this.roles);
+      },
+      error => {
+        console.error('userLis.composant : Erreur reçue: ' + error);
+      }
+    );
   }
 
+ //init de la liste des Users
   public getUsers(): void {
-    console.log("userlit.composant.getUsers");
+    console.log("userlist.composant.getUsers");
     this.dataService.getUserList().subscribe(
       (res: HttpResponse<any>) => {
         this.userListTotal = res.body;
@@ -69,7 +86,7 @@ export class UserlistComponent implements OnInit {
     console.log('(user.username/_id:'+user.username+'/'+user.id);
     console.log('-----------------0');
 
-    const rolesIds: string[] = user.rolesObj.map(role => role._id);
+  const rolesIds: string[] = (user.rolesObj || []).map(role => role._id);
     console.log('-----------------1');
     //On iondique rolesIds dans le champes roles (avant dernier param) pour associer l'array d'id au champs ROLE
     var userData : User = new User(user.id, user.username,user.email, user.rolesString,rolesIds, user.rolesObj, rolesIds,user.active);

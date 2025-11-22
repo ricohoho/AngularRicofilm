@@ -74,7 +74,31 @@ export class UserService {
       {  headers : headers1, observe: 'response'}).pipe(
       retry(3), catchError(this.handleError),
       tap(res => {
-          console.log('Retour de getFilmSelect ');
+          console.log('Retour de getUserList ');
+        }
+      )
+    );
+
+  }
+
+  //Renvoi la liste des Roles possible
+  public getRolesList(): Observable<any>{
+    console.log("user.service.getRolesList");
+    const headers1 = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Access-Control-Allow-Headers', 'Content-Type')
+      .append('Access-Control-Allow-Methods', 'GET')
+      .append('Access-Control-Allow-Origin', '*');
+
+    console.log('environment.REST_API_USER_SERVER_SELECT: ' + environment.REST_API_USER_SERVER_SELECT);
+
+    let params1 = new HttpParams();
+
+    return this.httpClient.get(this.REST_HOST+"api/roles/list",
+      {  headers : headers1, observe: 'response'}).pipe(
+      retry(3), catchError(this.handleError),
+      tap(res => {
+          console.log('Retour de getRolesList ');
         }
       )
     );

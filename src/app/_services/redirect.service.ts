@@ -47,4 +47,9 @@ export class RedirectService {
     this.router.navigate(['/searchfilm' ]);
   }
 
+  goRequestList(): void {
+    console.log('goRequestList()');
+    this.router.navigate(['/requestlist' ]);
+  }
+
 }

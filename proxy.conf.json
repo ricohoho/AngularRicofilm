@@ -31,11 +31,11 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
-  }, "/request/add*": {
+  }, "/request/*": {
     "target": "http://localhost:3000",
     "secure": false,
     "pathRewrite": {
-      "^/request/add": "/request/add"
+      "^/request/": "/request/"
     },
     "changeOrigin": true,
     "logLevel": "debug"

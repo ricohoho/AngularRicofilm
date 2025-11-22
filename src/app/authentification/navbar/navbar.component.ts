@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {MenuItem, MessageService} from "primeng/api";
-import {StorageService} from "../../_services/storage.service";
-import {RedirectService} from "../../_services/redirect.service";
-import {environment} from "../../../environments/environment";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { MenuItem, MessageService } from "primeng/api";
+import { StorageService } from "../../_services/storage.service";
+import { RedirectService } from "../../_services/redirect.service";
+import { environment } from "../../../environments/environment";
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import {NavbarsService} from "../../_services/navbars.service";
+import { NavbarsService } from "../../_services/navbars.service";
 import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
 import { ToolbarModule } from 'primeng/toolbar';
 import { FilmService } from '../../film.service';
+import { UserService } from '../../_services/user.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class NavbarComponent {
   items: MenuItem[];
   ref: DynamicDialogRef;
   path_image: string;
-  url_home:string;
+  url_home: string;
 
   public isSyncing = false;
 
@@ -40,7 +41,7 @@ export class NavbarComponent {
 
   selectedButton: number = 1; // Initialiser pour que le premier bouton soit sélectionné par défaut 
 
-  constructor(private authService: AuthService,private storageService: StorageService,private redirectService: RedirectService,private navbarsService: NavbarsService, private messageService: MessageService, private filmService: FilmService) {
+  constructor(private authService: AuthService, private storageService: StorageService, private redirectService: RedirectService, private navbarsService: NavbarsService, private messageService: MessageService, private filmService: FilmService, public userService: UserService) {
     //Inscription a l'observable d'un service, lui meme est mis a jour par un composant, login.component par exemple
     //Si le login a réussi reussi  alors on solicite le service NavbarsService avec la methode refreshComponent(), qui déclenche de son coté la methide refrsh du composant NavBar !!
     this.subscription = this.navbarsService.getRefreshObservable().subscribe(() => {
@@ -48,8 +49,8 @@ export class NavbarComponent {
     });
   }
 
-  
-  
+
+
 
   selectButton(buttonNumber: number) {
     this.selectedButton = buttonNumber; // Met à jour l'état en fonction du bouton cliqué
@@ -59,26 +60,35 @@ export class NavbarComponent {
   refresh() {
     // Mettez ici la logique de rafraîchissement de votre composant
     console.log('refresh NavBarr !!! ');
-    console.log('refresh NavBarr !!! '+this.navbarsService.isLoggedIn_NavBar);
+    console.log('refresh NavBarr !!! ' + this.navbarsService.isLoggedIn_NavBar);
     this.isLoggedIn = this.navbarsService.isLoggedIn_NavBar;
-   //Mise a jour des infos : nom user er roles
+    //Mise a jour des infos : nom user er roles
     if (this.isLoggedIn) {
-      this.getLocalUser();
+      this.userService.getLocalUser();
+      this.roles = this.userService.roles || [];
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.username = this.userService.username;
     }
   }
 
   ngOnInit() {
-    this.path_image=environment.PATH_IMAGE+'/ricofilmlogo.gif';
-    this.url_home=environment.URL_HOME;
-
+    this.path_image = environment.PATH_IMAGE + '/ricofilmlogo.gif';
+    this.url_home = environment.URL_HOME;
     this.isLoggedIn = this.storageService.isLoggedIn();
     //Mise a jour des infos : nom user er roles
     if (this.isLoggedIn) {
-      this.getLocalUser();
+      this.userService.getLocalUser();
+      this.roles = this.userService.roles || [];
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.username = this.userService.username;
     }
   }
 
+  //FCt passé dans le userService
   //Get info user stocké en local
+  /*
   getLocalUser() {
     const user = this.storageService.getUser();
     this.roles = user.roles || [];
@@ -86,13 +96,14 @@ export class NavbarComponent {
     this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
     this.username = user.username;
   }
+*/
 
   goLogin(): void {
     console.log('login:debut');
     this.redirectService.goLogin()
   }
 
-  goRegister():void {
+  goRegister(): void {
     console.log('login:goRegister');
     this.redirectService.goRegister()
   }
@@ -108,13 +119,13 @@ export class NavbarComponent {
         //window.location.reload();
         console.log('logout:avant goHome')
         //this.redirectService.goHome();
-        this.isLoggedIn=false;
+        this.isLoggedIn = false;
         //l'apple de goHome2() ne fonctonn pas tj ... curieux ...
         this.goHome2();
-        
+
       },
       error: err => {
-        console.log('erreur logout',err);
+        console.log('erreur logout', err);
       }
     });
 
@@ -123,27 +134,27 @@ export class NavbarComponent {
 
 
   //Provoque  l'affichage de de la liste des films
-  affichelist():void {
+  affichelist(): void {
     //this.router.navigate(['/ricofilmA']);
     //EF 20250820 ajout url de searchFilm
     this.redirectService.goSearchFilm();
   }
 
-  affichelistRequest():void {
+  affichelistRequest(): void {
     this.redirectService.goRequestList();
   }
 
-  afficheAnnuaire():void {
+  afficheAnnuaire(): void {
     console.log('afficheAnnuaire()');
     this.redirectService.goAnnuaire();
   }
 
-  goHome2():void {
+  goHome2(): void {
     console.log('goHome2()');
-    this.redirectService.goHome2(); 
+    this.redirectService.goHome2();
   }
 
-  goProfile():void {
+  goProfile(): void {
     console.log('goProfile()');
     this.redirectService.goProfile();
   }

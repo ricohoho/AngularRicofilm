@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {FilmService} from "../film.service";
-import {environment} from "../../environments/environment";
-import {catchError, retry, tap} from "rxjs/operators";
-import {Iuser} from "../iuser";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { FilmService } from "../film.service";
+import { environment } from "../../environments/environment";
+import { catchError, retry, tap } from "rxjs/operators";
+import { Iuser } from "../iuser";
+import { StorageService } from '../_services/storage.service';
 
-//const API_URL = 'http://localhost:8080/api/test/';
 
 
 @Injectable({
@@ -14,13 +14,20 @@ import {Iuser} from "../iuser";
 })
 export class UserService {
 
+
+  public isLoggedIn = false;
+  public roles: string[] = [];
+  public showAdminBoard = false;
+  public showModeratorBoard = false;
+  public username: string;
+
   private REST_API_USER_SERVER = environment.REST_API_USER_SERVER_SELECT;
   private RESP_API = environment.REST_API;
   private REST_HOST = environment.REST_HOST;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private storageService: StorageService) { }
 
-  public handleError(error: HttpErrorResponse): any  {
+  public handleError(error: HttpErrorResponse): any {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
       // Client-side errors
@@ -40,25 +47,25 @@ export class UserService {
 
   //Urls de test ====
   getPublicContent(): Observable<any> {
-    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'all', { responseType: 'text' });
+    return this.httpClient.get(this.REST_HOST + this.RESP_API + 'all', { responseType: 'text' });
   }
   getUserBoard(): Observable<any> {
-    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'user', { responseType: 'text' }).pipe( catchError(this.handleError),
+    return this.httpClient.get(this.REST_HOST + this.RESP_API + 'user', { responseType: 'text' }).pipe(catchError(this.handleError),
       tap(res => {
         console.log('Retour de getFilmSelect ');
       }));
   }
   getModeratorBoard(): Observable<any> {
-    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'mod', { responseType: 'text' });
+    return this.httpClient.get(this.REST_HOST + this.RESP_API + 'mod', { responseType: 'text' });
   }
   getAdminBoard(): Observable<any> {
-    return this.httpClient.get(this.REST_HOST+this.RESP_API + 'admin', { responseType: 'text' });
+    return this.httpClient.get(this.REST_HOST + this.RESP_API + 'admin', { responseType: 'text' });
   }
   //====
 
 
   //Renvoi la liste des USERS
-  public getUserList(): Observable<any>{
+  public getUserList(): Observable<any> {
     console.log("user.service.getUserList");
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
@@ -70,19 +77,19 @@ export class UserService {
 
     let params1 = new HttpParams();
 
-    return this.httpClient.get(this.REST_HOST+this.REST_API_USER_SERVER,
-      {  headers : headers1, observe: 'response'}).pipe(
-      retry(3), catchError(this.handleError),
-      tap(res => {
+    return this.httpClient.get(this.REST_HOST + this.REST_API_USER_SERVER,
+      { headers: headers1, observe: 'response' }).pipe(
+        retry(3), catchError(this.handleError),
+        tap(res => {
           console.log('Retour de getUserList ');
         }
-      )
-    );
+        )
+      );
 
   }
 
   //Renvoi la liste des Roles possible
-  public getRolesList(): Observable<any>{
+  public getRolesList(): Observable<any> {
     console.log("user.service.getRolesList");
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
@@ -94,14 +101,14 @@ export class UserService {
 
     let params1 = new HttpParams();
 
-    return this.httpClient.get(this.REST_HOST+"api/roles/list",
-      {  headers : headers1, observe: 'response'}).pipe(
-      retry(3), catchError(this.handleError),
-      tap(res => {
+    return this.httpClient.get(this.REST_HOST + "api/roles/list",
+      { headers: headers1, observe: 'response' }).pipe(
+        retry(3), catchError(this.handleError),
+        tap(res => {
           console.log('Retour de getRolesList ');
         }
-      )
-    );
+        )
+      );
 
   }
 
@@ -114,18 +121,27 @@ export class UserService {
     });
 
     const baseUrl = this.REST_HOST;//'http://localhost:3000';
-    const url= baseUrl+this.RESP_API+'/user/'+id;
-    console.log('Url='+url);
-    console.log('data.username='+data.username);
+    const url = baseUrl + this.RESP_API + '/user/' + id;
+    console.log('Url=' + url);
+    console.log('data.username=' + data.username);
     return this.httpClient.put(url, data
       , { headers }).pipe(
-      retry(3),catchError((error) => {
-        // Gérer l'erreur ici
-        console.error('Une erreur s\'est produite lors de la mise à jour :', error);
-        // Vous pouvez retourner un observable d'une valeur par défaut ou lancer l'erreur à nouveau
-        return throwError('Une erreur s\'est produite lors de la mise à jour.');
-      })
-    );
+        retry(3), catchError((error) => {
+          // Gérer l'erreur ici
+          console.error('Une erreur s\'est produite lors de la mise à jour :', error);
+          // Vous pouvez retourner un observable d'une valeur par défaut ou lancer l'erreur à nouveau
+          return throwError('Une erreur s\'est produite lors de la mise à jour.');
+        })
+      );
+  }
+
+  //Get info user stocké en local
+  getLocalUser() {
+    const user = this.storageService.getUser();
+    this.roles = user.roles || [];
+    this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+    this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+    this.username = user.username;
   }
 
 }

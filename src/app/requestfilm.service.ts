@@ -97,6 +97,11 @@ export class RequestfilmService {
       );
   }
 
+  //synchro des requests
+  public syncRequest(): Observable<any> {
+    return this.httpClient.post<any>(this.REST_HOST + environment.REST_API + '/syncRequests', {});
+  }
+
   public handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {

@@ -11,6 +11,7 @@ import { NavbarsService } from "../../_services/navbars.service";
 import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
 import { ToolbarModule } from 'primeng/toolbar';
 import { FilmService } from '../../film.service';
+import { RequestfilmService } from '../../requestfilm.service';
 import { UserService } from '../../_services/user.service';
 
 
@@ -41,7 +42,7 @@ export class NavbarComponent {
 
   selectedButton: number = 1; // Initialiser pour que le premier bouton soit sélectionné par défaut 
 
-  constructor(private authService: AuthService, private storageService: StorageService, private redirectService: RedirectService, private navbarsService: NavbarsService, private messageService: MessageService, private filmService: FilmService, public userService: UserService) {
+  constructor(private authService: AuthService, private storageService: StorageService, private redirectService: RedirectService, private navbarsService: NavbarsService, private messageService: MessageService, private filmService: FilmService, public userService: UserService, public requestfilmService: RequestfilmService) {
     //Inscription a l'observable d'un service, lui meme est mis a jour par un composant, login.component par exemple
     //Si le login a réussi reussi  alors on solicite le service NavbarsService avec la methode refreshComponent(), qui déclenche de son coté la methide refrsh du composant NavBar !!
     this.subscription = this.navbarsService.getRefreshObservable().subscribe(() => {
@@ -159,8 +160,10 @@ export class NavbarComponent {
     this.redirectService.goProfile();
   }
 
+  // Sunchro !!
   sync(): void {
-    console.log('sync()');
+    // Synchro des films
+    console.log('syncFilm()');
     this.isSyncing = true;
     this.filmService.sync().pipe(
       finalize(() => this.isSyncing = false)
@@ -180,5 +183,29 @@ export class NavbarComponent {
         });
       }
     );
+
+    // Synchro des requests
+    console.log('syncRequest()');
+    this.isSyncing = true;
+    this.requestfilmService.syncRequest().pipe(
+      finalize(() => this.isSyncing = false)
+    ).subscribe(
+      (response2) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: response2.message,
+          detail: `Créés: ${response2.created}, Mis à jour: ${response2.updated}, Total: ${response2.total}`,
+        });
+      },
+      (error2) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Sync failed',
+        });
+      }
+    );
+
+
   }
 }

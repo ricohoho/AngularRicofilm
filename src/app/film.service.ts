@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 //import { Http, RequestOptions } from '@angular/common/http'
 
-import {Observable, throwError} from 'rxjs';
-import {catchError, retry, tap} from 'rxjs/operators';
-import {environment} from '../environments/environment';
-import {Irequest} from "./irequest";
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry, tap } from 'rxjs/operators';
+import { environment } from '../environments/environment';
+import { Irequest } from "./irequest";
 import { Ifilm } from './ifilm';
 import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
@@ -16,7 +16,7 @@ export class FilmService {
 
   //constructor() { }
 
-  public NbFilms: String  ;
+  public NbFilms: String;
 
 
   private REST_API_FILM_SERVER = environment.REST_API_FILM_SERVER;
@@ -26,7 +26,7 @@ export class FilmService {
   private REST_HOST = environment.REST_HOST;
   public constructor(private httpClient: HttpClient) { }
 
-  public handleError(error: HttpErrorResponse): any  { //} Observable<never> {
+  public handleError(error: HttpErrorResponse): any { //} Observable<never> {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
       // Client-side errors
@@ -38,12 +38,12 @@ export class FilmService {
       } else {
         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
       }
-//      window.alert(errorMessage);
+      //      window.alert(errorMessage);
       return throwError(errorMessage);
     }
   }
 
-  public sendGetRequest(): Observable<any>{
+  public sendGetRequest(): Observable<any> {
     // return this.httpClient.get(this.REST_API_SERVER);
     // const options = { params: new HttpParams({fromString: '_page=1&_limit=20'}) };
     const optionRequete = {
@@ -60,13 +60,13 @@ export class FilmService {
       .append('Access-Control-Allow-Methods', 'GET')
       .append('Access-Control-Allow-Origin', '*');
 
-    const optionRequete1 = { headers : headers1 };
+    const optionRequete1 = { headers: headers1 };
 
-    return this.httpClient.get(this.REST_HOST+this.REST_API_FILM_SERVER, optionRequete1).pipe(retry(3), catchError(this.handleError));
+    return this.httpClient.get(this.REST_HOST + this.REST_API_FILM_SERVER, optionRequete1).pipe(retry(3), catchError(this.handleError));
   }
 
 
- async wakeUpBackend(): Promise<void> {
+  async wakeUpBackend(): Promise<void> {
     try {
       console.log('Waking up backend...');
       if (this.REST_HOST.includes("onrender")) {
@@ -76,12 +76,12 @@ export class FilmService {
       }
     } catch (e) {
       // Ignorer l'erreur, le but est juste de réveiller
-      console.log('Backend wake-up request sent. Exception '+e);
+      console.log('Backend wake-up request sent. Exception ' + e);
     }
   }
   //Renvoi la liste des films avec toutes les infos (utilisé dans la liste pricipales)
   // utilise les paraetre de filtrage et de pagination et de tri
-  public getFilm( skip: number, filmname: string, rows: number, sort= 'UPDATE_DB_DATE', sortsens= -1, filter: any = {}): Observable<any>{
+  public getFilm(skip: number, filmname: string, rows: number, sort = 'UPDATE_DB_DATE', sortsens = -1, filter: any = {}): Observable<any> {
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Headers', 'Content-Type')
@@ -91,10 +91,10 @@ export class FilmService {
     console.log('environment.REST_API_SERVER: ' + environment.REST_API_FILM_SERVER);
 
     let params1 = new HttpParams();
-    params1 = params1.append('skip', skip.toString() );
-    params1 = params1.append('limit', rows.toString() );
+    params1 = params1.append('skip', skip.toString());
+    params1 = params1.append('limit', rows.toString());
     params1 = params1.append('sort', sort);
-    params1 = params1.append('sortsens', sortsens );
+    params1 = params1.append('sortsens', sortsens);
 
     if (filter && Object.keys(filter).length > 0) {
       for (const key in filter) {
@@ -103,27 +103,27 @@ export class FilmService {
         }
       }
     } else {
-      params1 = params1.append('filmname', filmname );
+      params1 = params1.append('filmname', filmname);
     }
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(this.REST_HOST+this.REST_API_FILM_SERVER,
-      {params: params1,  headers : headers1, observe: 'response'}).pipe(
-      retry(3), catchError(this.handleError),
-      tap(res => {
-          let  _NbFilm = res.headers.get('NbFilms');
-          if (_NbFilm == null)  _NbFilm="0";
+    return this.httpClient.get(this.REST_HOST + this.REST_API_FILM_SERVER,
+      { params: params1, headers: headers1, observe: 'response' }).pipe(
+        retry(3), catchError(this.handleError),
+        tap(res => {
+          let _NbFilm = res.headers.get('NbFilms');
+          if (_NbFilm == null) _NbFilm = "0";
           this.NbFilms = _NbFilm;
           console.log('Nb Film : ' + this.NbFilms);
         }
-      )
-    );
+        )
+      );
   }
 
 
- //renvoi les film (juste le titre) : utilisé pour la recherche avec completion !
-  public getFilmSelect( infoAffiche:string): Observable<any>{
+  //renvoi les film (juste le titre) : utilisé pour la recherche avec completion !
+  public getFilmSelect(infoAffiche: string): Observable<any> {
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Headers', 'Content-Type')
@@ -133,24 +133,24 @@ export class FilmService {
     console.log('environment.REST_API_FILM_SERVER_SELECT: ' + environment.REST_API_FILM_SERVER_SELECT);
 
     let params1 = new HttpParams();
-    params1 = params1.append('infoAffiche', infoAffiche.toString() );
+    params1 = params1.append('infoAffiche', infoAffiche.toString());
 
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(this.REST_HOST+this.REST_API_FILM_SERVER_SELECT,
-      {params: params1,  headers : headers1, observe: 'response'}).pipe(
-      retry(3), catchError(this.handleError),
-      tap(res => {
+    return this.httpClient.get(this.REST_HOST + this.REST_API_FILM_SERVER_SELECT,
+      { params: params1, headers: headers1, observe: 'response' }).pipe(
+        retry(3), catchError(this.handleError),
+        tap(res => {
           console.log('Retour de getFilmSelect ');
         }
-      )
-    );
+        )
+      );
   }
 
 
   //renvoi les liens des images des n dernier film ajoutés  : 2024/08/25
-  public getFilmMenuImage( infoAffiche:string): Observable<any>{
+  public getFilmMenuImage(infoAffiche: string): Observable<any> {
     const headers1 = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Headers', 'Content-Type')
@@ -159,24 +159,24 @@ export class FilmService {
 
     console.log('environment.REST_API_FILM_SERVER_SELECT: ' + environment.REST_API_FILM_MENU_IMAGE);
 
-    let params1 = new HttpParams(); 
-    params1 = params1.append('infoAffiche', infoAffiche.toString() );
+    let params1 = new HttpParams();
+    params1 = params1.append('infoAffiche', infoAffiche.toString());
 
     // const optionRequete1 = { headers : headers1 , params : params1 };
 
-    return this.httpClient.get(this.REST_HOST+environment.REST_API_FILM_MENU_IMAGE,
-      {params: params1,  headers : headers1, observe: 'response'}).pipe(
-      retry(3), catchError(this.handleError),
-      tap(res => {
+    return this.httpClient.get(this.REST_HOST + environment.REST_API_FILM_MENU_IMAGE,
+      { params: params1, headers: headers1, observe: 'response' }).pipe(
+        retry(3), catchError(this.handleError),
+        tap(res => {
           console.log('Retour de getFilmSelect ');
         }
-      )
-    );
+        )
+      );
   }
 
 
   public sync(): Observable<any> {
-    return this.httpClient.post<any>(this.REST_HOST+environment.REST_API+'/sync', {});
+    return this.httpClient.post<any>(this.REST_HOST + environment.REST_API + '/syncFilms', {});
   }
 
   public addFilm(film: Ifilm): Observable<any> {

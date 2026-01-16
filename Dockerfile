@@ -19,7 +19,8 @@ FROM nginx:alpine
 
 # Copie du build Angular
 COPY nginx.conf.davic /etc/nginx/conf.d/default.conf
-COPY from=build /usr/src/app/dist/angular-rico-film /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist/angular-rico-film /usr/share/nginx/html
+
 
 EXPOSE 4200
 CMD ["nginx", "-g", "daemon off;"]

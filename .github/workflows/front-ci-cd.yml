@@ -1,0 +1,44 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy-front:
+    runs-on: ubuntu-latest
+    environment: ricofilm  # Spécifiez l'environnement ici
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular
+        run: npm run build --prod
+
+      - name: Build Docker image
+        run: docker build -t ghcr.io/votre-org/frontend:latest -f Dockerfile .
+
+      - name: Push Docker image
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push ghcr.io/votre-org/frontend:latest
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull ghcr.io/votre-org/frontend:latest
+            docker stop frontend || true
+            docker rm frontend || true
+            docker run -d --name frontend -p 80:80 ghcr.io/votre-org/frontend:latest

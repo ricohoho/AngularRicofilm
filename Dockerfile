@@ -14,13 +14,12 @@ RUN npm run build -- --configuration production
 
 # Étape 2 : Utiliser un serveur léger pour héberger Angular
 FROM nginx:alpine
-
 # Copie du template Nginx (avec variables ${API_URL})
-COPY default.conf.template /etc/nginx/templates/default.conf.template
+#COPY default.conf.template /etc/nginx/templates/default.conf.template
 
 # Copie du build Angular
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /usr/src/app/dist/angular-rico-film /usr/share/nginx/html
+COPY nginx.conf.davic /etc/nginx/conf.d/default.conf
+COPY from=build /usr/src/app/dist/angular-rico-film /usr/share/nginx/html
 
 EXPOSE 4200
 CMD ["nginx", "-g", "daemon off;"]

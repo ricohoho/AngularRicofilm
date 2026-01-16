@@ -27,7 +27,7 @@ jobs:
         run: docker build -t ghcr.io/ricohoho/frontend:latest -f Dockerfile .
 
       - name: Login to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ricohoho --password-stdin
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ricohoho --password-stdin
 
       - name: Push Docker image
         run:  docker push ghcr.io/ricohoho/frontend:latest
@@ -35,9 +35,9 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ vars.SERVER_IP }}
+          username: ${{ vars.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             docker pull ghcr.io/ricohoho/frontend:latest
             docker stop frontend || true

@@ -3,6 +3,9 @@ FROM node:22 AS build
 
 WORKDIR /usr/src/app
 
+ENV API_URL=http://ricohoho.fr:3000
+#ENV API_URL=http://ricofilm-backc:3000
+
 COPY package*.json ./
 RUN npm install
 

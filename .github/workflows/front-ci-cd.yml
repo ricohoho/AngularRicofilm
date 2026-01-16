@@ -43,4 +43,5 @@ jobs:
             docker pull ghcr.io/ricohoho/frontend:latest
             docker stop frontend || true
             docker rm frontend || true
-            docker run -d --name frontend -p 4200:80 ghcr.io/ricohoho/frontend:latest
+            docker run -d --name frontend -p 4200:80 -e API_URL=https://api.ricohoho.fr ghcr.io/ricohoho/frontend:latest
+

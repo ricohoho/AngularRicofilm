@@ -39,7 +39,8 @@ jobs:
           username: ${{ vars.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ricohoho --password-stdin
             docker pull ghcr.io/ricohoho/frontend:latest
             docker stop frontend || true
             docker rm frontend || true
-            docker run -d --name frontend -p 80:80 ghcr.io/ricohoho/frontend:latest
+            docker run -d --name frontend -p 4200:80 ghcr.io/ricohoho/frontend:latest

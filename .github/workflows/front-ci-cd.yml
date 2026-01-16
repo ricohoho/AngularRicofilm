@@ -24,12 +24,13 @@ jobs:
         run: npm run build --prod
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/votre-org/frontend:latest -f Dockerfile .
+        run: docker build -t ghcr.io/ricohoho/frontend:latest -f Dockerfile .
+
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ricohoho --password-stdin
 
       - name: Push Docker image
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/votre-org/frontend:latest
+        run:  docker push ghcr.io/ricohoho/frontend:latest
 
       - name: Deploy to server
         uses: appleboy/ssh-action@v1
@@ -38,7 +39,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull ghcr.io/votre-org/frontend:latest
+            docker pull ghcr.io/ricohoho/frontend:latest
             docker stop frontend || true
             docker rm frontend || true
-            docker run -d --name frontend -p 80:80 ghcr.io/votre-org/frontend:latest
+            docker run -d --name frontend -p 80:80 ghcr.io/ricohoho/frontend:latest

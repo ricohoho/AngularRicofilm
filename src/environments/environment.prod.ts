@@ -9,7 +9,7 @@ export const environment____DAVIC = {
 
 
 export const environment = {
-  REST_HOST: 'http://ricohoho.fr:3000/',
+  REST_HOST: 'https://film.ricohoho.fr/',
   production: false,
   REST_API_FILM_SERVER: 'films/list',
   REST_API_FILM_SERVER_SELECT: 'films/listselect',

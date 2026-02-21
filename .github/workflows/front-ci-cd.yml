@@ -2,13 +2,13 @@ name: Frontend CI/CD .
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
   workflow_dispatch:
 
 jobs:
   build-and-deploy-front:
     runs-on: ubuntu-latest
-    environment: ricofilm  # Spécifiez l'environnement ici
+    environment: ricofilm # Spécifiez l'environnement ici
     steps:
       - uses: actions/checkout@v4
 
@@ -30,7 +30,7 @@ jobs:
         run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ricohoho --password-stdin
 
       - name: Push Docker image
-        run:  docker push ghcr.io/ricohoho/ricofilm-frontend:latest
+        run: docker push ghcr.io/ricohoho/ricofilm-frontend:latest
 
       - name: Deploy to server
         uses: appleboy/ssh-action@v1

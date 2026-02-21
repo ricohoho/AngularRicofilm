@@ -15,7 +15,7 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
-  },"/emby/stream*": {
+  },"/emby/stream/": {
     "target": "http://localhost:3000",
     "secure": false,
     "pathRewrite": {

@@ -119,7 +119,30 @@ export class FilmdetailComponent implements OnInit {
 
   stream() {
     const url = this.filmService.getStreamUrl(this.film);
-    window.open(url, '_blank');
+    const newWindow = window.open('', '_blank');
+    if (newWindow) {
+      const title = this.film?.title ? this.film.title.replace(/"/g, '&quot;') : 'Streaming';
+      const html = `
+        <!DOCTYPE html>
+        <html style="height: 100%; background: black; margin: 0;">
+        <head>
+          <meta charset="utf-8">
+          <title>${title}</title>
+        </head>
+        <body style="height: 100%; margin: 0; display: flex; align-items: center; justify-content: center;">
+          <video width="100%" height="100%" controls autoplay name="media">
+            <source src="${url}">
+            Votre navigateur ne supporte pas la balise vidéo.
+          </video>
+        </body>
+        </html>
+      `;
+      newWindow.document.write(html);
+      newWindow.document.close();
+    } else {
+      // Fallback si le navigateur bloque les pop-ups
+      window.open(url, '_blank');
+    }
   }
 
   copyStreamUrl() {

@@ -1,4 +1,488 @@
 :host {
-    background-color: black;
-    color: white; /* Facultatif : pour rendre le texte lisible sur un fond noir */
+  display: block;
+  background-color: #0a0a0a;
+  color: white;
+  min-height: 100vh;
+  font-family: "Outfit", sans-serif;
+}
+
+/* --- Loader --- */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.7s;
+}
+
+.hero-overlay-top {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #0a0a0a 0%,
+    rgba(10, 10, 10, 0.6) 50%,
+    transparent 100%
+  );
+}
+
+.hero-overlay-side {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 10, 10, 0.9) 0%,
+    rgba(10, 10, 10, 0.4) 50%,
+    transparent 100%
+  );
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-content-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 5rem 2rem;
+  max-width: 800px;
+  margin-left: max(0px, calc((100vw - 1200px) / 2));
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background-color: rgba(234, 179, 8, 0.2);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.rating-value {
+  color: #facc15;
+  font-weight: 600;
+}
+
+.year-text {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.genre-tag {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-overview {
+  color: #d1d5db;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Custom PrimeNG buttons */
+:host ::ng-deep .btn-primary {
+  background: linear-gradient(to right, #7c3aed, #db2777) !important;
+  border: none !important;
+  padding: 0.75rem 2rem !important;
+  font-weight: 600 !important;
+  transition:
+    transform 0.2s,
+    filter 0.2s !important;
+}
+
+:host ::ng-deep .btn-primary:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+:host ::ng-deep .btn-outline {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  padding: 0.75rem 2rem !important;
+  font-weight: 600 !important;
+}
+
+:host ::ng-deep .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* --- Carousel Navigation --- */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.nav-btn.prev-btn {
+  left: 1rem;
+}
+.nav-btn.next-btn {
+  right: 1rem;
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.indicator-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0;
+}
+
+.indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.indicator-dot.active {
+  width: 2rem;
+  background: #8b5cf6;
+}
+
+/* --- Quick Actions (Glassmorphism) --- */
+.quick-actions-container {
+  max-width: 1200px;
+  margin: -4rem auto 0 auto;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 20;
+}
+
+.quick-action-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quick-action-card:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.icon-wrapper {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-icon-wrapper {
+  background: rgba(139, 92, 246, 0.2);
+}
+.search-icon {
+  font-size: 1.5rem;
+  color: #a78bfa;
+}
+
+.ai-icon-wrapper {
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.2),
+    rgba(236, 72, 153, 0.2)
+  );
+}
+.ai-icon {
+  font-size: 1.5rem;
+  color: #f472b6;
+}
+
+.action-text {
+  flex: 1;
+}
+
+.action-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+  transition: color 0.3s;
+}
+
+.action-subtitle {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.quick-action-card:hover .search-title {
+  color: #a78bfa;
+}
+.quick-action-card:hover .ai-title {
+  color: #f472b6;
+}
+
+.nav-arrow {
+  color: #6b7280;
+  transition: color 0.3s;
+}
+
+.quick-action-card:hover .search-arrow {
+  color: #a78bfa;
+}
+.quick-action-card:hover .ai-arrow {
+  color: #f472b6;
+}
+
+/* --- Latest Additions / PrimeNG Carousel --- */
+.latest-movies-section {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 1rem 4rem 1rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.title-icon {
+  color: #8b5cf6;
+  font-size: 1.5rem;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+:host ::ng-deep .view-all-btn {
+  color: #9ca3af !important;
+}
+
+:host ::ng-deep .view-all-btn:hover {
+  color: white !important;
+  background: transparent !important;
+}
+
+/* Movie Card */
+.movie-card-wrapper {
+  padding: 0 0.5rem;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.movie-poster-container {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  aspect-ratio: 2/3;
+  background-color: #1f2937;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.poster-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.movie-poster-container:hover .movie-poster {
+  transform: scale(1.05);
+}
+
+.movie-poster-container:hover .poster-overlay {
+  opacity: 1;
+}
+
+:host ::ng-deep .btn-play-hover {
+  background: white !important;
+  color: black !important;
+  border: none !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  transform: scale(0.8) !important;
+  transition: transform 0.2s !important;
+}
+
+.movie-poster-container:hover .btn-play-hover {
+  transform: scale(1) !important;
+}
+
+.mini-rating {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.mini-rating i {
+  color: #facc15;
+  font-size: 0.75rem;
+}
+
+.movie-card-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-card-year {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+/* PrimeNG Overrides for dark theme compatibility */
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev,
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-next {
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  transition: background 0.2s;
+  border: none;
+}
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev:hover,
+:host ::ng-deep .p-carousel .p-carousel-content .p-carousel-next:hover {
+  background: rgba(0, 0, 0, 0.8);
+}

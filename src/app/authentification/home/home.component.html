@@ -1,30 +1,151 @@
-<div align="center" id="rico" 
-style="background-color: black;"
->
-<p-galleria [value]="films"
-  [responsiveOptions]="responsiveOptions"
-  [containerStyle]="{ 'max-width': '60%' ,'place-content': 'center'}"
-  [numVisible]="5"
-  [autoPlay]="true"
-  [circular]="true"
->
-  <ng-template pTemplate="item" let-item>
-    <img 
-    [src]="'https://image.tmdb.org/t/p/original/' + (item.backdrop_path && item.backdrop_path !== 'null'  ? item.backdrop_path : item.poster_path)" 
-    [ngStyle]="{ width: (item.backdrop_path && item.backdrop_path !== 'null' ? '100%' : '50%') }"
-    alt="{{ item.title }}"
-    /> 
-  </ng-template>
-  <ng-template pTemplate="thumbnail" let-item>
-    <div class="grid grid-nogutter justify-content-center">
-      <img [src]="getUrlResized(item.backdrop_path && item.backdrop_path !== 'null'  ? item.backdrop_path : item.poster_path)" />
+<div class="dashboard-container" *ngIf="films && films.length > 0">
+  
+  <!-- Hero Section -->
+  <div class="hero-section" (mouseenter)="stopAutoPlay()" (mouseleave)="startAutoPlay()">
+    
+    <!-- Hero Background -->
+    <div class="hero-bg">
+      <img [src]="getBackdropUrl(currentFilm)" [alt]="currentFilm?.title" class="hero-bg-img" />
+      <div class="hero-overlay-top"></div>
+      <div class="hero-overlay-side"></div>
     </div>
-  </ng-template>
-  <ng-template pTemplate="caption" let-item>
-    <h4 style="margin-bottom: .5rem; color: #ffffff;">
-        {{ item.original_title }}
-    </h4>
-    <p>{{ 'Metteur en scène : '+getDirector(item)+', Distribution : '+ getActors(item)}}</p>
-</ng-template>
-</p-galleria>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+      <div class="hero-content-inner animate-slide-up" *ngIf="currentFilm">
+        
+        <!-- Rating and Year -->
+        <div class="hero-meta" *ngIf="currentFilm.vote_average > 0">
+          <div class="rating-badge">
+            <i class="pi pi-star-fill text-yellow-400"></i>
+            <span class="rating-value">{{ currentFilm.vote_average | number:'1.1-1' }}</span>
+          </div>
+          <span class="year-text" *ngIf="currentFilm.release_date">
+            {{ currentFilm.release_date | slice:0:4 }} 
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="hero-title">{{ currentFilm.title }}</h1>
+        
+        <!-- Genres -->
+        <div class="hero-genres" *ngIf="currentFilm.genres?.length > 0">
+          <span class="genre-tag" *ngFor="let genre of currentFilm.genres | slice:0:4">
+            {{ $any(genre).name }}
+          </span>
+        </div>
+
+        <!-- Overview -->
+        <p class="hero-overview line-clamp-3">
+          {{ currentFilm.overview || "Aucune description disponible." }}
+        </p>
+
+        <!-- Actions -->
+        <div class="hero-actions">
+          <button pButton type="button" class="p-button-rounded btn-primary" icon="pi pi-play" label="Voir le film" (click)="showFilmPopUp(currentFilm._id)"></button>
+          <button pButton type="button" class="p-button-rounded p-button-outlined btn-outline" icon="pi pi-info-circle" label="Plus d'infos" (click)="showFilmPopUp(currentFilm._id)"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Nav -->
+    <ng-container *ngIf="films.length > 1">
+      <button class="nav-btn prev-btn" (click)="prevSlide()">
+        <i class="pi pi-chevron-left"></i>
+      </button>
+      <button class="nav-btn next-btn" (click)="nextSlide()">
+        <i class="pi pi-chevron-right"></i>
+      </button>
+
+      <!-- Indicators -->
+      <div class="carousel-indicators">
+        <button 
+          *ngFor="let film of films; let i = index" 
+          class="indicator-dot" 
+          [class.active]="i === currentIndex"
+          (click)="setSlide(i)">
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <!-- Quick Actions -->
+  <div class="quick-actions-container">
+    <div class="grid formgrid grid-nogutter quick-actions-grid">
+      
+      <!-- Normal Search -->
+      <div class="col-12 sm:col-6 p-2">
+        <div class="quick-action-card glass-panel group" (click)="goToSearch()">
+          <div class="icon-wrapper search-icon-wrapper">
+            <i class="pi pi-search search-icon"></i>
+          </div>
+          <div class="action-text">
+            <h3 class="action-title search-title">Rechercher des films</h3>
+            <p class="action-subtitle">Par titre, acteur ou réalisateur</p>
+          </div>
+          <i class="pi pi-chevron-right nav-arrow search-arrow"></i>
+        </div>
+      </div>
+
+      <!-- AI Search -->
+      <div class="col-12 sm:col-6 p-2">
+        <div class="quick-action-card glass-panel group" (click)="goToSearchAI()">
+          <div class="icon-wrapper ai-icon-wrapper">
+            <i class="pi pi-sparkles ai-icon"></i>
+          </div>
+          <div class="action-text">
+            <h3 class="action-title ai-title">Recherche IA</h3>
+            <p class="action-subtitle">Découvrez des films avec l'IA</p>
+          </div>
+          <i class="pi pi-chevron-right nav-arrow ai-arrow"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Latest Additions -->
+  <div class="latest-movies-section">
+    <div class="section-header">
+      <div class="section-title-wrapper">
+        <i class="pi pi-video title-icon"></i>
+        <h2 class="section-title">Derniers ajouts</h2>
+      </div>
+      <button pButton type="button" class="p-button-text p-button-plain view-all-btn" label="Voir tout" icon="pi pi-chevron-right" iconPos="right" (click)="goToSearch()"></button>
+    </div>
+
+    <p-carousel [value]="films" [numVisible]="5" [numScroll]="5" [responsiveOptions]="responsiveOptions" [circular]="true" [autoplayInterval]="0" [showIndicators]="false">
+      <ng-template let-film pTemplate="item">
+        <div class="movie-card-wrapper">
+          <div class="movie-card">
+            
+            <div class="movie-poster-container">
+              <img [src]="'https://image.tmdb.org/t/p/w500/' + film.poster_path" [alt]="film.title" class="movie-poster" />
+              <!-- Hover Overlay -->
+              <div class="poster-overlay">
+                <button pButton type="button" icon="pi pi-play" class="p-button-rounded btn-play-hover" (click)="showFilmPopUp(film._id)"></button>
+              </div>
+              
+              <!-- Mini rating -->
+              <div class="mini-rating" *ngIf="film.vote_average > 0">
+                <i class="pi pi-star-fill"></i>
+                <span>{{ film.vote_average | number:'1.1-1' }}</span>
+              </div>
+            </div>
+
+            <div class="movie-card-info">
+              <h4 class="movie-card-title">{{ film.title }}</h4>
+              <p class="movie-card-year">{{ film.release_date | slice:0:4 }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="!films || films.length === 0">
+  <p-progressSpinner></p-progressSpinner>
 </div>

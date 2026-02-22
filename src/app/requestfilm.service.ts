@@ -38,7 +38,8 @@ export class RequestfilmService {
       headers: headers1
     }
 
-    console.log('Debut createRequest / AVANT post');
+    console.log('Debut createRequest / AVANT post REST_HOST=' + this.REST_HOST )
+    console.log('Debut createRequest / AVANT post REST_API_REQUEST_SERVER + /add=' + this.REST_API_REQUEST_SERVER + '/add');
 
     return this.httpClient.post<Irequest>(this.REST_HOST + this.REST_API_REQUEST_SERVER + '/add', iresquest, httpOptions).subscribe(
       reponse => {

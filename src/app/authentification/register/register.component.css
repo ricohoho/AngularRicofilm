@@ -1,12 +1,12 @@
 
-:host >>> .user-form {
+:host ::ng-deep .user-form {
     width: 30%;
   }
   
-  :host >>> .p-inputtext {
+  :host ::ng-deep .p-inputtext {
     width: 100%;
   }
 
-  :host >>> .login-form {
+  :host ::ng-deep .login-form {
     background-color: black;
   }

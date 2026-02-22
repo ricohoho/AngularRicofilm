@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="isLoading" style="text-align: center; padding: 2rem;">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+<div *ngIf="!isLoading">
     <div class="grid nested-grid" style="display: flex; flex-direction: row;">
       <div class="col-3 md-12 box" style="width: 225px;">
         <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path"

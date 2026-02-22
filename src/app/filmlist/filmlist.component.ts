@@ -260,7 +260,7 @@ export class FilmlistComponent implements OnInit {
     //event.first = First row offset
     //event.rows = Number of rows per page
     console.log("loadData2() event.first:"+event.first);
-    console.log("loadData2() event.first:"+event.rows);
+    console.log("loadData2() event.rows:"+event.rows);
     let first : number;
     event.first ==undefined  ? first=0 : first=event.first;
     this.getRequest(first);

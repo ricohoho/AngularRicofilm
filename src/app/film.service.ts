@@ -95,6 +95,7 @@ export class FilmService {
     params1 = params1.append('limit', rows.toString());
     params1 = params1.append('sort', sort);
     params1 = params1.append('sortsens', sortsens);
+    params1 = params1.append('usage', 'list');
 
     if (filter && Object.keys(filter).length > 0) {
       for (const key in filter) {
@@ -174,6 +175,21 @@ export class FilmService {
       );
   }
 
+
+  public getFilmById(id: string): Observable<any> {
+    const headers1 = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Access-Control-Allow-Headers', 'Content-Type')
+      .append('Access-Control-Allow-Methods', 'GET')
+      .append('Access-Control-Allow-Origin', '*');
+
+  console.log("Chargement du film dans la BD : "+id);
+
+    return this.httpClient.get<any>(this.REST_HOST + 'films/detail/id/' + id,
+      { headers: headers1 }).pipe(
+        retry(3), catchError(this.handleError)
+      );
+  }
 
   public sync(): Observable<any> {
     return this.httpClient.post<any>(this.REST_HOST + environment.REST_API + '/syncFilms', {});

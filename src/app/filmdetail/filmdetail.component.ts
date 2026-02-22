@@ -24,6 +24,7 @@ export class FilmdetailComponent implements OnInit {
   path_image : string;
   //private REST_API_SERVER = environment.REST_API_SERVER;
   acteur_click : string;
+  isLoading: boolean = true;
 
   videoId : string = "";
 
@@ -61,10 +62,32 @@ export class FilmdetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("Data1: " +  JSON.stringify(this.config));
-    console.log("Data2: "+this.config.data.title);
     this.film=this.config.data;
-    console.log("Data3: "+this.film.title);
+    
+    // Fetch full film details
+    console.log("Chargement du film: "+this.film._id);
+    if (this.film._id) {
+      this.isLoading = true;
+      this.filmService.getFilmById(this.film._id).subscribe(
+        (fullFilm) => {
+          // Merge rich data into the existing film object
+          this.film = { ...this.film, ...fullFilm };
+          this.initDisplayData();
+          this.isLoading = false;
+        },
+        (err) => {
+          console.error('Error fetching film details', err);
+          this.initDisplayData(); // Fallback to what we have
+          this.isLoading = false;
+        }
+      );
+    } else {
+      this.initDisplayData();
+      this.isLoading = false;
+    }
+  }
+
+  initDisplayData(): void {
     // Ajoute la propriété genres si elle n'existe pas
     if (!this.film.genres || this.film.genres.length==0) {
       this.film.genres = [];

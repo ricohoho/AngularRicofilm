@@ -15,6 +15,14 @@
     },
     "changeOrigin": true,
     "logLevel": "debug"
+  },"/films/detail/*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "pathRewrite": {
+        "^/films/detail/": "/films/detail/"
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
   },"/emby/stream/": {
     "target": "http://localhost:3000",
     "secure": false,

@@ -1,87 +1,78 @@
-<div styleClass="register-form">
-  <p-card styleClass="user-form" class="flex justify-content-center">    
-  <H4>Inscription</H4>
-    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
-      <div class="field">
-        <label for="username">Pseudo</label>
-        <input
-          type="text"
-          pInputText
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          minlength="3"
-          maxlength="20"
-          #username="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
-          autocomplete="username"
-        />
-        <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors['required']">Le pseudo est obligatoire</div>
-          <div *ngIf="username.errors['minlength']">
-            Le pseudo doit etre au moins de 3 caractères
-          </div>
-          <div *ngIf="username.errors['maxlength']">
-            Le pseudo doit etre au max  de 20 caractères
-          </div>
+<div class="login-container">
+  <div class="login-glass-card">
+    
+    <div class="login-header">
+      <h2 class="login-title">Rejoignez-nous</h2>
+      <p class="login-subtitle">Créez votre compte pour commencer</p>
+    </div>
+
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="login-form-inner">
+      
+      <!-- Pseudo -->
+      <div class="field login-field">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-user"></i>
+          <input type="text" pInputText placeholder="Pseudo" class="w-full custom-input" name="username" [(ngModel)]="form.username" 
+            required minlength="3" maxlength="20" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.errors }" 
+            autocomplete="username" />
+        </span>
+        <div *ngIf="f.submitted && username.errors" class="error-msg">
+          <small class="p-error block" *ngIf="username.errors['required']">Le pseudo est obligatoire</small>
+          <small class="p-error block" *ngIf="username.errors['minlength']">Au moins 3 caractères</small>
+          <small class="p-error block" *ngIf="username.errors['maxlength']">Au max 20 caractères</small>
         </div>
-      </div>
-      <div class="field"> 
-        <label for="email">Email</label>
-        <input
-          type="email"
-          pInputText
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          email
-          #email="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
-          autocomplete="email"
-        />
-        <div class="invalid-feedback" *ngIf="email.errors && f.submitted">
-          <div *ngIf="email.errors['required']">l'email est nécéssaire</div>
-          <div *ngIf="email.errors['email']">
-            L'eMail n'est pas valide
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <label for="password">Mot de passe</label>
-        <input
-          type="password"
-          pInputText
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
-          autocomplete="new-password"
-        />
-        <div class="invalid-feedback" *ngIf="password.errors && f.submitted">
-          <div *ngIf="password.errors['required']">Le mot depasse est nécéssire</div>
-          <div *ngIf="password.errors['minlength']">
-            Le mot de passe  doit etre au moins de 6 caractères
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <button pButton >Demande d'inscription</button>
-        <p-button icon="pi  pi-sign-in"  styleClass="p-button-rounded p-button-info p-button-text" (onClick)="goLogin()">                    
-        </p-button>
       </div>
 
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Echec de l'inscription<br />{{ errorMessage }}
+      <!-- Email -->
+      <div class="field login-field">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-envelope"></i>
+          <input type="email" pInputText placeholder="Email" class="w-full custom-input" name="email" [(ngModel)]="form.email" 
+            required email #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }" 
+            autocomplete="email" />
+        </span>
+        <div *ngIf="f.submitted && email.errors" class="error-msg">
+          <small class="p-error block" *ngIf="email.errors['required']">L'email est nécessaire</small>
+          <small class="p-error block" *ngIf="email.errors['email']">L'email n'est pas valide</small>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="field login-field">
+        <span class="p-input-icon-left w-full">
+          <i class="pi pi-lock"></i>
+          <input type="password" pInputText placeholder="Mot de passe" class="w-full custom-input" name="password" [(ngModel)]="form.password" 
+            required minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+            autocomplete="new-password" />
+        </span>
+        <div *ngIf="f.submitted && password.errors" class="error-msg">
+          <small class="p-error block" *ngIf="password.errors['required']">Le mot de passe est nécessaire</small>
+          <small class="p-error block" *ngIf="password.errors['minlength']">Au moins 6 caractères</small>
+        </div>
+      </div>
+      
+      <div *ngIf="f.submitted && isSignUpFailed" class="error-msg text-center mb-3">
+        <small class="p-error">Échec de l'inscription : {{ errorMessage }}</small>
+      </div>
+
+      <div class="login-actions">
+        <button pButton type="submit" class="w-full btn-primary" label="Demande d'inscription"></button>
+      </div>
+      
+      <div class="login-footer">
+        <span class="text-gray-400">Déjà un compte ?</span>
+        <button pButton type="button" class="p-button-text p-button-plain register-btn" label="Se connecter" (click)="goLogin()"></button>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isSuccessful">
-      Demande d'inscription réussi, en attende d'approbation
+    <div class="login-success text-center" *ngIf="isSuccessful">
+      <i class="pi pi-check-circle success-icon"></i>
+      <h3>Inscription réussie</h3>
+      <p>Votre demande est en attente d'approbation</p>
+      <div class="mt-4">
+        <button pButton type="button" class="btn-primary" label="Retour à la connexion" (click)="goLogin()"></button>
+      </div>
     </div>
-  </p-card>
+
+  </div>
 </div> 

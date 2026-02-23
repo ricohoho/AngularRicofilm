@@ -18,5 +18,6 @@ export const environment = {
   REST_API: 'api',
   REST_API_REQUEST_SERVER: 'request',
   PATH_IMAGE: '../../assets/images/',
-  URL_HOME: ''
+  URL_HOME: '',
+  DISPLAY_SYNC_BUTTON:false
 };

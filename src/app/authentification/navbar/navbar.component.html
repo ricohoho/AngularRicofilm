@@ -14,7 +14,7 @@
                 [ngClass]="{'selected-button': selectedButton === 2}"                 
                   (onClick)="selectButton(2);afficheAnnuaire()">                    
                 </p-button>
-                <p-button  icon="pi pi-sync" styleClass="p-button-rounded p-button-info p-button-text"
+                <p-button  *ngIf="DISPLAY_SYNC_BUTTON" icon="pi pi-sync" styleClass="p-button-rounded p-button-info p-button-text"
                 [ngClass]="{'selected-button': selectedButton === 4}"
                 (onClick)="selectButton(4);sync()"
                 [loading]="isSyncing">

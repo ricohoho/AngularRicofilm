@@ -30,6 +30,7 @@ export class NavbarComponent {
   url_home: string;
 
   public isSyncing = false;
+  public  DISPLAY_SYNC_BUTTON = environment.DISPLAY_SYNC_BUTTON;
 
   //Partie Authentification
   isLoggedIn = false;

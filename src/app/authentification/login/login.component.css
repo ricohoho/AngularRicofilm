@@ -1,12 +1,131 @@
+:host {
+    display: block;
+    background-color: #0a0a0a;
+    color: white;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+}
 
-:host >>> .user-form {
-    width: 30%;
-  }
-  
-  :host >>> .p-inputtext {
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 2rem;
+    background-image: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 100% 100%, rgba(219, 39, 119, 0.1) 0%, transparent 50%);
+}
+
+.login-glass-card {
     width: 100%;
-  }
+    max-width: 450px;
+    padding: 3rem 2.5rem;
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
 
-  :host >>> .login-form {
-    background-color: black;
-  }
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    background: linear-gradient(to right, #fff, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-subtitle {
+    color: #9ca3af;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.login-field {
+    margin-bottom: 1.5rem;
+}
+
+:host ::ng-deep .custom-input {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    padding: 0.75rem 1rem 0.75rem 2.5rem !important;
+    border-radius: 0.75rem !important;
+    transition: all 0.3s ease !important;
+}
+
+:host ::ng-deep .custom-input:enabled:focus {
+    border-color: rgba(139, 92, 246, 0.5) !important;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2) !important;
+}
+
+:host ::ng-deep .p-input-icon-left > i {
+    color: #9ca3af !important;
+    margin-top: -0.5rem !important;
+}
+
+.error-msg {
+    margin-top: 0.5rem;
+    color: #ef4444;
+}
+
+.login-actions {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+:host ::ng-deep .btn-primary {
+    background: linear-gradient(to right, #7c3aed, #db2777) !important;
+    border: none !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    border-radius: 0.75rem !important;
+    transition: transform 0.2s, filter 0.2s !important;
+}
+
+:host ::ng-deep .btn-primary:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.login-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.login-footer span {
+    color: #9ca3af;
+}
+
+:host ::ng-deep .register-btn {
+    color: #a78bfa !important;
+    font-weight: 600 !important;
+    padding: 0 !important;
+    transition: color 0.2s !important;
+}
+
+:host ::ng-deep .register-btn:hover {
+    color: #c4b5fd !important;
+    background: transparent !important;
+}
+
+.login-success {
+    padding: 2rem;
+}
+
+.success-icon {
+    font-size: 3rem;
+    color: #10b981;
+    margin-bottom: 1rem;
+}

@@ -168,6 +168,11 @@ export class FilmdetailComponent implements OnInit {
     }
   }
 
+  demanderFilm() {
+    // On ferme la fenêtre actuelle en envoyant un "mot-clé" et l'ID du film
+    this.dialogService.close('request:' + this.film._id);
+  }
+
   copyStreamUrl() {
     const url = this.filmService.getStreamUrl(this.film);
     navigator.clipboard.writeText(url).then(() => {

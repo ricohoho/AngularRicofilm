@@ -89,22 +89,27 @@ export class FilmlistComponent implements OnInit {
  //Renvoi info sur PRENT_STREAMING
   public  getImageStremaning(status:string,present_streamin : boolean, type : string) : string {
     let retour='';
+    //Film proposé par l'IA mais pas présent dans icofilm ni demandé
     if (status=='added_from_tmdb') {
       if (type=='contenu')
           retour = 'N';// '../../assets/images/ok.png';
        else
           retour='color:blue';
+    //Film demandé par l'utilisateur mais pas présent dans icofilm
     } else if (status=='requested_from_tmdb') {
       if (type=='contenu')
           retour = 'R';// '../../assets/images/ok.png';
        else
           retour='color:orange';
+    //Film présent dans icofilm
     } else {
+      //Film présent et disponible
       if (present_streamin) {
         if (type=='contenu')
           retour = 'O';// '../../assets/images/ok.png';
         else
           retour='color:green';
+      //Film présent mais pas disponible
       } else {
         if (type=='contenu')
           retour = 'X';//'../../assets/images/ko.png';
@@ -292,8 +297,8 @@ export class FilmlistComponent implements OnInit {
 
       }
     });
-
   }
+
   showFilmPopUp(p_id:string) {
     console.log('Show'+p_id);
     //faut retrouver le bon film dans le tableau films
@@ -314,6 +319,10 @@ export class FilmlistComponent implements OnInit {
         console.log('acteur_click'+ detail_click);
         if (typeof detail_click  === 'undefined') {
           console.log('Pas d acteur');
+        } else if (typeof detail_click === 'string' && detail_click.startsWith('request:')) {
+          // On a cliqué sur "Demander le film"
+          const filmId = detail_click.substring(8); // on récupère l'id en enlevant 'request:'
+          this.showRequestPopUp(filmId);
         } else {
           this.messageService.add({severity: 'info', summary: 'Film selectionnée', detail: detail_click});
           this.filmname = detail_click;

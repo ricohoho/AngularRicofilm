@@ -42,6 +42,7 @@ export class FilmlistComponent implements OnInit {
   sortKey: any;
   totalRecords = 5000;
   displaySpinner=false;
+  isRechercheIA: boolean = false;
 
   sortOptions: SelectItem[];
   sortOrder: number;
@@ -244,8 +245,13 @@ export class FilmlistComponent implements OnInit {
       this.filmname=this.filmselectione;
     else
       this.filmname=this.filmselectione.original_title;
-    this.filter = {};
-    this.recherche();
+    
+    if (this.isRechercheIA) {
+      this.rechercheIA();
+    } else {
+      this.filter = {};
+      this.recherche();
+    }
   }
 
   addFilm(film: Ifilm) {
@@ -323,6 +329,11 @@ export class FilmlistComponent implements OnInit {
           // On a cliqué sur "Demander le film"
           const filmId = detail_click.substring(8); // on récupère l'id en enlevant 'request:'
           this.showRequestPopUp(filmId);
+        } else if (typeof detail_click === 'string' && detail_click.startsWith('status:')) {
+          // On a cliqué sur "Demander film non présent dans la base"
+          const filmId = detail_click.substring(7); // on récupère l'id en enlevant 'request:'
+          let  searchIndex = this.films.findIndex((FILM) => FILM._id==filmId);
+          this.handleStatusClick(this.films[searchIndex]);
         } else {
           this.messageService.add({severity: 'info', summary: 'Film selectionnée', detail: detail_click});
           this.filmname = detail_click;

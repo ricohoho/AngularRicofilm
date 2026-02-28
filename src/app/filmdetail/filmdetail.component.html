@@ -57,16 +57,21 @@
         <button pButton type="button" label="Copier le lien de streaming" (click)="copyStreamUrl()" class="p-button-outlined" style="margin-left: 10px;"></button>
     </div>
     <div *ngIf="!film.present_streaming" style="margin-top: 10px;">
+      <div *ngIf="film.status !== 'added_from_tmdb' && film.status !== 'requested_from_tmdb'">
         <button pButton type="button" label="Demander le film" (click)="demanderFilmPourStreaming()" class="p-button-outlined"></button>
+      </div>
+      <div *ngIf="film.status === 'requested_from_tmdb' || film.status === 'added_from_tmdb'">
+        <button pButton type="button" label="Demander film non présent dans la base"  (click)="demanderFilmNonPresent()" class="p-button-outlined"></button>
+      </div>
     </div>
     <!--
       Détail ses fichiers
     -->
     <br>
-    <p-table [columns]="cols_fichier" [value]="film.RICO_FICHIER" [tableStyle]="{'min-width': '50rem'}"  dataKey="file">
+    <p-table [columns]="cols_fichier" [value]="film.RICO_FICHIER" responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-striped" dataKey="file">
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th>Détail:</th>
+          <th style="width: 5rem">Détail:</th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
@@ -85,9 +90,9 @@
       </ng-template>
       <ng-template pTemplate="rowexpansion" let-ricoFichier>
         <tr>
-          <td>
+          <td colspan="6">
             <div class="p-3">
-              <p-table [value]="ricoFichier.InfoStreams" dataKey="CodecName">
+              <p-table [value]="ricoFichier.InfoStreams" dataKey="CodecName" responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-striped">
                 <ng-template pTemplate="header">
                   <tr>
                         <th>index</th>

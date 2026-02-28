@@ -57,7 +57,7 @@
         <button pButton type="button" label="Copier le lien de streaming" (click)="copyStreamUrl()" class="p-button-outlined" style="margin-left: 10px;"></button>
     </div>
     <div *ngIf="!film.present_streaming" style="margin-top: 10px;">
-        <button pButton type="button" label="Demander le film" (click)="request()" class="p-button-outlined"></button>
+        <button pButton type="button" label="Demander le film" (click)="demanderFilmPourStreaming()" class="p-button-outlined"></button>
     </div>
     <!--
       Détail ses fichiers

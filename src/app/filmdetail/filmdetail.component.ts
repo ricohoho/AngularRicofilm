@@ -168,7 +168,7 @@ export class FilmdetailComponent implements OnInit {
     }
   }
 
-  demanderFilm() {
+  demanderFilmPourStreaming() {
     // On ferme la fenêtre actuelle en envoyant un "mot-clé" et l'ID du film
     this.dialogService.close('request:' + this.film._id);
   }

@@ -1,6 +1,11 @@
+:host {
+  display: block;
+  overflow-x: hidden;
+}
+
 .product-name{
-  font-family: "Lexend", sans-serif !important; 
-  font-optical-sizing: auto;  
+  font-family: "Lexend", sans-serif !important;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
@@ -50,6 +55,10 @@
   color: white !important;
 }
 
+.mini-rating .pi:before {
+  color: #facc15 !important;
+}
+
 .p-ripple{
   margin-left: 8px;
 }
@@ -68,12 +77,12 @@
 }
 
 .nb_film p{
-  font-size: 1.2vw;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
   color: rgba(222, 222, 222, 0.5);
-  font-family: "Lexend", sans-serif !important; 
-  font-optical-sizing: auto;  
+  font-family: "Lexend", sans-serif !important;
+  font-optical-sizing: auto;
   font-weight: 400;
-  font-style: normal;;
+  font-style: normal;
 }
 
 .p-selectbutton .p-button.p-highlight {
@@ -99,10 +108,10 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
 }
 .date {
-  font-size: clamp(0.65rem, 1vw, 0.75rem);
+  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
   color: rgb(90, 90, 90);
   margin-top: -4px;
   margin-bottom: 12px;
@@ -163,8 +172,6 @@ img {
 }
 
 .product-grid-item {
-  margin-right: .5em;
-  min-width: 20vw;
   height: 100%;
   border: 1px solid rgb(10, 10, 10);
 
@@ -204,14 +211,11 @@ img:hover {
 }
 
 .card {
-  padding: 2VW;
+  padding: 0.5rem;
   border: none;
-  // box-shadow: 0 2px 1px -1px rgba(256, 256, 256, 0.2), 0 1px 1px 0 rgba(256, 256, 256, 0.14), 0 1px 3px 0 rgba(256, 256, 256, 0.12);
   border-radius: 16px;
-  margin-bottom: 5vh;
-  height: 50vh;
+  margin-bottom: 0.75rem;
   transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-//margin-right: 0px;
 }
 .card:hover {
   // box-shadow: 0 2px 5px -5px rgba(256, 256, 256, 0.12), 0 16px 24px 2px rgba(256, 256, 256, 0.04), 0 6px 30px 5px rgba(256, 256, 256, 0.06);
@@ -273,8 +277,7 @@ img:hover {
     width: 100%;
   }
   .card {
-    margin-bottom: 2vh;
-    height: 20vh !important;
+    margin-bottom: 0.5rem;
   }
 }
 }

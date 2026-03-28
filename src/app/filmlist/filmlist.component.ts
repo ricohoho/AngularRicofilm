@@ -74,8 +74,8 @@ export class FilmlistComponent implements OnInit {
       {label: 'Ajout dsc ', value: '!UPDATE_DB_DATE'}
     ];
 
-    //Initialisation de la liste de selection
-    this.getFilmSelect("original_title");
+    //Initialisation de la liste de selection : désactivée, l'autocomplete est maintenant serveur-side
+    //this.getFilmSelect("original_title");
 
 
   }
@@ -153,28 +153,27 @@ export class FilmlistComponent implements OnInit {
   }
 
   //fct appele a chaque caractere saisie dans l'AutoComplete
-  public  filterFilmSelect(event:any) {
-      //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-      let filtered : any[] = [];
-      let query = event.query;
-      console.log("filterFilmSelect(query)"+query);
-      console.log("filterFilmSelect(toLowerCase)"+query.toLowerCase());
+  public filterFilmSelect(event: any) {
+    const query: string = event.query;
+    console.log('filterFilmSelect(query)' + query);
 
-      for(let i = 0; i < this.filmselectionTotal.length; i++) {
-        let item = this.filmselectionTotal[i];
-        /*
-        if (item.original_title.toLowerCase().indexOf(query.toLowerCase()) == 0 || item.title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-          filtered.push(item);
-        }*/
-        const originalTitle = item.original_title ? item.original_title.toLowerCase() : '';
-        const title = item.title ? item.title.toLowerCase() : '';
-
-        if (originalTitle.indexOf(query.toLowerCase()) === 0 || title.indexOf(query.toLowerCase()) === 0) {
-          filtered.push(item);
-        }
+    if (!query || query.length < 3) {
+      this.filmselectfiltered = [];
+      return;
     }
-    console.log("filterFilmSelect(): filtered.length:"+filtered.length);
-    this.filmselectfiltered = filtered;
+
+    this.dataService.getAutocomplete(query).subscribe(
+      (res: HttpResponse<any>) => {
+        this.filmselectfiltered = (res.body || []).map((item: any) => {
+          if (item.type === 'actor') item.original_title = item.name;
+          return item;
+        });
+      },
+      error => {
+        console.error('Erreur autocomplete:', error);
+        this.filmselectfiltered = [];
+      }
+    );
   }
 
 
@@ -248,12 +247,17 @@ export class FilmlistComponent implements OnInit {
   
   //Recherche appelé a partir de l'autocomplete
   rechercheSelect() {
-    console.log('rechercheSelect(film commencant par):'+this.filmselectione);
-    if (typeof this.filmselectione =='string')
-      this.filmname=this.filmselectione;
-    else
-      this.filmname=this.filmselectione.original_title;
-    
+    console.log('rechercheSelect():' + JSON.stringify(this.filmselectione));
+    if (typeof this.filmselectione === 'string') {
+      this.filmname = this.filmselectione;
+    } else if (this.filmselectione?.type === 'actor') {
+      this.filmname = 'acteur:' + this.filmselectione.name;
+    } else if (this.filmselectione?.original_title) {
+      this.filmname = this.filmselectione.original_title;
+    } else {
+      this.filmname = '';
+    }
+
     if (this.isRechercheIA) {
       this.rechercheIA();
     } else {

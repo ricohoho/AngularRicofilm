@@ -3,6 +3,64 @@
   overflow-x: hidden;
 }
 
+// Autocomplete enrichi films + acteurs
+:host ::ng-deep .p-autocomplete-panel {
+  background-color: #1e1e1e;
+  border: 1px solid rgba(222, 222, 222, 0.2);
+}
+:host ::ng-deep .p-autocomplete-item {
+  padding: 4px 8px !important;
+  color: white;
+  &:hover { background-color: rgba(255, 255, 255, 0.1) !important; }
+}
+
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+}
+
+.autocomplete-thumb {
+  width: 36px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background-color: #333;
+
+  &--actor {
+    border-radius: 50%;
+    height: 36px;
+  }
+
+  &--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.autocomplete-label {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &__title {
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+
+  &__sub {
+    font-size: 0.75rem;
+    color: rgba(222, 222, 222, 0.5);
+  }
+}
+
 .product-name{
   font-family: "Lexend", sans-serif !important;
   font-optical-sizing: auto;

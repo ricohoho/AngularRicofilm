@@ -191,6 +191,15 @@ export class FilmService {
       );
   }
 
+  public getAutocomplete(query: string): Observable<any> {
+    const headers1 = new HttpHeaders().append('Content-Type', 'application/json');
+    const params1 = new HttpParams().append('q', query);
+    return this.httpClient.get(
+      this.REST_HOST + 'films/autocomplete',
+      { params: params1, headers: headers1, observe: 'response' }
+    ).pipe(catchError(this.handleError));
+  }
+
   public sync(): Observable<any> {
     return this.httpClient.post<any>(this.REST_HOST + environment.REST_API + '/syncFilms', {});
   }

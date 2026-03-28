@@ -14,7 +14,8 @@ export const environment = {
   REST_API_REQUEST_SERVER :'request',
   PATH_IMAGE:'../../assets/images/',
   URL_HOME:'',
-  DISPLAY_SYNC_BUTTON:false
+  DISPLAY_SYNC_BUTTON:false,
+  GOOGLE_CLIENT_ID:'625233003537-umv9m6f6vel1qf72u1dp4pmdjq84crni.apps.googleusercontent.com'
 };
 
 /* ricofilmA

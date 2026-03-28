@@ -1,13 +1,13 @@
 <p-toast></p-toast>
-<p-table [value]="userListTotal" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="userListTotal" dataKey="id" editMode="row" [scrollable]="true" scrollDirection="horizontal">
   <ng-template pTemplate="header">
     <tr>
-      <th style="width:20%">username</th>
-      <th style="width:20%">email</th>
-      <!--<th style="...">rolesString</th>-->
-      <th style="width:5%">Actif</th>
-      <th style="width:10%">Role</th>
-      <th style="width:5%"></th>
+      <th style="width:200px">username</th>
+      <th style="width:250px">email</th>
+      <th style="width:80px">Actif</th>
+      <th style="width:80px">Google</th>
+      <th style="width:200px">Role</th>
+      <th style="width:100px"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
@@ -32,18 +32,6 @@
           </ng-template>
         </p-cellEditor>
       </td>
-      <!--
-      <td>
-        <p-cellEditor>
-          <ng-template pTemplate="input">
-            <input pInputText type="text" [(ngModel)]="user.rolesString" required>
-          </ng-template>
-          <ng-template pTemplate="output">
-            {{user.rolesString}}
-          </ng-template>
-        </p-cellEditor>
-      </td>
-      -->
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
@@ -51,13 +39,12 @@
           </ng-template>
           <ng-template pTemplate="output">
             <input type="checkbox" [(ngModel)]="user.active" name="active" disabled />
-            <!--
-            {{user.active}}
-            -->
           </ng-template>
         </p-cellEditor>
       </td>
-
+      <td>
+        <input type="checkbox" [checked]="!!user.googleId" disabled />
+      </td>
       <td>
         <p-cellEditor>
           <ng-template pTemplate="input">
@@ -68,8 +55,6 @@
           </ng-template>
         </p-cellEditor>
       </td>
-
-
       <td>
         <div class="flex align-items-center justify-content-center gap-2">
           <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
@@ -80,4 +65,3 @@
     </tr>
   </ng-template>
 </p-table>
-

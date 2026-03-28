@@ -42,6 +42,10 @@ export class AuthService {
     );
   }
 
+  googleLogin(idToken: string): Observable<any> {
+    return this.http.post(REST_HOST + AUTH_API + 'google', { idToken }, httpOptions);
+  }
+
   logout(): Observable<any> {
     console.log('aut.service.logout()')
     console.log('URL:'+AUTH_API + 'signout')

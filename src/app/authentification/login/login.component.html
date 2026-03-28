@@ -45,6 +45,20 @@
         <span class="text-gray-400">Pas encore de compte ?</span>
         <button pButton type="button" class="p-button-text p-button-plain register-btn" label="S'inscrire" (click)="goRegister()"></button>
       </div>
+
+      <div class="login-separator" style="display:flex;align-items:center;margin:16px 0;">
+        <hr style="flex:1;border-color:#444;" />
+        <span style="margin:0 12px;color:#888;font-size:0.85rem;">ou</span>
+        <hr style="flex:1;border-color:#444;" />
+      </div>
+
+      <div style="display:flex;justify-content:center;">
+        <asl-google-signin-button type="standard" size="large" text="signin_with"></asl-google-signin-button>
+      </div>
+
+      <div *ngIf="pendingApproval" class="error-msg text-center mt-3">
+        <small class="p-warn">Votre demande est en attente d'approbation par un administrateur.</small>
+      </div>
     </form>
 
     <div class="login-success text-center" *ngIf="isLoggedIn">

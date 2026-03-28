@@ -10,4 +10,5 @@ export interface Iuser {
   //Utiliser pour encoyer au web service => ca met a jour les roles
   roles  : string[]
   active : boolean;
+  googleId?: string;
 };

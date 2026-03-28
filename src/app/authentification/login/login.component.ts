@@ -5,6 +5,7 @@ import { RedirectService } from '../../_services/redirect.service';
 import {UserService} from '../../_services/user.service';
 import {HttpResponse} from "@angular/common/http";
 import {NavbarsService} from "../../_services/navbars.service";
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 
 @Component({
@@ -21,10 +22,34 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  pendingApproval = false;
 
-  constructor(private authService: AuthService, private storageService: StorageService,private redirectService: RedirectService,private userService:UserService,private navbarsService: NavbarsService) {}
+  constructor(private authService: AuthService, private storageService: StorageService, private redirectService: RedirectService, private userService: UserService, private navbarsService: NavbarsService, private socialAuthService: SocialAuthService) {}
 
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe(googleUser => {
+      if (googleUser) {
+        this.authService.googleLogin(googleUser.idToken).subscribe({
+          next: data => {
+            if (data.pendingApproval) {
+              this.pendingApproval = true;
+            } else {
+              this.storageService.saveUser(data);
+              this.isLoginFailed = false;
+              this.isLoggedIn = true;
+              this.roles = this.storageService.getUser().roles;
+              this.navbarsService.refreshComponent(true);
+              this.redirectService.goHome2();
+            }
+          },
+          error: err => {
+            this.errorMessage = err.error.message;
+            this.isLoginFailed = true;
+          }
+        });
+      }
+    });
+
     //Si on est logué renvoi vers la page HOME
     //On est logue si
     // 1) isLoggedIn == true (presence de token en localstorage)

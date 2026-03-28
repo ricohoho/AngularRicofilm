@@ -10,5 +10,6 @@ export const environment = {
   REST_API_REQUEST_SERVER: 'request',
   PATH_IMAGE: '../../assets/images/',
   URL_HOME: '',
-  DISPLAY_SYNC_BUTTON:true
+  DISPLAY_SYNC_BUTTON:true,
+  GOOGLE_CLIENT_ID:'625233003537-umv9m6f6vel1qf72u1dp4pmdjq84crni.apps.googleusercontent.com'
 };

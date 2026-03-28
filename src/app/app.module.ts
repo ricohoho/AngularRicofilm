@@ -40,6 +40,8 @@ import { ProfileComponent } from './authentification/profile/profile.component';
 
 
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
+import { SocialLoginModule, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { environment } from '../environments/environment';
 import { HomeComponent } from './authentification/home/home.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { NavbarComponent } from './authentification/navbar/navbar.component';
@@ -99,7 +101,16 @@ import { FilmrequestlistComponent } from './filmrequestlist/filmrequestlist.comp
     AvatarModule,
     AvatarGroupModule,
     CardModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    SocialLoginModule.initialize({
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(environment.GOOGLE_CLIENT_ID),
+        },
+      ],
+    }),
   ],
   providers: [httpInterceptorProviders, MessageService, ConfirmationService],
   bootstrap: [AppComponent]

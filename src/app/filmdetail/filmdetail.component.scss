@@ -109,6 +109,24 @@ h2, h5{
 }
 
 // carrousel fin
+@media (max-width: 768px) {
+  .col-4 {
+    font-size: 3vw !important;
+  }
+  .col-12 span {
+    font-size: 3.5vw !important;
+  }
+  .box p {
+    font-size: 3vw !important;
+  }
+  :host ::ng-deep .p-datatable-thead > tr > th {
+    font-size: 3vw !important;
+  }
+  :host ::ng-deep td {
+    font-size: 3vw !important;
+  }
+}
+
 // tableau
 
 :host ::ng-deep .p-datatable {

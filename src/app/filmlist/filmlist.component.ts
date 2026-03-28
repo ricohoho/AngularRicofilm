@@ -51,6 +51,14 @@ export class FilmlistComponent implements OnInit {
 
   ref: DynamicDialogRef;
 
+  private dialogWidth(): string {
+    return window.innerWidth <= 768 ? '98%' : '70%';
+  }
+
+  private dialogMaxHeight(): string {
+    return window.innerWidth <= 768 ? '90vh' : '600px';
+  }
+
   //constructor(private dataService: FilmService) {}
   constructor(private dataService: FilmService,private dataserviceRequest : RequestfilmService,public dialogService: DialogService, public messageService: MessageService,private redirectService: RedirectService) {}
 
@@ -283,8 +291,8 @@ export class FilmlistComponent implements OnInit {
     this.ref = this.dialogService.open(FilmrequestComponent, {
       data : this.films[searchIndex] ,
       header:this.films[searchIndex].title,
-      width: '70%',
-      contentStyle: {"max-height": "600px", "overflow": "auto"},
+      width: this.dialogWidth(),
+      contentStyle: {"max-height": this.dialogMaxHeight(), "overflow": "auto"},
       baseZIndex: 10000
     });
 
@@ -313,8 +321,8 @@ export class FilmlistComponent implements OnInit {
     this.ref = this.dialogService.open(FilmdetailComponent, {
       data : this.films[searchIndex] ,
       header:this.films[searchIndex].title,
-      width: '70%',
-      contentStyle: {"max-height": "600px", "overflow": "auto"},
+      width: this.dialogWidth(),
+      contentStyle: {"max-height": this.dialogMaxHeight(), "overflow": "auto"},
       baseZIndex: 10000
     });
 
@@ -346,8 +354,8 @@ export class FilmlistComponent implements OnInit {
   showFilter() {
     this.ref = this.dialogService.open(FilmfiltreComponent, {
       header: 'Filtrer les films',
-      width: '70%',
-      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      width: this.dialogWidth(),
+      contentStyle: {"max-height": this.dialogMaxHeight(), "overflow": "auto"},
       baseZIndex: 10000
     });
 

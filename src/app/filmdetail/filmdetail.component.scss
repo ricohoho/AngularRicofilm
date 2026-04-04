@@ -40,7 +40,7 @@ h2, h5{
     font-weight: 400;
     font-style: normal;
     font-size: 0.875vw;
-    color: rgb(90, 90, 90);
+    color: rgb(170, 170, 170);
 }
 .col-12 span{
     font-family: "Lexend", sans-serif !important; 
@@ -110,20 +110,52 @@ h2, h5{
 
 // carrousel fin
 @media (max-width: 768px) {
-  .col-4 {
-    font-size: 3vw !important;
+  // Layout : passer en colonne et centrer
+  .film-detail-header {
+    flex-direction: column !important;
+    align-items: center !important;
   }
+  .poster-container {
+    width: auto !important;
+    text-align: center !important;
+  }
+  .detail-content {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  // Stats popularité/votes : taille et couleur
+  .col-4 {
+    font-size: 3.5vw !important;
+    color: rgb(170, 170, 170) !important;
+  }
+
+  // Textes généraux
   .col-12 span {
     font-size: 3.5vw !important;
   }
   .box p {
     font-size: 3vw !important;
   }
+
+  // Carousel acteurs : agrandir les photos
+  :host ::ng-deep .p-carousel-item img {
+    max-width: 80% !important;
+    width: 80px !important;
+    height: 80px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+  }
+
+  // Tableau : améliorer lisibilité
   :host ::ng-deep .p-datatable-thead > tr > th {
     font-size: 3vw !important;
+    padding: 0.5rem !important;
   }
   :host ::ng-deep td {
     font-size: 3vw !important;
+    color: rgb(170, 170, 170) !important;
+    padding: 0.5rem !important;
   }
 }
 
@@ -132,7 +164,15 @@ h2, h5{
 :host ::ng-deep .p-datatable {
   border-radius: 10px;
   overflow: hidden;
-  border: rgba($color: white, $alpha: 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+:host ::ng-deep .p-datatable-thead > tr > th {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+:host ::ng-deep td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 :host ::ng-deep .p-datatable-thead > tr > th {
@@ -154,7 +194,7 @@ h2, h5{
     font-weight: 400;
     font-style: normal;
     font-size: 1.2vw;
-    color: rgb(90, 90, 90);
+    color: rgb(170, 170, 170);
     margin-top: 4px;
 }
 

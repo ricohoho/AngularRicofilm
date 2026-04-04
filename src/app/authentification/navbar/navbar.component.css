@@ -23,6 +23,12 @@
   border-color: lightgray; /* Couleur de la bordure au survol */
 }
 
+@media (max-width: 768px) {
+  :host ::ng-deep .p-toolbar {
+    flex-wrap: nowrap !important;
+  }
+}
+
 /* Augmenter la spécificité du sélecteur */
 .p-toolbar.custom-toolbar {
   background-color: #121212 !important; /* Définit la couleur de fond en noir */

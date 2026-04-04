@@ -2,12 +2,12 @@
   <p-progressSpinner></p-progressSpinner>
 </div>
 <div *ngIf="!isLoading">
-    <div class="grid nested-grid" style="display: flex; flex-direction: row;">
-      <div class="col-3 md-12 box" style="width: 225px;">
+    <div class="grid nested-grid film-detail-header" style="display: flex; flex-direction: row;">
+      <div class="col-3 md-12 box poster-container">
         <img [alt]="film.title" [src]="'https://image.tmdb.org/t/p/original/' + film.poster_path"
             style="max-width: 200px; border-radius: 16px; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);"/>
       </div>
-      <div class="lg:col-9 md:col-12 box" style="max-width: 65%;">
+      <div class="lg:col-9 md:col-12 box detail-content" style="max-width: 65%;">
         <div class="grid align-items-stretch grid_details">
           <div class="col-12 "><H2>{{film.original_title}} ({{film.title}})</H2></div>
 

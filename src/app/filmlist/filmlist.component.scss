@@ -339,3 +339,15 @@ img:hover {
   }
 }
 }
+
+@media screen and (max-width: 768px) {
+  // Centrer les affiches dans la grille
+  :host ::ng-deep .p-dataview-content .grid {
+    justify-content: center;
+  }
+
+  // Réduire la largeur du dropdown de tri pour éviter le retour à la ligne
+  :host ::ng-deep .p-dropdown {
+    width: 9rem !important;
+  }
+}

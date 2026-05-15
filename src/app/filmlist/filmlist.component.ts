@@ -43,6 +43,7 @@ export class FilmlistComponent implements OnInit {
   totalRecords = 5000;
   displaySpinner=false;
   isRechercheIA: boolean = false;
+  isSearchFocused: boolean = false;
 
   sortOptions: SelectItem[];
   sortOrder: number;

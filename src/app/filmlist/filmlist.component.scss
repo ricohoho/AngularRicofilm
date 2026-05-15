@@ -106,6 +106,7 @@
   border-color: rgba(222, 222, 222, 0.5);
   border-radius: 50px;
   width: 30vw !important;
+  transition: width 0.3s ease;
   padding: 8px 16px;
 }
 
@@ -349,5 +350,19 @@ img:hover {
   // Réduire la largeur du dropdown de tri pour éviter le retour à la ligne
   :host ::ng-deep .p-dropdown {
     width: 9rem !important;
+  }
+
+  // Expansion du champ de recherche au focus sur mobile
+  .search-expanded {
+    flex: 1;
+  }
+
+  :host ::ng-deep .search-expanded .p-autocomplete-input {
+    width: calc(100vw - 80px) !important;
+  }
+
+  :host ::ng-deep .search-expanded .p-autocomplete-panel {
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
   }
 }

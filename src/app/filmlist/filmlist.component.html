@@ -7,11 +7,11 @@
     <ng-template pTemplate="header">
       <div class="flex flex-column md:flex-row md:justify-content-between">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <input type="checkbox" [(ngModel)]="isRechercheIA" id="isIA" style="width: 20px; height: 20px; cursor: pointer;">
-          <label for="isIA" style="margin-right: 15px; cursor: pointer;">IA</label>
+          <input *ngIf="!isSearchFocused" type="checkbox" [(ngModel)]="isRechercheIA" id="isIA" style="width: 20px; height: 20px; cursor: pointer;">
+          <label *ngIf="!isSearchFocused" for="isIA" style="margin-right: 15px; cursor: pointer;">IA</label>
 
-          <span class="p-input-icon-left">
-            <p-autoComplete [(ngModel)]="filmselectione" placeholder="Rech (titre:/acteur:/id:/yyyymm:)" [virtualScroll]="true" [suggestions]="filmselectfiltered" [virtualScrollItemSize]="52" [minLength]="3" [delay]="300" (onSelect)="rechercheSelect()" (keyup.enter)="rechercheSelect()" (completeMethod)="filterFilmSelect($event)" field="original_title" [dropdown]="false">
+          <span class="p-input-icon-left" [class.search-expanded]="isSearchFocused">
+            <p-autoComplete [(ngModel)]="filmselectione" placeholder="Rech (titre:/acteur:/id:/yyyymm:)" [virtualScroll]="true" [suggestions]="filmselectfiltered" [virtualScrollItemSize]="52" [minLength]="3" [delay]="300" (onSelect)="rechercheSelect()" (keyup.enter)="rechercheSelect()" (completeMethod)="filterFilmSelect($event)" field="original_title" [dropdown]="false" (onFocus)="isSearchFocused = true" (onBlur)="isSearchFocused = false">
               <ng-template let-item pTemplate="item">
                 <div class="autocomplete-item">
                   <img *ngIf="item.poster_path || item.profile_path"

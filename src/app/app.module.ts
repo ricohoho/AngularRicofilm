@@ -29,6 +29,7 @@ import { ImageModule } from 'primeng/image'; // Import du module PrimeNG Image
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FilmrequestComponent } from './filmrequest/filmrequest.component';
 import { RadioButtonModule } from "primeng/radiobutton";
+import { CheckboxModule } from "primeng/checkbox";
 
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { VideoPlayerComponent } from './video-player/video-player.component';
@@ -92,6 +93,7 @@ import { FilmrequestlistComponent } from './filmrequestlist/filmrequestlist.comp
     CarouselModule,
     ProgressSpinnerModule,
     RadioButtonModule,
+    CheckboxModule,
     YouTubePlayerModule,
     AutoCompleteModule,
     MultiSelectModule,

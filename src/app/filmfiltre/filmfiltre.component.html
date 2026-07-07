@@ -3,10 +3,14 @@
     <div class="p-field">
       <label for="titre">Titre</label>
       <input id="titre" type="text" pInputText [(ngModel)]="filtre.title" name="title">
+      <div class="p-field-checkbox">
+        <p-checkbox inputId="ou_titre_original" [ngModel]="filtre.searchBothTitles" (ngModelChange)="onToggleSearchBothTitles($event)" name="searchBothTitles" [binary]="true"></p-checkbox>
+        <label for="ou_titre_original">&nbsp;ou titre original</label>
+      </div>
     </div>
     <div class="p-field">
       <label for="titre_original">Titre Original</label>
-      <input id="titre_original" type="text" pInputText [(ngModel)]="filtre.original_title" name="original_title">
+      <input id="titre_original" type="text" pInputText [(ngModel)]="filtre.original_title" name="original_title" [disabled]="filtre.searchBothTitles">
     </div>
     <div class="p-field">
       <label for="acteur">Acteur</label>
@@ -19,12 +23,16 @@
     <div class="p-field">
       <label for="status">Status</label>
       <select id="status" class="p-inputtext p-component" [(ngModel)]="filtre.status" name="status">
-        
-        <option value="">(tous)</option> 
-        
+
+        <option value="">(tous)</option>
+
         <option value="requested_from_tmdb">(film en demande)</option>
-        
+
       </select>
+    </div>
+    <div class="p-field-checkbox">
+      <p-checkbox inputId="present_streaming" [(ngModel)]="filtre.present_streaming" name="present_streaming" [binary]="true"></p-checkbox>
+      <label for="present_streaming">&nbsp;Film présent en streaming</label>
     </div>
   </div>
   <div class="p-dialog-footer">

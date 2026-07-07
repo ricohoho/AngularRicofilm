@@ -13,7 +13,9 @@ export class FilmfiltreComponent implements OnInit {
     original_title: '',
     actor: '',
     director: '',
-    status: ''
+    status: '',
+    present_streaming: false,
+    searchBothTitles: false
   };
 
   constructor(public ref: DynamicDialogRef) { }
@@ -21,8 +23,25 @@ export class FilmfiltreComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onToggleSearchBothTitles(checked: boolean) {
+    this.filtre.searchBothTitles = checked;
+    if (checked) {
+      this.filtre.original_title = '';
+    }
+  }
+
   lancerRecherche() {
-    this.ref.close(this.filtre);
+    const payload: any = { ...this.filtre };
+    if (!payload.present_streaming) {
+      delete payload.present_streaming;
+    }
+    if (payload.searchBothTitles) {
+      payload.titles = payload.title;
+      delete payload.title;
+      delete payload.original_title;
+    }
+    delete payload.searchBothTitles;
+    this.ref.close(payload);
   }
 
 }
